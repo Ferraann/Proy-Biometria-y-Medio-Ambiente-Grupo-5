@@ -15,6 +15,11 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 // ------------------------------------------------------------------
 // Clase LogicaFake
 // ------------------------------------------------------------------
@@ -24,45 +29,33 @@ import org.json.JSONObject;
 //   sido correctamente guardados en la base de datos.
 // ------------------------------------------------------------------
 public class LogicaFake {
+    //Declaro mi ip
+    private static final String urlLocal = "http://10.15.138.250/Proyecto-Aplicaciones-De-Biometr-a-Y-Medio-Ambiente/src/Api/";
 
-    // --------------------------------------------------------------
-    // Metodo: guardarMedicionFake
-    // Descripción:
-    //   Crea un objeto JSON simulando una respuesta del servidor con
-    //   los datos recibidos. Se utiliza cuando la app está en modo
-    //   sin conexión (offline).
-    // Diseño:
-    //   String: nombre, String: uuid, int: rssi, int: major, int: minor -->
-    //                                   guardarMedicionFake()
-    //                                                      JSON <--
-    // --------------------------------------------------------------
-    public JSONObject guardarMedicionFake(String nombre, String uuid, int rssi, int major, int minor) {
-        try {
-            // json a enviar
-            JSONObject respuesta = new JSONObject();
+    //Pongo Retrofit en null para después comprobar si está o no funcional
+    private static Retrofit retrofit = null;
 
-            // Campos simulados
-            respuesta.put("success", true);
-            respuesta.put("mensaje", "Medición simulada (modo sin conexión)");
+    public static ApiService getApiService(){
+        if (retrofit == null) {
+            //interceptar metodo php
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            // Datos recibidos
-            respuesta.put("id", 999);
-            respuesta.put("nombre", nombre);
-            respuesta.put("uuid", uuid);
-            respuesta.put("rssi", rssi);
-            respuesta.put("major", major);
-            respuesta.put("minor", minor);
-            return respuesta;
+            //Consigo el cliente para enviarlo
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        } catch (Exception e) {
-            // Error
-            Log.e(">>>>>>", "Erro al enviar el JSON sin conexión " + e.getMessage(), e);
-            return null;
+            //Declaro mi estructura para después saber donde envio los datos
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(urlLocal)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
         }
-    } // ()
-
+        return retrofit.create(ApiService.class);
+    }
 } // class LogicaFake
 // --------------------------------------------------------------
 // --------------------------------------------------------------
 // --------------------------------------------------------------
 // --------------------------------------------------------------
+
