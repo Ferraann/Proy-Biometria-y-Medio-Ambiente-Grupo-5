@@ -4,10 +4,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+// ------------------------------------------------------------------
+// Fichero: ApiCliente
+// Autor: Pablo Chasi
+// Fecha: 24/10/2025
 // ------------------------------------------------------------------
 // Clase ApiCliente
-// ------------------------------------------------------------------
+//
 // Descripción:
 //   Clase que se encarga de configurar y crear una estancia
 //  de Retrofit cliente que permite conectar tu aplicación
@@ -21,6 +24,9 @@ public class ApiCliente {
     //Pongo Retrofit en null para después comprobar si está o no funcional
     private static Retrofit retrofit = null;
 
+    //-------------------------------------------------
+    //      getApiService() --> retrofit
+    //-------------------------------------------------
     public static ApiService getApiService(){
         if (retrofit == null) {
             //interceptar metodo php

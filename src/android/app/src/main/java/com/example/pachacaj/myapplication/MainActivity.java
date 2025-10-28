@@ -1,15 +1,3 @@
-// ------------------------------------------------------------------
-// Fichero: MainActivity.java
-// Autor: Ferran Sansaloni Prats
-// Fecha: 30/09/2025
-// ------------------------------------------------------------------
-// Descripción:
-//   Esta clase gestiona la actividad principal de la aplicación Android
-//   que permite detectar dispositivos BTLE,
-//   mostrando la información en el Logcat y almacenando datos en la base
-//   de datos mediante la clase BluetoothDataSender.
-// ------------------------------------------------------------------
-
 package com.example.pachacaj.myapplication;
 
 import android.Manifest;
@@ -38,12 +26,15 @@ import java.util.List;
 import java.util.UUID;
 
 // ------------------------------------------------------------------
-// Clase MainActivity
+// Fichero: MainActivity.java
+// Autor: Ferran Sansaloni Prats
+// Fecha: 30/09/2025
 // ------------------------------------------------------------------
 // Descripción:
-//   Actividad principal de la app. Contiene la lógica para iniciar
-//   Bluetooth, realizar escaneos BTLE, mostrar información de los
-//   dispositivos detectados y almacenar los datos en la base de datos.
+//   Esta clase gestiona la actividad principal de la aplicación Android
+//   que permite detectar dispositivos BTLE,
+//   mostrando la información en el Logcat y almacenando datos en la base
+//   de datos mediante la clase BluetoothDataSender.
 // ------------------------------------------------------------------
 public class MainActivity extends AppCompatActivity {
 

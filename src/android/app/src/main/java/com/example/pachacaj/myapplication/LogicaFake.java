@@ -1,12 +1,14 @@
-// ------------------------------------------------------------------
+/*// ------------------------------------------------------------------
 // Fichero: LogicaFake.java
 // Autor: Ferran Sansaloni Prats
-// Fecha: 03/10/2025
+// Fecha: 24/10/2025
+// ------------------------------------------------------------------
+// Clase LogicaFake
 // ------------------------------------------------------------------
 // Descripción:
-//   Clase auxiliar utilizada en modo offline para simular el envío de
-//   mediciones a la base de datos. Genera un objeto JSON con los datos
-//   recibidos y devuelve una respuesta simulada sin conexión real.
+//   Implementa una lógica simulada para pruebas sin conexión. Crea y
+//   devuelve un objeto JSON con los datos recibidos como si hubieran
+//   sido correctamente guardados en la base de datos.
 // ------------------------------------------------------------------
 
 package com.example.pachacaj.myapplication;
@@ -20,14 +22,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// ------------------------------------------------------------------
-// Clase LogicaFake
-// ------------------------------------------------------------------
-// Descripción:
-//   Implementa una lógica simulada para pruebas sin conexión. Crea y
-//   devuelve un objeto JSON con los datos recibidos como si hubieran
-//   sido correctamente guardados en la base de datos.
-// ------------------------------------------------------------------
 public class LogicaFake {
     //Declaro mi ip
     private static final String urlLocal = "http://10.15.138.250/Proyecto-Aplicaciones-De-Biometr-a-Y-Medio-Ambiente/src/Api/";
@@ -58,4 +52,4 @@ public class LogicaFake {
 // --------------------------------------------------------------
 // --------------------------------------------------------------
 // --------------------------------------------------------------
-
+*/
