@@ -1,16 +1,25 @@
-// ------------------------------------------------------------------
-// Fichero: php
-// Autor: Pablo Chasi
-// Fecha: 28/10/2025
-// ------------------------------------------------------------------
-// fichero php: Conexion
-//
-// Descripción:
-//  Se definira la conexión de la base de datos con nuestra página
-//  web
-// ------------------------------------------------------------------
+<?php
+/**
+ * @file conexion.php
+ * @brief Establece la conexión con la base de datos MySQL.
+ * @author Sergi Puig Biosca
+ * @date 2025-10-29
+ * @copyright Todos los derechos reservados
+ */
 
-$host = "localhost";              
-$dbname = "nombre_de_tu_base";    
-$username = "usuario_mysql";      
-$password = "contraseña_mysql";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aither";
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die(json_encode([
+        'success' => false,
+        'message' => 'Error de conexión a la base de datos: ' . $conn->connect_error
+    ]));
+}
+?>
