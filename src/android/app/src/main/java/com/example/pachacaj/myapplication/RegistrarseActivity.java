@@ -1,7 +1,11 @@
 package com.example.pachacaj.myapplication;
 
+import static com.example.pachacaj.myapplication.LogicaNegocio.PostRegistro;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,19 +25,29 @@ import org.w3c.dom.Text;
 public class RegistrarseActivity extends AppCompatActivity {
 
     //Formulario del layout donde se trabaja
-    TextView Usuario = findViewById(R.id.NombreUsuario);
-    TextView Apellidso = findViewById(R.id.ApellidosUsuario);
-    TextView Email = findViewById(R.id.EmailUsuario);
-    TextView Contrasenya = findViewById(R.id.ContrasenyaUsuario);
+    EditText Usuario,Apellidos,Email,Contrasenya;
 
     //Metodo onCreate donde se ejecuta lo principal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registrarse);
+
+        //Obtengo los edit text por su id que yo le he piesto
+        Usuario = findViewById(R.id.NombreUsuario);
+        Apellidos = findViewById(R.id.ApellidosUsuario);
+        Email = findViewById(R.id.EmailUsuario);
+        Contrasenya = findViewById(R.id.ContrasenyaUsuario);
     }
 
     //Boton para enviar los datos al servidor
     public void botonEnviarDatos(View v){
         Log.d("MainActivity", "Mensaje de depuración");
+        Log.d("Usuarii", Usuario.getText().toString());
+        Log.d("apellido ", Apellidos.getText().toString());
+        Log.d("email", Email.getText().toString());
+        Log.d("contrasenya", Contrasenya.getText().toString());
+
+        PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString());
+
     }
 }

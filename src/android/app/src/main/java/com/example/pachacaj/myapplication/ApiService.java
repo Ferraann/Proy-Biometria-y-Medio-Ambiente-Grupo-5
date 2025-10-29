@@ -1,6 +1,8 @@
 package com.example.pachacaj.myapplication;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -19,12 +21,15 @@ import retrofit2.http.Query;
 
 public interface ApiService {
     //Metodo post para hacer el login
-    //lo que pretende que enciar y no
+    //lo que se pretende es enviar y no
     //recibir al tener void.
-
-    /*@POST("")
-    Call<Void>{
-
-    }*/
+    @FormUrlEncoded
+    @POST(" ")
+    Call<Void> datosRegistro(
+        @Field("Nombre") String nombre,
+        @Field("Apellidos") String apellidos,
+        @Field("Email") String email,
+        @Field("Contrasenya") String contrasenya
+    );
 
 }

@@ -1,7 +1,12 @@
 package com.example.pachacaj.myapplication;
 
+import android.util.Log;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 // ------------------------------------------------------------------
@@ -14,12 +19,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 // Descripción:
 //   Clase que se encarga de configurar y crear una estancia
 //  de Retrofit cliente que permite conectar tu aplicación
-//  Android con un servidor web o Api
+//  Android con un servidor web o Api. Ademas, se declararan los metodos
+//  de las apps.
 // ------------------------------------------------------------------
 
 public class ApiCliente {
     //Declaro mi ip
-    private static final String urlLocal = "http://10.15.138.250/Proyecto-Aplicaciones-De-Biometr-a-Y-Medio-Ambiente/src/Api/";
+    private static final String urlLocal = "http://192.168.1.137/Proyecto-Aplicaciones-De-Biometr-a-Y-Medio-Ambiente/src/Api/";
 
     //Pongo Retrofit en null para después comprobar si está o no funcional
     private static Retrofit retrofit = null;
@@ -45,4 +51,5 @@ public class ApiCliente {
         }
         return retrofit.create(ApiService.class);
     }
+
 }
