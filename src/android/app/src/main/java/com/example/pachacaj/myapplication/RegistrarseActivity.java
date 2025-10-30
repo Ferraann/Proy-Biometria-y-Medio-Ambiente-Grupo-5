@@ -4,9 +4,11 @@ import static com.example.pachacaj.myapplication.LogicaNegocio.PostRegistro;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,6 +48,16 @@ public class RegistrarseActivity extends AppCompatActivity {
         Log.d("apellido ", Apellidos.getText().toString());
         Log.d("email", Email.getText().toString());
         Log.d("contrasenya", Contrasenya.getText().toString());
+        // Validaciones básicas
+        if (Usuario.getText().toString().isEmpty() || Apellidos.getText().toString().isEmpty() || Email.getText().toString().isEmpty() || Contrasenya.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText()).matches()){
+            Toast.makeText(this, "Por favor, introduce un email valido", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString());
 
