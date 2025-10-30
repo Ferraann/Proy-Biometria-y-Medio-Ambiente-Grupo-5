@@ -49,4 +49,25 @@ public class LogicaNegocio {
             }
         });
     }
+    public static void PostLogin(String email, String contrasenya) {
+        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
+        Call<Void> call = apiService.loginUsuario(email, contrasenya);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Login", "Login exitoso");
+                } else {
+                    Log.d("Login", "Credenciales incorrectas o error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Login", "Error en conexión: " + t.getMessage());
+            }
+        });
+    }
+
 }
