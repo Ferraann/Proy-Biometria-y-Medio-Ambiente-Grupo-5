@@ -19,18 +19,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.pachacaj.myapplication.Beacon.TramaIBeacon;
+import com.example.pachacaj.myapplication.Beacon.Utilidades;
 import com.example.pachacaj.myapplication.R;
+import com.example.pachacaj.myapplication.configuracionApi.ApiCliente;
+import com.example.pachacaj.myapplication.configuracionApi.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 
-public class BtleActivity extends AppCompatActivity {
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.funciones_basicas);
-    }
+public class BTLEActivity extends AppCompatActivity {
+
     // --------------------------------------------------------------
     // --------------------------------------------------------------
     private static final String ETIQUETA_LOG = ">>>>";
@@ -141,61 +142,60 @@ public class BtleActivity extends AppCompatActivity {
         Log.d(ETIQUETA_LOG, " ****************************************************");
         enviarDatosAlServidor(Utilidades.bytesToLong(tib.getMinor()),Utilidades.bytesToLong(tib.getMajor()));
     } // ()
-} // ()
 
-// --------------------------------------------------------------
-//Clase que con un nombre busca el IBeacon y obtiene sus datos
-// --------------------------------------------------------------
-private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
-    Log.d(ETIQUETA_LOG, " buscarEsteDispositivoBTLE(): empieza ");
+    // --------------------------------------------------------------
+    //Clase que con un nombre busca el IBeacon y obtiene sus datos
+    // --------------------------------------------------------------
+    private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
+        Log.d(ETIQUETA_LOG, " buscarEsteDispositivoBTLE(): empieza ");
 
-    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): instalamos scan callback ");
+        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): instalamos scan callback ");
 
 
-    // super.onScanResult(ScanSettings.SCAN_MODE_LOW_LATENCY, result); para ahorro de energía
+        // super.onScanResult(ScanSettings.SCAN_MODE_LOW_LATENCY, result); para ahorro de energía
 
-    this.callbackDelEscaneo = new ScanCallback() {
-        @Override
-        public void onScanResult( int callbackType, ScanResult resultado ) {
-            super.onScanResult(callbackType, resultado);
-            Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
+        this.callbackDelEscaneo = new ScanCallback() {
+            @Override
+            public void onScanResult( int callbackType, ScanResult resultado ) {
+                super.onScanResult(callbackType, resultado);
+                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanResult() ");
 
-            mostrarInformacionDispositivoBTLE( resultado );
+                mostrarInformacionDispositivoBTLE( resultado );
+            }
+
+            @Override
+            public void onBatchScanResults(List<ScanResult> results) {
+                super.onBatchScanResults(results);
+                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onBatchScanResults() ");
+
+            }
+
+            @Override
+            public void onScanFailed(int errorCode) {
+                super.onScanFailed(errorCode);
+                Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanFailed() ");
+
+            }
+        };
+
+        filtros.clear();
+        ScanFilter sf = new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build();
+        filtros.add(sf);
+
+        Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado );
+        //Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado
+        //      + " -> " + Utilidades.stringToUUID( dispositivoBuscado ) );
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
 
-        @Override
-        public void onBatchScanResults(List<ScanResult> results) {
-            super.onBatchScanResults(results);
-            Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onBatchScanResults() ");
+        ScanSettings settings = new ScanSettings.Builder()
+                .setScanMode(SCAN_MODE_LOW_LATENCY)
+                .build();
 
-        }
-
-        @Override
-        public void onScanFailed(int errorCode) {
-            super.onScanFailed(errorCode);
-            Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): onScanFailed() ");
-
-        }
-    };
-
-    filtros.clear();
-    ScanFilter sf = new ScanFilter.Builder().setDeviceName(dispositivoBuscado).build();
-    filtros.add(sf);
-
-    Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado );
-    //Log.d(ETIQUETA_LOG, "  buscarEsteDispositivoBTLE(): empezamos a escanear buscando: " + dispositivoBuscado
-    //      + " -> " + Utilidades.stringToUUID( dispositivoBuscado ) );
-
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-        return;
-    }
-
-    ScanSettings settings = new ScanSettings.Builder()
-            .setScanMode(SCAN_MODE_LOW_LATENCY)
-            .build();
-
-    elEscanner.startScan(filtros, settings, callbackDelEscaneo);
-} // ()
+        elEscanner.startScan(filtros, settings, callbackDelEscaneo);
+    } // ()
 
     // --------------------------------------------------------------
     //Clase que pretende detner toda función que detecte Ibeacon
@@ -275,7 +275,7 @@ private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
         )
         {
             ActivityCompat.requestPermissions(
-                    MainActivity.this,
+                    BTLEActivity.this,
                     new String[]{Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN, Manifest.permission.ACCESS_FINE_LOCATION},
                     CODIGO_PETICION_PERMISOS);
         }
@@ -291,7 +291,7 @@ private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.funciones_basicas);
 
         Log.d(ETIQUETA_LOG, " onCreate(): empieza ");
 
@@ -332,7 +332,7 @@ private void buscarEsteDispositivoBTLE(final String dispositivoBuscado ) {
         Log.d(ETIQUETA_LOG, "Enviando datos al servidor... C02=" + CO2 + " Temperatura=" + Temperatura);
 
         //Declaro mi esctrucura para trabajar con ella
-        ApiService api = LogicaFake.getApiService();
+        ApiService api = ApiCliente.getApiService();
 
         //Cojo la plantilla para después mostrarlo correctamente
         Call<Void> call = api.enviarDatos(CO2,Temperatura);

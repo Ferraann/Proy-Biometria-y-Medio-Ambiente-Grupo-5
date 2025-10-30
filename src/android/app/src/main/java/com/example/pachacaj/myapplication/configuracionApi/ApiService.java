@@ -32,4 +32,10 @@ public interface ApiService {
         @Field("Contrasenya") String contrasenya
     );
 
+    @FormUrlEncoded
+    @POST ("postGuardarMediciones.php")
+    Call<Void> enviarDatos(
+            @Field("CO2") float co2,
+            @Field("Temperatura") float temperatura
+    );
 }
