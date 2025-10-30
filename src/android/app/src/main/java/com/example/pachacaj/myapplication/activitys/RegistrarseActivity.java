@@ -44,7 +44,7 @@ public class RegistrarseActivity extends AppCompatActivity {
     //Boton para enviar los datos al servidor
     public void botonEnviarDatos(View v){
         Log.d("MainActivity", "Mensaje de depuración");
-        Log.d("Usuarii", Usuario.getText().toString());
+        Log.d("Usuario", Usuario.getText().toString());
         Log.d("apellido ", Apellidos.getText().toString());
         Log.d("email", Email.getText().toString());
         Log.d("contrasenya", Contrasenya.getText().toString());
@@ -63,9 +63,8 @@ public class RegistrarseActivity extends AppCompatActivity {
             return;
         }
 
-        PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString());
+        PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString(),this);
 
-        Intent intent = new Intent(RegistrarseActivity.this, BtleActivity.class);
-        startActivity(intent);
+
     }
 }

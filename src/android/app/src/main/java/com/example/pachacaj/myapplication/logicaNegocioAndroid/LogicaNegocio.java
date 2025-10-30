@@ -1,8 +1,14 @@
 package com.example.pachacaj.myapplication.logicaNegocioAndroid;
 
 
-import android.util.Log;
+import static androidx.core.content.ContextCompat.startActivity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.example.pachacaj.myapplication.activitys.BTLEActivity;
 import com.example.pachacaj.myapplication.configuracionApi.ApiCliente;
 import com.example.pachacaj.myapplication.configuracionApi.ApiService;
 
@@ -25,13 +31,12 @@ import retrofit2.Response;
 public class LogicaNegocio {
 
     //-------------------------------------------------------------------------------------------
-    //     Nombre:txt, Apellidos:txt, email:txt, contraseña:txt --> postRegistro() --> retrofit
+    //     Nombre:txt, Apellidos:txt, email:txt, contraseña:txt --> postRegistro()
     //-------------------------------------------------------------------------------------------
-    public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya){
+    public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya, Context contexto){
 
         ApiService api = ApiCliente.getApiService();
         Call<PojoRespuestaServidor> call = api.datosRegistro(Nombre,Apellidos,Email,Contrasenya);
-
 
         //Ejecutamos la llamada post de forma asincrona, con un callback.Lo primero que hacemos es cojer la respuesta
         //del servido, al recibirlo comparamos si ha fallado algo y si la respuesta en si tiene cuerpo. Si no se cumple
@@ -47,18 +52,21 @@ public class LogicaNegocio {
 
                     if ("ok".equals(respuesta.getStatus())) {
                         Log.d("API", "funciona: " + respuesta.getMensaje());
+                        Intent intent = new Intent(contexto, BTLEActivity.class);
+                        contexto.startActivity(intent);
+
                     } else {
                         Log.w("API", "No funciona: " + respuesta.getMensaje());
-
+                        Toast.makeText(contexto,"Mail ya registrado", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("API", "⚠️ Error HTTP: código " + response.code());
+                    Log.e("API", "Error HTTP: código " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
-                Log.e("API", "❌ Error de conexión: " + t.getMessage());
+                Log.e("API", "Error de conexión: " + t.getMessage());
             }
         });
 

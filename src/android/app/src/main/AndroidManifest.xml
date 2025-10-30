@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.RegistrarseActivity"></activity>
+        <activity android:name=".activitys.BTLEActivity"></activity>
     </application>
 
 </manifest>
