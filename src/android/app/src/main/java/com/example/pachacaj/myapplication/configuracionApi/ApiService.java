@@ -1,11 +1,11 @@
-package com.example.pachacaj.myapplication;
+package com.example.pachacaj.myapplication.configuracionApi;
+
+import com.example.pachacaj.myapplication.logicaNegocioAndroid.PojoRespuestaServidor;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 // ------------------------------------------------------------------
 // Fichero: ApiCliente
 // Autor: Pablo Chasi
@@ -25,7 +25,7 @@ public interface ApiService {
     //recibir al tener void.
     @FormUrlEncoded
     @POST("index.php")
-    Call<Void> datosRegistro(
+    Call<PojoRespuestaServidor> datosRegistro(
         @Field("Nombre") String nombre,
         @Field("Apellidos") String apellidos,
         @Field("Email") String email,

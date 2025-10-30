@@ -1,18 +1,18 @@
-package com.example.pachacaj.myapplication;
+package com.example.pachacaj.myapplication.activitys;
 
-import static com.example.pachacaj.myapplication.LogicaNegocio.PostRegistro;
+import static com.example.pachacaj.myapplication.logicaNegocioAndroid.LogicaNegocio.PostRegistro;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
+import com.example.pachacaj.myapplication.R;
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
 // Autor: Pablo Chasi
@@ -48,12 +48,16 @@ public class RegistrarseActivity extends AppCompatActivity {
         Log.d("apellido ", Apellidos.getText().toString());
         Log.d("email", Email.getText().toString());
         Log.d("contrasenya", Contrasenya.getText().toString());
-        // Validaciones básicas
+
+        // validación que comprueba que si hay alguno que está vacio no se ejecuta la sentencia sql.
         if (Usuario.getText().toString().isEmpty() || Apellidos.getText().toString().isEmpty() || Email.getText().toString().isEmpty() || Contrasenya.getText().toString().isEmpty()) {
             Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        //Con una biblioteca podemos comprobar la estructura basica de un email
+        //si está detecta que no es semejante a un email, entonces devuelve false.
+        //si es verdad entonces un true.
         if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText()).matches()){
             Toast.makeText(this, "Por favor, introduce un email valido", Toast.LENGTH_SHORT).show();
             return;
@@ -61,5 +65,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
         PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString());
 
+        Intent intent = new Intent(RegistrarseActivity.this, BtleActivity.class);
+        startActivity(intent);
     }
 }

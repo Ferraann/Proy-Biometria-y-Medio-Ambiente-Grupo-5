@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication;
+package com.example.pachacaj.myapplication.Beacon;
 
 // ------------------------------------------------------------------
 // Fichero: BtleEmisor
@@ -10,23 +10,6 @@ package com.example.pachacaj.myapplication;
 //   que permite detectar dispositivos BTLE,
 //   mostrando la información en el Logcat
 // -----------------------------------------------------------------
-
-import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanResult;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import java.util.List;
 
 public class BtleReceptor {
     /*

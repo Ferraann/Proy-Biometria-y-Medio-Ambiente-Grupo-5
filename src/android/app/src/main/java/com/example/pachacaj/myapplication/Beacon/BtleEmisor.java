@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication;
+package com.example.pachacaj.myapplication.Beacon;
 
 // ------------------------------------------------------------------
 // Fichero: BtleEmisor
