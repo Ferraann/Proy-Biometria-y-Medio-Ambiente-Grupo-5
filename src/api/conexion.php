@@ -1,3 +1,4 @@
+<?php
 // ------------------------------------------------------------------
 // Fichero: php
 // Autor: Pablo Chasi
@@ -10,7 +11,16 @@
 //  web
 // ------------------------------------------------------------------
 
-$host = "localhost";              
-$dbname = "nombre_de_tu_base";    
-$username = "usuario_mysql";      
-$password = "contraseña_mysql";
+
+function abrirServidor(){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "aither";
+
+
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    
+    return ($conn);
+}
+?>  

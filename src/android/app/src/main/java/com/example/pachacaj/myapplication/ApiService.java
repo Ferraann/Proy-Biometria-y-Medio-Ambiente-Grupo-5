@@ -24,7 +24,7 @@ public interface ApiService {
     //lo que se pretende es enviar y no
     //recibir al tener void.
     @FormUrlEncoded
-    @POST("")
+    @POST("index.php")
     Call<Void> datosRegistro(
         @Field("Nombre") String nombre,
         @Field("Apellidos") String apellidos,

@@ -1,15 +1,33 @@
+<?php
 // ------------------------------------------------------------------
 // Fichero: index.php
 // Autor: Pablo Chasi
-// Fecha: 28/10/2025
+// Fecha: 27/10/2025
 // ------------------------------------------------------------------
-// fichero php: index
-//
 // Descripción:
-//  Punto de entrada principal que está encargada en recibir todas
-//  las peticiones http que llegaran al servidor. Aqui se ejecutara
-//  los diferentes metodos de la logica del negocio y se administrara
-//  las diferentes respuestas que puede haber
+//  Punto de entrada principal de la API REST. 
+//  Este router analiza la ruta y el método HTTP, 
+//  y delega el procesamiento al controlador adecuado.
 // ------------------------------------------------------------------
 
-    
+require_once ('../api/conexion.php');
+require_once ('../logicaNegocio/index2.php');
+
+$servirdor = abrirServidor();
+
+$requestUri = $_SERVER['REQUEST_URI'];
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch (true){
+    case $method == "POST":
+        $nombre = $_POST['Nombre'];
+        $apellidos = $_POST['Apellidos'];
+        $email = $_POST['Email'];
+        $contrasenya = $_POST['Contrasenya'];
+        registrarUsuari($nombre,$apellidos,$email,$contrasenya,$servirdor);
+
+        break;
+}
+
+$servirdor -> close();
+?>

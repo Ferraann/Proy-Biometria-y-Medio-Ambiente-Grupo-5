@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiCliente {
     //Declaro mi ip
-    private static final String urlLocal = "http://192.168.1.137/Proyecto-Aplicaciones-De-Biometr-a-Y-Medio-Ambiente/src/Api/";
+    private static final String urlLocal = "http://10.141.177.250/Proy-Biometria-y-Medio-Ambiente-Grupo-5/src/api/";
 
     //Pongo Retrofit en null para después comprobar si está o no funcional
     private static Retrofit retrofit = null;

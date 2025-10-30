@@ -26,7 +26,6 @@ public class LogicaNegocio {
     //-------------------------------------------------------------------------------------------
     public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya){
 
-
         ApiService api = ApiCliente.getApiService();
         Call<Void> call = api.datosRegistro(Nombre,Apellidos,Email,Contrasenya);
 
