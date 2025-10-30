@@ -1,6 +1,6 @@
 <?php
 // ------------------------------------------------------------------
-// Fichero: logicaNegocio.php
+// Fichero: index2.php
 // Autor: Pablo
 // Coautor: Manuel
 // Fecha: 30/10/2025
