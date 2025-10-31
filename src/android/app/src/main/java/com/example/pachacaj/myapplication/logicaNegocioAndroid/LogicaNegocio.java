@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.pachacaj.myapplication.activitys.BTLEActivity;
+import com.example.pachacaj.myapplication.activitys.HomeActivity;
 import com.example.pachacaj.myapplication.configuracionApi.ApiCliente;
 import com.example.pachacaj.myapplication.configuracionApi.ApiService;
 
@@ -70,5 +71,28 @@ public class LogicaNegocio {
             }
         });
 
+    }
+
+    public static void PostLogin(String email, String contrasenya, Context contexto) {
+        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
+        Call<Void> call = apiService.loginUsuario(email, contrasenya);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Login", "Login exitoso");
+                    Intent intent = new Intent(contexto, HomeActivity.class);
+                    contexto.startActivity(intent);
+                } else {
+                    Log.d("Login", "Credenciales incorrectas o error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Login", "Error en conexión: " + t.getMessage());
+            }
+        });
     }
 }
