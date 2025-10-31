@@ -1,29 +1,18 @@
 package com.example.pachacaj.myapplication;
 
-import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanFilter;
-import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
+import static com.example.pachacaj.myapplication.logicaNegocioAndroid.LogicaNegocio.PostLogin;
+
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.ParcelUuid;
-import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import com.example.pachacaj.myapplication.activitys.HomeActivity;
+import com.example.pachacaj.myapplication.activitys.RegistrarseActivity;
 
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
@@ -37,10 +26,15 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
     // --------------------------------------------------------------
     // --------------------------------------------------------------
+
+    EditText Email, Contrasenya;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Email = findViewById(R.id.EmailUsuarioLogin);
+        Contrasenya = findViewById(R.id.ContrasenyaUsuarioLogin);
     }
 
 
@@ -52,6 +46,24 @@ public class MainActivity extends AppCompatActivity {
 
     } // ()
 
+
+    // --------------------------------------------------------------
+    // Intento de login
+    // --------------------------------------------------------------
+    public void botonLogin(View v) {
+        String email = Email.getText().toString();
+        String pass = Contrasenya.getText().toString();
+
+        //Con una biblioteca podemos comprobar la estructura basica de un email
+        //si está detecta que no es semejante a un email, entonces devuelve false.
+        //si es verdad entonces un true.
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText()).matches()){
+            Toast.makeText(this, "Por favor, introduce un email valido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        PostLogin(email, pass, this);
+    }
 } // class
 // --------------------------------------------------------------
 // --------------------------------------------------------------

@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication;
+/*package com.example.pachacaj.myapplication.activitys;
 
 
 import static com.example.pachacaj.myapplication.LogicaNegocio.PostLogin;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.pachacaj.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,4 +35,4 @@ public class LoginActivity extends AppCompatActivity {
 
         PostLogin(email, pass);
     }
-}
+}*/
