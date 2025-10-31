@@ -6,16 +6,14 @@
 // Fecha: 30/10/2025
 // ------------------------------------------------------------------
 // Descripción:
-//  Este archivo actúa como punto de entrada principal de la API.
-//  Según el método HTTP (GET o POST) y los parámetros enviados,
-//  decide qué función de logicaNegocio ejecutar.
+//  Punto de entrada de la API REST. Gestiona las peticiones según
+//  el método HTTP y delega en las funciones de logicaNegocio.php.
 // ------------------------------------------------------------------
 
 header('Content-Type: application/json');
 
-// Incluimos los archivos de conexión y lógica de negocio
 require_once('conexion.php');
-require_once __DIR__ . '/../logicaNegocio/index2.php';
+require_once('logicaNegocio.php');
 
 
 // Abrimos conexión a la base de datos
@@ -47,7 +45,6 @@ if ($method === 'POST' || $method === 'PUT') {
 
     // Guardar copia del JSON recibido (para debug)
     file_put_contents("logs/last_request.json", $rawBody);
-
 } else {
     // Para GET y otros métodos, usamos los parámetros normales
     $input = $_GET;
@@ -58,11 +55,9 @@ if ($method === 'POST' || $method === 'PUT') {
 switch ($method) {
 
     // ---------------------------------------------------------
-    // MÉTODO POST → Registro, login o guardar mediciones
+    // MÉTODO POST → Crear nuevos registros
     // ---------------------------------------------------------
     case "POST":
-        
-        // Comprobamos si la acción viene definida
         $accion = $input['accion'] ?? null;
 
         switch ($accion) {
@@ -78,6 +73,14 @@ switch ($method) {
                 echo json_encode(guardarMedicion($conn, $input));
                 break;
 
+            case "crearTipoMedicion":
+                echo json_encode(crearTipoMedicion($conn, $input));
+                break;
+
+            case "crearSensorYRelacion":
+                echo json_encode(crearSensorYRelacion($conn, $input));
+                break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
@@ -86,10 +89,31 @@ switch ($method) {
 
 
     // ---------------------------------------------------------
-    // MÉTODO GET → Consultar datos (por ejemplo, mediciones)
+    // MÉTODO PUT → Actualizar recursos existentes
+    // ---------------------------------------------------------
+    case "PUT":
+        $accion = $input['accion'] ?? null;
+
+        switch ($accion) {
+            case "finalizarRelacionSensor":   // marcar sensor con problema
+                echo json_encode(marcarSensorConProblemas($conn, $input));
+                break;
+
+            case "reactivarSensor":            // reactivar sensor reparado
+                echo json_encode(reactivarSensor($conn, $input));
+                break;
+
+            default:
+                echo json_encode(["status" => "error", "message" => "Acción PUT no reconocida."]);
+                break;
+        }
+        break;
+
+
+    // ---------------------------------------------------------
+    // MÉTODO GET → Consultas
     // ---------------------------------------------------------
     case "GET":
-
         $accion = $_GET['accion'] ?? null;
 
         switch ($accion) {
@@ -103,8 +127,9 @@ switch ($method) {
         }
         break;
 
+
     // ---------------------------------------------------------
-    // OTROS MÉTODOS (PUT, DELETE, etc.)
+    // OTROS MÉTODOS
     // ---------------------------------------------------------
     default:
         echo json_encode(["status" => "error", "message" => "Método HTTP no soportado."]);
