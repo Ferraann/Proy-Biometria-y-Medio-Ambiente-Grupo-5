@@ -357,7 +357,7 @@ function obtenerEstadisticas($conn) {
 // FUNCIÓN 14: Obtener promedio de cada tipo de mediciones en un rango geográfico
 // Puede que no funcione todavia
 // -------------------------------------------------------------
-function obtenerPromedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max) {
+function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max) {
     $sql = "
         SELECT tm.medida, tm.unidad, AVG(m.valor) AS promedio
         FROM medicion m

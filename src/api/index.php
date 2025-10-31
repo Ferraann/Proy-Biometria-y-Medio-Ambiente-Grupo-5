@@ -55,7 +55,7 @@ if ($method === 'POST' || $method === 'PUT') {
 switch ($method) {
 
     // ---------------------------------------------------------
-    // MÉTODO POST → Crear nuevos registros
+    // MÉTODO POST -> Crear nuevos registros
     // ---------------------------------------------------------
     case "POST":
         $accion = $input['accion'] ?? null;
@@ -88,7 +88,7 @@ switch ($method) {
         break;
 
     // -----------------------------------------------------
-    // MÉTODO PUT → Actualizar o modificar recursos
+    // MÉTODO PUT -> Actualizar o modificar recursos
     // -----------------------------------------------------
     case "PUT":
         $accion = $input['accion'] ?? null;
@@ -117,7 +117,7 @@ switch ($method) {
         break;
 
     // -----------------------------------------------------
-    // MÉTODO GET → Consultas y estadísticas
+    // MÉTODO GET -> Consultas y estadísticas
     // -----------------------------------------------------
     case "GET":
         $accion = $_GET['accion'] ?? null;
@@ -135,12 +135,12 @@ switch ($method) {
                 echo json_encode(obtenerEstadisticas($conn));
                 break;
 
-            case "getPromediosPorRango":
+            case "getPromedioDeRango":
                 $lat_min = floatval($_GET['lat_min'] ?? 0);
                 $lat_max = floatval($_GET['lat_max'] ?? 0);
                 $lon_min = floatval($_GET['lon_min'] ?? 0);
                 $lon_max = floatval($_GET['lon_max'] ?? 0);
-                echo json_encode(obtenerPromedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max));
+                echo json_encode(promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max));
                 break;
 
             default:
