@@ -244,4 +244,155 @@ function marcarSensorConProblemas($conn, $data) {
     }
 }
 
+// -------------------------------------------------------------
+// FUNCIÓN 8: Reactivar un sensor tras reparación
+// -------------------------------------------------------------
+function reactivarSensor($conn, $data) {
+    if (!isset($data['sensor_id'])) {
+        return ["status" => "error", "message" => "Falta el parámetro sensor_id."];
+    }
+
+    $sensor_id = $data['sensor_id'];
+
+    $sql = "UPDATE sensor SET problema = 0 WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $sensor_id);
+
+    if ($stmt->execute()) {
+        return ["status" => "ok", "message" => "Sensor reactivado correctamente."];
+    } else {
+        return ["status" => "error", "message" => "Error al reactivar sensor: " . $conn->error];
+    }
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 9: Actualizar datos de un usuario
+// -------------------------------------------------------------
+function actualizarUsuario($conn, $id, $data) {
+    $sql = "UPDATE usuario SET nombre = ?, apellidos = ?, credencial_id = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssii", $data['nombre'], $data['apellidos'], $data['credencial_id'], $id);
+    
+    if ($stmt->execute()) {
+        return ["status" => "ok", "message" => "Usuario actualizado correctamente."];
+    } else {
+        return ["status" => "error", "message" => "Error al actualizar usuario: " . $conn->error];
+    }
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 10: Crear una nueva incidencia
+// -------------------------------------------------------------
+function crearIncidencia($conn, $data) {
+    if (!isset($data['id_user'], $data['titulo'], $data['descripcion'])) {
+        return ["status" => "error", "message" => "Faltan parámetros."];
+    }
+
+    $sql = "INSERT INTO incidencias (id_user, titulo, descripcion) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iss", $data['id_user'], $data['titulo'], $data['descripcion']);
+
+    if ($stmt->execute()) {
+        return ["status" => "ok", "id_incidencia" => $conn->insert_id];
+    } else {
+        return ["status" => "error", "message" => "Error al registrar incidencia: " . $conn->error];
+    }
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 11: Obtener incidencias activas
+// -------------------------------------------------------------
+function obtenerIncidenciasActivas($conn) {
+    $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion
+            FROM incidencias i
+            LEFT JOIN usuario u ON i.id_user = u.id
+            WHERE i.activa = 1
+            ORDER BY i.fecha_creacion DESC";
+
+    $result = $conn->query($sql);
+    $incidencias = [];
+    while ($row = $result->fetch_assoc()) {
+        $incidencias[] = $row;
+    }
+    return $incidencias;
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 12: Cerrar una incidencia
+// -------------------------------------------------------------
+function cerrarIncidencia($conn, $data) {
+    if (!isset($data['incidencia_id'])) {
+        return ["status" => "error", "message" => "Falta el parámetro incidencia_id."];
+    }
+
+    $sql = "UPDATE incidencias SET activa = 0, fecha_cierre = NOW() WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $data['incidencia_id']);
+
+    if ($stmt->execute()) {
+        return ["status" => "ok", "message" => "Incidencia cerrada correctamente."];
+    } else {
+        return ["status" => "error", "message" => "Error al cerrar incidencia: " . $conn->error];
+    }
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 13: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
+// -------------------------------------------------------------
+function obtenerEstadisticas($conn) {
+    $stats = [];
+
+    $result = $conn->query("SELECT COUNT(*) AS total FROM sensor");
+    $stats['total_sensores'] = $result->fetch_assoc()['total'];
+
+    $result = $conn->query("SELECT COUNT(*) AS activos FROM usuario_sensor WHERE actual = 1");
+    $stats['sensores_activos'] = $result->fetch_assoc()['activos'];
+
+    $result = $conn->query("SELECT MAX(hora) AS ultima_medicion FROM medicion");
+    $stats['ultima_medicion'] = $result->fetch_assoc()['ultima_medicion'];
+
+    return ["status" => "ok", "estadisticas" => $stats];
+}
+// -------------------------------------------------------------
+// FUNCIÓN 14: Obtener promedio de cada tipo de mediciones en un rango geográfico
+// Puede que no funcione todavia
+// -------------------------------------------------------------
+function obtenerPromedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max) {
+    $sql = "
+        SELECT tm.medida, tm.unidad, AVG(m.valor) AS promedio
+        FROM medicion m
+        INNER JOIN tipo_medicion tm ON m.tipo_medicion_id = tm.id
+        WHERE 
+            CAST(SUBSTRING_INDEX(m.localizacion, ',', 1) AS DECIMAL(10,6)) BETWEEN ? AND ?
+            AND CAST(SUBSTRING_INDEX(m.localizacion, ',', -1) AS DECIMAL(10,6)) BETWEEN ? AND ?
+        GROUP BY tm.id, tm.medida, tm.unidad
+        ORDER BY tm.medida ASC
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("dddd", $lat_min, $lat_max, $lon_min, $lon_max);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $promedios = [];
+    while ($row = $result->fetch_assoc()) {
+        $promedios[] = [
+            "medida" => $row['medida'],
+            "unidad" => $row['unidad'],
+            "promedio" => round($row['promedio'], 2)
+        ];
+    }
+
+    return [
+        "status" => "ok",
+        "rango" => [
+            "lat_min" => $lat_min,
+            "lat_max" => $lat_max,
+            "lon_min" => $lon_min,
+            "lon_max" => $lon_max
+        ],
+        "promedios" => $promedios
+    ];
+}
+
 ?>

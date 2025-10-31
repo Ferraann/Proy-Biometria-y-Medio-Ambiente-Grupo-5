@@ -15,7 +15,6 @@ header('Content-Type: application/json');
 require_once('conexion.php');
 require_once('logicaNegocio.php');
 
-
 // Abrimos conexión a la base de datos
 $conn = abrirServidor();
 
@@ -44,6 +43,7 @@ if ($method === 'POST' || $method === 'PUT') {
     }
 
     // Guardar copia del JSON recibido (para debug)
+    if (!is_dir("logs")) mkdir("logs");
     file_put_contents("logs/last_request.json", $rawBody);
 } else {
     // Para GET y otros métodos, usamos los parámetros normales
@@ -87,10 +87,9 @@ switch ($method) {
         }
         break;
 
-
-    // ---------------------------------------------------------
-    // MÉTODO PUT → Actualizar recursos existentes
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // MÉTODO PUT → Actualizar o modificar recursos
+    // -----------------------------------------------------
     case "PUT":
         $accion = $input['accion'] ?? null;
 
@@ -103,16 +102,23 @@ switch ($method) {
                 echo json_encode(reactivarSensor($conn, $input));
                 break;
 
+            case "actualizarUsuario":
+                echo json_encode(actualizarUsuario($conn, $input['id'], $input));
+                break;
+
+            case "cerrarIncidencia":
+                echo json_encode(cerrarIncidencia($conn, $input));
+                break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción PUT no reconocida."]);
                 break;
         }
         break;
 
-
-    // ---------------------------------------------------------
-    // MÉTODO GET → Consultas
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // MÉTODO GET → Consultas y estadísticas
+    // -----------------------------------------------------
     case "GET":
         $accion = $_GET['accion'] ?? null;
 
@@ -121,21 +127,36 @@ switch ($method) {
                 echo json_encode(obtenerMediciones($conn));
                 break;
 
+            case "getIncidenciasActivas":
+                echo json_encode(obtenerIncidenciasActivas($conn));
+                break;
+
+            case "getEstadisticas":
+                echo json_encode(obtenerEstadisticas($conn));
+                break;
+
+            case "getPromediosPorRango":
+                $lat_min = floatval($_GET['lat_min'] ?? 0);
+                $lat_max = floatval($_GET['lat_max'] ?? 0);
+                $lon_min = floatval($_GET['lon_min'] ?? 0);
+                $lon_max = floatval($_GET['lon_max'] ?? 0);
+                echo json_encode(obtenerPromedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max));
+                break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción GET no reconocida."]);
                 break;
         }
         break;
 
-
-    // ---------------------------------------------------------
-    // OTROS MÉTODOS
-    // ---------------------------------------------------------
+    // -----------------------------------------------------
+    // MÉTODOS NO SOPORTADOS
+    // -----------------------------------------------------
     default:
         echo json_encode(["status" => "error", "message" => "Método HTTP no soportado."]);
         break;
 }
 
-// Cerramos la conexión
+// Cerramos conexión
 $conn->close();
 ?>
