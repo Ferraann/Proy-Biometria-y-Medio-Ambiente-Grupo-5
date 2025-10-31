@@ -19,7 +19,8 @@ form.addEventListener("submit", async (e) => {
   formData.append("password", password);
 
   try {
-    const response = await fetch("../php/login.php", {
+    // 🔧 ruta corregida:
+    const response = await fetch("../api/login.php", {
       method: "POST",
       body: formData
     });
@@ -27,11 +28,11 @@ form.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     if (data.success) {
-  // Guardar usuario en localStorage
-  localStorage.setItem("user", JSON.stringify(data.user));
-  // Redirigir inmediatamente sin mensaje
-  window.location.href = "dashboard.html";
-} else {
+      // Guardar usuario en localStorage
+      localStorage.setItem("user", JSON.stringify(data.user));
+      // Redirigir inmediatamente sin mostrar mensaje
+      window.location.href = "dashboard.html";
+    } else {
       msg.style.color = "#ffdddd";
       msg.textContent = data.message || "Usuario o contraseña incorrectos.";
     }
