@@ -38,4 +38,11 @@ public interface ApiService {
             @Field("CO2") float co2,
             @Field("Temperatura") float temperatura
     );
+
+    @FormUrlEncoded
+    @POST("login.php") // Cambia al endpoint real en tu servidor
+    Call<Void> loginUsuario(
+            @Field("email") String email,
+            @Field("contrasenya") String contrasenya
+    );
 }

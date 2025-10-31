@@ -344,7 +344,7 @@ public class BTLEActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d(ETIQUETA_LOG, "✅ Datos enviados correctamente al servidor PHP");
                 } else {
-                    Log.e(ETIQUETA_LOG, "⚠️ Error HTTP: " + response.code());
+                    Log.e(ETIQUETA_LOG, "⚠ Error HTTP: " + response.code());
                 }
             }
 

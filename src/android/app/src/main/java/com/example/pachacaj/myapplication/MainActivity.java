@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication.activitys;
+package com.example.pachacaj.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pachacaj.myapplication.R;
+import com.example.pachacaj.myapplication.activitys.RegistrarseActivity;
 
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
