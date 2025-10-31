@@ -31,7 +31,6 @@ public interface ApiService {
         @Field("Email") String email,
         @Field("Contrasenya") String contrasenya
     );
-
     @FormUrlEncoded
     @POST("login.php") // Cambia al endpoint real en tu servidor
     Call<Void> loginUsuario(
@@ -40,10 +39,10 @@ public interface ApiService {
     );
 
 
-    /*@FormUrlEncoded
+    @FormUrlEncoded
     @POST ("postGuardarMediciones.php")
     Call<Void> enviarDatos(
             @Field("CO2") float co2,
             @Field("Temperatura") float temperatura
-    );*/
+    );
 }
