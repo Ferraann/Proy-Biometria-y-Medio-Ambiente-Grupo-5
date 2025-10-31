@@ -3,11 +3,7 @@ package com.example.pachacaj.myapplication.logicaNegocioAndroid;
 
 import android.util.Log;
 
-<<<<<<< HEAD
-import com.example.pachacaj.myapplication.activitys.BTLEActivity;
-import com.example.pachacaj.myapplication.activitys.HomeActivity;
-=======
->>>>>>> parent of 56fc1bb (Funciona registro login)
+
 import com.example.pachacaj.myapplication.configuracionApi.ApiCliente;
 import com.example.pachacaj.myapplication.configuracionApi.ApiService;
 
