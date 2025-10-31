@@ -53,7 +53,7 @@ public class LogicaNegocio {
 
                     if ("ok".equals(respuesta.getStatus())) {
                         Log.d("API", "funciona: " + respuesta.getMensaje());
-                        Intent intent = new Intent(contexto, BTLEActivity.class);
+                        Intent intent = new Intent(contexto, HomeActivity.class);
                         contexto.startActivity(intent);
 
                     } else {

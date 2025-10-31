@@ -24,8 +24,8 @@ switch (true){
         $apellidos = $_POST['Apellidos'];
         $email = $_POST['Email'];
         $contrasenya = $_POST['Contrasenya'];
-        registrarUsuari($nombre,$apellidos,$email,$contrasenya,$servirdor);
-
+        $respuesta = registrarUsuario($nombre,$apellidos,$email,$contrasenya,$servirdor);
+        echo json_encode($respuesta);
         break;
 }
 

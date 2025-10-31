@@ -6,7 +6,7 @@ form.addEventListener("submit", async (e) => {
   msg.textContent = "";
 
   const nombre = document.getElementById("nombre").value.trim();
-  const apellidos = document.getElementById("apellidos").value.trim();
+  const apellidos = document.getElementById("apellido").value.trim();
   const email = document.getElementById("gmail").value.trim();
   const password = document.getElementById("password").value.trim();
 

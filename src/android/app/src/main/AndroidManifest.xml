@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".activitys.RegistrarseActivity"></activity>
         <activity android:name=".activitys.BTLEActivity"></activity>
+        <activity android:name=".activitys.HomeActivity"></activity>
     </application>
 
 </manifest>
