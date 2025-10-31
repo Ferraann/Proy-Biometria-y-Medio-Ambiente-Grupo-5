@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pachacaj.myapplication.activitys.HomeActivity;
 import com.example.pachacaj.myapplication.activitys.RegistrarseActivity;
 
 // ------------------------------------------------------------------

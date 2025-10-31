@@ -140,7 +140,7 @@ public class BTLEActivity extends AppCompatActivity {
                 + Utilidades.bytesToInt(tib.getMinor()) + " ) ");
         Log.d(ETIQUETA_LOG, " txPower  = " + Integer.toHexString(tib.getTxPower()) + " ( " + tib.getTxPower() + " )");
         Log.d(ETIQUETA_LOG, " ****************************************************");
-        enviarDatosAlServidor(Utilidades.bytesToLong(tib.getMinor()),Utilidades.bytesToLong(tib.getMajor()));
+        //enviarDatosAlServidor(Utilidades.bytesToLong(tib.getMinor()),Utilidades.bytesToLong(tib.getMajor()));
     } // ()
 
     // --------------------------------------------------------------
@@ -327,7 +327,7 @@ public class BTLEActivity extends AppCompatActivity {
         // permissions this app might request.
     } // ()
 
-    //metodo que envia los datos a la api con la biblioteca retrofit
+    /*//metodo que envia los datos a la api con la biblioteca retrofit
     private void enviarDatosAlServidor(float CO2, float Temperatura){
         Log.d(ETIQUETA_LOG, "Enviando datos al servidor... C02=" + CO2 + " Temperatura=" + Temperatura);
 
@@ -353,5 +353,5 @@ public class BTLEActivity extends AppCompatActivity {
                 Log.e(ETIQUETA_LOG, "❌ Error al enviar datos: " + t.getMessage());
             }
         });
-    }
+    }*/
 }
