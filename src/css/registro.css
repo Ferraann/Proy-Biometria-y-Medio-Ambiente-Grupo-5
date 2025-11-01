@@ -1,0 +1,98 @@
+/* ---------- Estilos generales ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top left, #b6c8ff 0%, #4c6dc0 100%);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------- Contenedor del formulario ---------- */
+form {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  padding: 40px 50px;
+  border-radius: 15px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* ---------- Título ---------- */
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ---------- Etiquetas ---------- */
+label {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ---------- Campos de entrada ---------- */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* ---------- Botón ---------- */
+.btn-primary {
+  margin-top: 25px;
+  width: 100%;
+  background: #1e3799;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #274bba;
+}
+
+/* ---------- Mensaje ---------- */
+.message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+  min-height: 20px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 500px) {
+  form {
+    width: 90%;
+    padding: 30px;
+  }
+
+  label {
+    font-size: 0.85rem;
+  }
+
+  input {
+    font-size: 0.85rem;
+  }
+}
