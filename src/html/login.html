@@ -1,13 +1,44 @@
+<!-- 
+===============================================================================
+NOMBRE: index.html
+DESCRIPCIÓN: Página de inicio de sesión de la plataforma AITHER. 
+             Incluye cabecera con navegación, formulario de login, 
+             acceso rápido con redes sociales y enlace de registro.
+COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+FECHA: 03/11/2025
+AUTOR: [Tu nombre aquí]
+APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión 
+            con enlaces a recursos CSS y JavaScript externos.
+===============================================================================
+-->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- 
+  ----------------------------------------------------------------------------
+  BLOQUE: <head>
+  DISEÑO LÓGICO: Define los metadatos de la página, enlaces a hojas de estilo 
+  y scripts externos.
+  DESCRIPCIÓN: Configura el título, la codificación y los recursos del documento.
+  ----------------------------------------------------------------------------
+  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AITHER - Inicia sesión</title>
   <link rel="stylesheet" href="../css/index.css?v=1">
   <script src="../js/login.js" defer></script>
 </head>
+
 <body>
+  <!-- 
+  ----------------------------------------------------------------------------
+  BLOQUE: <header>
+  DISEÑO LÓGICO: Contiene el logotipo y la barra de navegación principal.
+  DESCRIPCIÓN: Proporciona acceso rápido a secciones informativas y 
+  un botón para iniciar sesión.
+  ----------------------------------------------------------------------------
+  -->
   <header>
     <div class="logo">AITHER</div>
     <nav>
@@ -18,27 +49,64 @@
     </nav>
   </header>
 
+  <!-- 
+  ----------------------------------------------------------------------------
+  BLOQUE: <main class="login-container">
+  DISEÑO LÓGICO: Contenedor principal del área de inicio de sesión.
+  DESCRIPCIÓN: Agrupa el formulario de acceso y el panel de registro alternativo.
+  ----------------------------------------------------------------------------
+  -->
   <main class="login-container">
     <div class="login-box">
+
+      <!-- 
+      ------------------------------------------------------------------------
+      BLOQUE: <div class="login-form">
+      DISEÑO LÓGICO: Formulario de autenticación de usuario.
+      DESCRIPCIÓN: Solicita el correo y la contraseña del usuario e incluye 
+      opciones de recuperación y acceso rápido mediante redes sociales.
+      ------------------------------------------------------------------------
+      -->
       <div class="login-form">
         <h2>INICIA SESIÓN</h2>
         <form id="loginForm">
+          <!-- Campo para el correo electrónico -->
           <label for="gmail">Correo Electrónico:</label>
           <input type="email" id="gmail" name="gmail">
+
+          <!-- Campo para la contraseña -->
           <label for="password">Contraseña:</label>
           <input type="password" id="password" name="password">
+
+          <!-- Enlace para recuperación de contraseña -->
           <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
+
+          <!-- Botón de envío del formulario -->
           <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
+
+          <!-- Separador visual para acceso con redes -->
           <div class="divider">Acceso rápido con</div>
+
+          <!-- Iconos de redes sociales -->
           <div class="social-icons">
             <img src="../img/google.svg" alt="Google">
             <img src="../img/facebook.svg" alt="Facebook">
             <img src="../img/x.svg" alt="X">
           </div>
+
+          <!-- Mensaje de validación o error -->
           <p id="message" class="message"></p>
         </form>
       </div>
 
+      <!-- 
+      ------------------------------------------------------------------------
+      BLOQUE: <div class="register-panel">
+      DISEÑO LÓGICO: Panel informativo alternativo.
+      DESCRIPCIÓN: Informa al usuario que puede registrarse y 
+      proporciona el enlace a la página de registro.
+      ------------------------------------------------------------------------
+      -->
       <div class="register-panel">
         <h3>¿AÚN NO TIENES CUENTA?</h3>
         <a href="../html/registro.html" class="register-link">REGÍSTRATE AQUÍ</a>
@@ -46,6 +114,13 @@
     </div>
   </main>
 
+  <!-- 
+  ----------------------------------------------------------------------------
+  BLOQUE: <footer>
+  DISEÑO LÓGICO: Pie de página del documento.
+  DESCRIPCIÓN: Muestra información de derechos de autor de la plataforma AITHER.
+  ----------------------------------------------------------------------------
+  -->
   <footer>
     <p>&copy; 2025 AITHER. Todos los derechos reservados.</p>
   </footer>
