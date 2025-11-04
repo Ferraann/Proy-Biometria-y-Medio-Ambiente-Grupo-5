@@ -5,81 +5,92 @@ DESCRIPCIÓN: Script de validación y envío del formulario de inicio de sesión
              de la plataforma AITHER. Controla la verificación de campos, 
              conexión con el servidor PHP y redirección a la página principal.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
-FECHA: 03/11/2025
-AUTOR: [Tu nombre aquí]
+FECHA: 04/11/2025
+AUTOR: Sergi y Manuel
 APORTACIÓN: Implementación del manejo de eventos del formulario de login, 
             validación de datos y comunicación asincrónica con el servidor.
 ===============================================================================
 */
-
-// -----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 // DECLARACIÓN DE VARIABLES
-// DISEÑO LÓGICO: Referencias a los elementos del formulario y mensaje.
-// DESCRIPCIÓN: Se obtienen los elementos necesarios para gestionar la 
-// interacción con el usuario.
+// ------------------------------------------------------------------
+// Captura de referencias a los elementos HTML del formulario y 
+// área donde se mostrarán los mensajes de error o éxito.
 const form = document.getElementById("loginForm");
 const msg = document.getElementById("message");
 
-// -----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 // FUNCIÓN: Evento 'submit' del formulario
-// DISEÑO LÓGICO: Escucha el envío del formulario, previene el envío por defecto,
-// valida los datos, y realiza una petición asincrónica al servidor.
-// DESCRIPCIÓN: Comprueba los campos de correo y contraseña, envía los datos 
-// al servidor mediante 'fetch' y gestiona la respuesta para autenticar al usuario.
+// ------------------------------------------------------------------
+// Se ejecuta al enviar el formulario, previene el comportamiento 
+// por defecto, valida los campos y realiza una petición asincrónica
+// al backend usando fetch.
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // Previene recarga de la página
-  msg.textContent = ""; // Limpia mensajes previos
+  e.preventDefault(); // Evita que el formulario recargue la página
+  msg.textContent = ""; // Limpia cualquier mensaje previo
 
-  // Captura y limpieza de valores introducidos
+  // ----------------------------------------------------------------
+  // Captura y limpieza de valores ingresados por el usuario
+  // ----------------------------------------------------------------
   const email = document.getElementById("gmail").value.trim();
   const password = document.getElementById("password").value.trim();
 
+  // ----------------------------------------------------------------
   // Validación básica de campos vacíos
+  // ----------------------------------------------------------------
   if (!email || !password) {
     msg.style.color = "#ffdddd";
     msg.textContent = "Por favor, rellena todos los campos.";
-    return;
+    return; // Detiene la ejecución si hay campos vacíos
   }
 
-  // Creación del objeto FormData con los valores del formulario
-  const formData = new FormData();
-  formData.append("gmail", email);
-  formData.append("password", password);
+  // ----------------------------------------------------------------
+  // Preparación de datos para enviar al backend
+  // ----------------------------------------------------------------
+  // Se crea un objeto JSON que incluye la acción 'login' que
+  // identifica la petición en el backend, y los datos del usuario.
+  const payload = {
+    accion: "login",
+    gmail: email,
+    password: password
+  };
 
   try {
-    // -------------------------------------------------------------------------
-    // BLOQUE: Petición asincrónica al servidor
-    // DISEÑO LÓGICO: Envío de datos al script PHP de login mediante método POST.
-    // DESCRIPCIÓN: Se comunica con el backend para validar las credenciales
-    // y recibe una respuesta en formato JSON.
-    const response = await fetch("../php/login.php", {
+    // ----------------------------------------------------------------
+    // Petición asincrónica al servidor
+    // ----------------------------------------------------------------
+    // Se envía la información mediante POST como JSON, y se
+    // espera la respuesta en formato JSON.
+    const response = await fetch("../api/index.php", {
       method: "POST",
-      body: formData
+      headers: {
+        "Content-Type": "application/json" // Especifica que enviamos JSON
+      },
+      body: JSON.stringify(payload) // Convertimos el objeto a JSON
     });
 
-    const data = await response.json(); // Conversión de respuesta a JSON
+    // ----------------------------------------------------------------
+    // Procesamiento de la respuesta del servidor
+    // ----------------------------------------------------------------
+    const data = await response.json(); // Convertimos la respuesta a JSON
 
-    // -------------------------------------------------------------------------
-    // BLOQUE: Gestión de respuesta del servidor
-    // DISEÑO LÓGICO: Analiza el resultado del login y actúa según el caso.
-    // DESCRIPCIÓN: Si las credenciales son válidas, almacena los datos del 
-    // usuario en localStorage y redirige a la página principal.
-    if (data.success) {
-      // Guardar usuario en localStorage
-      localStorage.setItem("user", JSON.stringify(data.user));
+    // Verificamos si la petición fue exitosa según la API
+    if (data.status === "ok") {
+      // Guardamos información del usuario en localStorage si existe
+      if (data.user) localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirigir inmediatamente sin mostrar mensaje
+      // Redirigimos a la página principal del dashboard
       window.location.href = "dashboard.html";
     } else {
+      // Mostramos mensaje de error si credenciales son incorrectas
       msg.style.color = "#ffdddd";
       msg.textContent = data.message || "Usuario o contraseña incorrectos.";
     }
   } catch (error) {
-    // -------------------------------------------------------------------------
-    // BLOQUE: Manejo de errores
-    // DISEÑO LÓGICO: Captura excepciones de la petición fetch.
-    // DESCRIPCIÓN: Informa al usuario sobre problemas de conexión con el servidor.
-    console.error(error);
+    // ----------------------------------------------------------------
+    // Manejo de errores de conexión
+    // ----------------------------------------------------------------
+    console.error(error); // Loguea el error en consola
     msg.style.color = "#ffdddd";
     msg.textContent = "Error de conexión con el servidor.";
   }

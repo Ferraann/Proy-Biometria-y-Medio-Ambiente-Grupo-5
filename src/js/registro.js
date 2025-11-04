@@ -5,89 +5,98 @@ DESCRIPCIÓN: Script para gestionar el registro de nuevos usuarios en la
              plataforma AITHER. Valida los datos del formulario y 
              envía la información al servidor mediante una petición asíncrona.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
-FECHA: 03/11/2025
-AUTOR: [Tu nombre aquí]
+FECHA: 04/11/2025
+AUTOR: Sergi y Manuel
 APORTACIÓN: Implementación de la lógica de validación de campos y comunicación 
             con el backend PHP para registrar usuarios desde el formulario.
 ===============================================================================
 */
 
-// -----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 // DECLARACIÓN DE VARIABLES
-// DISEÑO LÓGICO: Referencias a los elementos del formulario y del área de mensajes.
-// DESCRIPCIÓN: Permiten manipular los datos ingresados por el usuario y mostrar 
-// respuestas visuales durante el proceso de registro.
+// ------------------------------------------------------------------
+// Captura de referencias a los elementos HTML del formulario y 
+// área donde se mostrarán los mensajes de error o éxito.
 const form = document.getElementById("registreForm");
 const msg = document.getElementById("message");
 
-// -----------------------------------------------------------------------------
+// ------------------------------------------------------------------
 // FUNCIÓN: Evento 'submit' del formulario
-// DISEÑO LÓGICO: Controla el envío del formulario, validando los campos, 
-// evitando el comportamiento por defecto y gestionando la petición al servidor.
-// DESCRIPCIÓN: Comprueba que todos los campos estén completos, prepara la 
-// información en un objeto FormData y la envía de forma asíncrona al backend.
+// ------------------------------------------------------------------
+// Se ejecuta al enviar el formulario, previene el comportamiento 
+// por defecto, valida los campos y realiza una petición asincrónica
+// al backend usando fetch.
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // Evita recargar la página al enviar el formulario
-  msg.textContent = ""; // Limpia mensajes anteriores
+  e.preventDefault(); // Evita que el formulario recargue la página
+  msg.textContent = ""; // Limpia cualquier mensaje previo
 
-  // Captura y limpieza de los valores introducidos por el usuario
+  // ----------------------------------------------------------------
+  // Captura y limpieza de valores ingresados por el usuario
+  // ----------------------------------------------------------------
   const nombre = document.getElementById("nombre").value.trim();
   const apellidos = document.getElementById("apellido").value.trim();
   const email = document.getElementById("gmail").value.trim();
   const password = document.getElementById("password").value.trim();
 
-  // ---------------------------------------------------------------------------
-  // BLOQUE: Validación de campos
-  // DISEÑO LÓGICO: Verifica que ningún campo esté vacío antes de continuar.
-  // DESCRIPCIÓN: Si falta algún dato, muestra un mensaje de advertencia y detiene el proceso.
+  // ----------------------------------------------------------------
+  // Validación básica de campos vacíos
+  // ----------------------------------------------------------------
   if (!nombre || !apellidos || !email || !password) {
     msg.style.color = "#ff0000ff";
     msg.textContent = "Por favor, rellena todos los campos.";
-    return;
+    return; // Detiene la ejecución si hay campos vacíos
   }
 
-  // ---------------------------------------------------------------------------
-  // BLOQUE: Creación del objeto FormData
-  // DISEÑO LÓGICO: Prepara los datos del formulario en formato adecuado para el envío.
-  // DESCRIPCIÓN: Añade las claves esperadas por el backend con los valores introducidos.
-  const formData = new FormData();
-  formData.append("Nombre", nombre);
-  formData.append("Apellidos", apellidos);
-  formData.append("Email", email);
-  formData.append("Contrasenya", password);
+  // ----------------------------------------------------------------
+  // Preparación de datos para enviar al backend
+  // ----------------------------------------------------------------
+  // Se crea un objeto JSON que incluye la acción 'registrarUsuario' 
+  // que identifica la petición en el backend, y los datos del usuario.
+  const payload = {
+    accion: "registrarUsuario",
+    nombre: nombre,
+    apellidos: apellidos,
+    gmail: email,
+    password: password
+  };
 
   try {
-    // -------------------------------------------------------------------------
-    // BLOQUE: Petición asíncrona al servidor
-    // DISEÑO LÓGICO: Envía los datos del formulario mediante POST al endpoint PHP.
-    // DESCRIPCIÓN: Se comunica con el backend y espera la respuesta en formato JSON.
+    // ----------------------------------------------------------------
+    // Petición asincrónica al servidor
+    // ----------------------------------------------------------------
+    // Se envía la información mediante POST como JSON, y se espera 
+    // la respuesta en formato JSON.
     const response = await fetch("../api/index.php", {
       method: "POST",
-      body: formData
+      headers: {
+        "Content-Type": "application/json" // Especifica que enviamos JSON
+      },
+      body: JSON.stringify(payload) // Convertimos el objeto a JSON
     });
 
-    const data = await response.json(); // Convierte la respuesta a formato JSON
+    // ----------------------------------------------------------------
+    // Procesamiento de la respuesta del servidor
+    // ----------------------------------------------------------------
+    const data = await response.json(); // Convertimos la respuesta a JSON
 
-    // -------------------------------------------------------------------------
-    // BLOQUE: Procesamiento de la respuesta del servidor
-    // DISEÑO LÓGICO: Analiza si el registro fue exitoso o fallido.
-    // DESCRIPCIÓN: Muestra un mensaje visual acorde al resultado y 
-    // redirige al usuario al login tras un breve retraso si el registro es correcto.
+    // Verificamos si la petición fue exitosa según la API
     if (data.status === "ok") {
       msg.style.color = "green";
       msg.textContent = data.message || "Registro exitoso.";
+
+      // Redirigimos al login tras 1.5 segundos
       setTimeout(() => window.location.href = "login.html", 1500);
     } else {
+      // Mostramos mensaje de error si ocurrió algún problema
       msg.style.color = "#ff0000ff";
       msg.textContent = data.message || "Error en el registro.";
     }
 
   } catch (error) {
-    // -------------------------------------------------------------------------
-    // BLOQUE: Manejo de errores
-    // DISEÑO LÓGICO: Controla excepciones durante la comunicación con el servidor.
-    // DESCRIPCIÓN: Informa al usuario de fallos de conexión o errores inesperados.
-    console.error(error);
+    // ----------------------------------------------------------------
+    // Manejo de errores de conexión
+    // ----------------------------------------------------------------
+    console.error(error); // Loguea el error en consola
     msg.style.color = "#ff0000ff";
     msg.textContent = "Error de conexión con el servidor.";
   }

@@ -1,8 +1,8 @@
 <?php
 // ------------------------------------------------------------------
 // Fichero: logicaNegocio.php
-// Autor: Pablo
-// Coautor: Manuel
+// Autor: Manuel
+// Coautor: Pablo
 // Fecha: 30/10/2025
 // ------------------------------------------------------------------
 // Descripción:
