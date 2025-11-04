@@ -6,7 +6,7 @@ DESCRIPCIÓN: Script de validación y envío del formulario de inicio de sesión
              conexión con el servidor PHP y redirección a la página principal.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
 FECHA: 04/11/2025
-AUTOR: Sergi y Manuel
+AUTORES: Sergi y Manuel
 APORTACIÓN: Implementación del manejo de eventos del formulario de login, 
             validación de datos y comunicación asincrónica con el servidor.
 ===============================================================================
@@ -20,23 +20,23 @@ const form = document.getElementById("loginForm");
 const msg = document.getElementById("message");
 
 // ------------------------------------------------------------------
-// FUNCIÓN: Evento 'submit' del formulario
+// FUNCIÓN PRINCIPAL: Evento 'submit' del formulario
 // ------------------------------------------------------------------
 // Se ejecuta al enviar el formulario, previene el comportamiento 
 // por defecto, valida los campos y realiza una petición asincrónica
 // al backend usando fetch.
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // Evita que el formulario recargue la página
+  e.preventDefault(); // Evita el comportamiento por defecto (recargar página)
   msg.textContent = ""; // Limpia cualquier mensaje previo
 
   // ----------------------------------------------------------------
-  // Captura y limpieza de valores ingresados por el usuario
+  // CAPTURA DE DATOS DEL FORMULARIO
   // ----------------------------------------------------------------
   const email = document.getElementById("gmail").value.trim();
   const password = document.getElementById("password").value.trim();
 
   // ----------------------------------------------------------------
-  // Validación básica de campos vacíos
+  // VALIDACIÓN BÁSICA
   // ----------------------------------------------------------------
   if (!email || !password) {
     msg.style.color = "#ffdddd";
@@ -45,7 +45,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   // ----------------------------------------------------------------
-  // Preparación de datos para enviar al backend
+  // PREPARACIÓN DE DATOS PARA EL BACKEND
   // ----------------------------------------------------------------
   // Se crea un objeto JSON que incluye la acción 'login' que
   // identifica la petición en el backend, y los datos del usuario.
@@ -57,7 +57,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     // ----------------------------------------------------------------
-    // Petición asincrónica al servidor
+    // PETICIÓN ASINCRÓNICA AL SERVIDOR
     // ----------------------------------------------------------------
     // Se envía la información mediante POST como JSON, y se
     // espera la respuesta en formato JSON.
@@ -69,18 +69,30 @@ form.addEventListener("submit", async (e) => {
       body: JSON.stringify(payload) // Convertimos el objeto a JSON
     });
 
-    // ----------------------------------------------------------------
-    // Procesamiento de la respuesta del servidor
-    // ----------------------------------------------------------------
-    const data = await response.json(); // Convertimos la respuesta a JSON
+    // Si el servidor devuelve algo inesperado (por ejemplo HTML de error)
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
 
-    // Verificamos si la petición fue exitosa según la API
+    const data = await response.json();
+
+    // ----------------------------------------------------------------
+    // PROCESAMIENTO DE LA RESPUESTA
+    // ----------------------------------------------------------------
     if (data.status === "ok") {
-      // Guardamos información del usuario en localStorage si existe
-      if (data.user) localStorage.setItem("user", JSON.stringify(data.user));
+      msg.style.color = "green";
+      msg.textContent = data.message || "Inicio de sesión exitoso.";
 
-      // Redirigimos a la página principal del dashboard
-      window.location.href = "dashboard.html";
+      // Guarda los datos del usuario si el backend los devuelve
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
+
+      // Redirige al dashboard tras 1.5 segundos
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 1500);
+
     } else {
       // Mostramos mensaje de error si credenciales son incorrectas
       msg.style.color = "#ffdddd";
@@ -88,10 +100,10 @@ form.addEventListener("submit", async (e) => {
     }
   } catch (error) {
     // ----------------------------------------------------------------
-    // Manejo de errores de conexión
+    // MANEJO DE ERRORES DE CONEXIÓN
     // ----------------------------------------------------------------
-    console.error(error); // Loguea el error en consola
-    msg.style.color = "#ffdddd";
+    console.error("Error de conexión o formato inválido:", error);
+    msg.style.color = "#ff0000ff";
     msg.textContent = "Error de conexión con el servidor.";
   }
 });
