@@ -1,6 +1,5 @@
-package com.example.pachacaj.myapplication.activitys;
-
-import static com.example.pachacaj.myapplication.logicaNegocioAndroid.LogicaNegocio.PostRegistro;
+package com.example.grupo5.androidapp;
+import static com.example.grupo5.androidapp.LogicaNegocio.PostRegistro;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pachacaj.myapplication.R;
+import com.example.grupo5.androidapp.R;
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
 // Autor: Pablo Chasi
@@ -23,16 +22,14 @@ import com.example.pachacaj.myapplication.R;
 //  se enviara los datos a traves de Retrofit al servidor web.
 //  Donde se guardara y se usara posteriormente.
 // ------------------------------------------------------------------
-
-public class RegistrarseActivity extends AppCompatActivity {
-
+public class RegistroActivity extends AppCompatActivity{
     //Formulario del layout donde se trabaja
     EditText Usuario,Apellidos,Email,Contrasenya;
 
     //Metodo onCreate donde se ejecuta lo principal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.registrarse);
+        setContentView(R.layout.activity_registro);
 
         //Obtengo los edit text por su id que yo le he piesto
         Usuario = findViewById(R.id.NombreUsuario);
@@ -68,3 +65,7 @@ public class RegistrarseActivity extends AppCompatActivity {
 
     }
 }
+
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------

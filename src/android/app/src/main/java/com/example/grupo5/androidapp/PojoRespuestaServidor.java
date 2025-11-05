@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication.logicaNegocioAndroid;
+package com.example.grupo5.androidapp;
 
 //------------------------------------------------------------------
 // Fichero: PojoRespuestaServidor
@@ -22,3 +22,7 @@ public class PojoRespuestaServidor {
         return mensaje;
     }
 }
+
+//---------------------------------------------------------
+//---------------------------------------------------------
+

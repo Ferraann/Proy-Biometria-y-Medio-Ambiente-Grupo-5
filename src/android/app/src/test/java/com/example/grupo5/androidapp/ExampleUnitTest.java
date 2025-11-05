@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication;
+package com.example.grupo5.androidapp;
 
 import org.junit.Test;
 

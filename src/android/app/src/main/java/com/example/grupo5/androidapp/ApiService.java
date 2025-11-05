@@ -1,6 +1,5 @@
-package com.example.pachacaj.myapplication.configuracionApi;
-
-import com.example.pachacaj.myapplication.logicaNegocioAndroid.PojoRespuestaServidor;
+package com.example.grupo5.androidapp;
+import com.example.grupo5.androidapp.PojoRespuestaServidor;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -17,8 +16,6 @@ import retrofit2.http.POST;
 //  Interfaz donde se declara las peticiones HTTP y las variables que
 //  se usaran y enviaran.
 // ------------------------------------------------------------------
-
-
 public interface ApiService {
     //Metodo post para hacer el login
     //lo que se pretende es enviar y no
@@ -26,10 +23,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("index.php")
     Call<PojoRespuestaServidor> datosRegistro(
-        @Field("Nombre") String nombre,
-        @Field("Apellidos") String apellidos,
-        @Field("Email") String email,
-        @Field("Contrasenya") String contrasenya
+            @Field("Nombre") String nombre,
+            @Field("Apellidos") String apellidos,
+            @Field("Email") String email,
+            @Field("Contrasenya") String contrasenya
     );
 
     @FormUrlEncoded

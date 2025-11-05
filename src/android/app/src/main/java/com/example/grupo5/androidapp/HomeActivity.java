@@ -1,14 +1,12 @@
-package com.example.pachacaj.myapplication.activitys;
+package com.example.grupo5.androidapp;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.pachacaj.myapplication.R;
-
+import com.example.grupo5.androidapp.R;
 public class HomeActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,3 +21,4 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 }
+

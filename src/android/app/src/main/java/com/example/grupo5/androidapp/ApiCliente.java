@@ -1,4 +1,4 @@
-package com.example.pachacaj.myapplication.configuracionApi;
+package com.example.grupo5.androidapp;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -17,7 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 //  Android con un servidor web o Api. Ademas, se declararan los metodos
 //  de las apps.
 // ------------------------------------------------------------------
-
 public class ApiCliente {
     //Declaro mi ip
     private static final String urlLocal = "http://10.75.83.115/Proyecto-Biometria-Grupo-5/src/api/";
@@ -48,3 +47,4 @@ public class ApiCliente {
     }
 
 }
+

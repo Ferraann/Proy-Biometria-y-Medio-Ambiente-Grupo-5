@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.pachacaj.myapplication'
+    namespace 'com.example.grupo5.androidapp'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.pachacaj.myapplication"
+        applicationId "com.example.grupo5.androidapp"
         minSdk 24
         targetSdk 34
         versionCode 1
