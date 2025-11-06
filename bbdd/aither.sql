@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-10-2025 a las 16:33:32
+-- Tiempo de generación: 06-11-2025 a las 13:25:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,23 +24,43 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `credenciales`
+-- Estructura de tabla para la tabla `administradores`
 --
 
-CREATE TABLE `credenciales` (
+CREATE TABLE `administradores` (
   `id` int(11) NOT NULL,
-  `credencial` text NOT NULL,
-  `permisos` text DEFAULT NULL
+  `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `credenciales`
+-- Volcado de datos para la tabla `administradores`
 --
 
-INSERT INTO `credenciales` (`id`, `credencial`, `permisos`) VALUES
-(1, 'General', 'Acceso básico a sensores y perfil personal'),
-(2, 'Técnico', 'Gestión de incidencias y soporte de sensores'),
-(3, 'Administrador', 'Acceso completo a todos los módulos del sistema');
+INSERT INTO `administradores` (`id`, `usuario_id`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_incidencia`
+--
+
+CREATE TABLE `estado_incidencia` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_incidencia`
+--
+
+INSERT INTO `estado_incidencia` (`id`, `nombre`, `descripcion`) VALUES
+(1, 'Abierta', 'Incidencia recién creada'),
+(2, 'Asignada', 'Asignada a un técnico'),
+(3, 'En curso', 'Actualmente en resolución'),
+(4, 'Cerrada', 'Incidencia resuelta y finalizada'),
+(5, 'Cancelada', 'Incidencia anulada o inválida');
 
 -- --------------------------------------------------------
 
@@ -68,8 +88,29 @@ CREATE TABLE `incidencias` (
   `descripcion` text DEFAULT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp(),
   `fecha_finalizacion` timestamp NULL DEFAULT NULL,
-  `activa` tinyint(1) DEFAULT 1
+  `estado_id` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Disparadores `incidencias`
+--
+DELIMITER $$
+CREATE TRIGGER `trg_actualizar_fecha_cierre` BEFORE UPDATE ON `incidencias` FOR EACH ROW BEGIN
+  DECLARE idCerrada INT;
+
+  -- Buscar el ID del estado 'Cerrada'
+  SELECT id INTO idCerrada 
+  FROM estado_incidencia 
+  WHERE nombre = 'Cerrada' 
+  LIMIT 1;
+
+  -- Si cambia a estado Cerrada, registrar la fecha de finalización
+  IF NEW.estado_id = idCerrada AND OLD.estado_id <> idCerrada THEN
+    SET NEW.fecha_finalizacion = NOW();
+  END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -95,8 +136,28 @@ CREATE TABLE `medicion` (
 CREATE TABLE `sensor` (
   `id` int(11) NOT NULL,
   `mac` varchar(50) NOT NULL,
+  `modelo` varchar(100) DEFAULT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
   `problema` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tecnicos`
+--
+
+CREATE TABLE `tecnicos` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tecnicos`
+--
+
+INSERT INTO `tecnicos` (`id`, `usuario_id`) VALUES
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -123,7 +184,6 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(150) DEFAULT NULL,
   `gmail` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `credencial_id` int(11) DEFAULT NULL,
   `biometria` mediumblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -131,10 +191,10 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `gmail`, `password`, `credencial_id`, `biometria`) VALUES
-(1, 'Manuel', 'Pérez Garcia', 'mpergar9@upv.edu', 'pablothegoat', 3, NULL),
-(2, 'Greycy', 'Burgos Salazar', 'grey@gmail.com', 'asdfghjkl', 2, NULL),
-(3, 'Pablo', 'BoxMark', 'palomaperu@gmail.com', 'qwertyuiop', 1, NULL);
+INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `gmail`, `password`, `biometria`) VALUES
+(1, 'Manuel', 'Pérez Garcia', 'mpergar9@upv.edu', 'pablothegoat', NULL),
+(2, 'Greycy', 'Burgos Salazar', 'grey@gmail.com', 'asdfghjkl', NULL),
+(3, 'Pablo', 'BoxMark', 'palomaperu@gmail.com', 'qwertyuiop', NULL);
 
 -- --------------------------------------------------------
 
@@ -148,7 +208,8 @@ CREATE TABLE `usuario_sensor` (
   `sensor_id` int(11) NOT NULL,
   `actual` tinyint(1) DEFAULT 1,
   `inicio_relacion` timestamp NOT NULL DEFAULT current_timestamp(),
-  `fin_relacion` timestamp NULL DEFAULT NULL
+  `fin_relacion` timestamp NULL DEFAULT NULL,
+  `comentario` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -156,9 +217,16 @@ CREATE TABLE `usuario_sensor` (
 --
 
 --
--- Indices de la tabla `credenciales`
+-- Indices de la tabla `administradores`
 --
-ALTER TABLE `credenciales`
+ALTER TABLE `administradores`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario_id` (`usuario_id`);
+
+--
+-- Indices de la tabla `estado_incidencia`
+--
+ALTER TABLE `estado_incidencia`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -173,9 +241,10 @@ ALTER TABLE `fotos_incidencia`
 --
 ALTER TABLE `incidencias`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idx_incidencias_activa` (`activa`),
   ADD KEY `idx_incidencias_usuarios` (`id_tecnico`,`id_user`),
-  ADD KEY `fk_incidencias_user` (`id_user`);
+  ADD KEY `fk_incidencias_user` (`id_user`),
+  ADD KEY `fk_incidencias_estado` (`estado_id`),
+  ADD KEY `idx_incidencias_fecha` (`fecha_creacion`);
 
 --
 -- Indices de la tabla `medicion`
@@ -193,6 +262,13 @@ ALTER TABLE `sensor`
   ADD UNIQUE KEY `mac` (`mac`);
 
 --
+-- Indices de la tabla `tecnicos`
+--
+ALTER TABLE `tecnicos`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario_id` (`usuario_id`);
+
+--
 -- Indices de la tabla `tipo_medicion`
 --
 ALTER TABLE `tipo_medicion`
@@ -204,7 +280,7 @@ ALTER TABLE `tipo_medicion`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `gmail` (`gmail`),
-  ADD KEY `credencial_id` (`credencial_id`);
+  ADD KEY `idx_usuario_gmail` (`gmail`);
 
 --
 -- Indices de la tabla `usuario_sensor`
@@ -212,17 +288,25 @@ ALTER TABLE `usuario`
 ALTER TABLE `usuario_sensor`
   ADD PRIMARY KEY (`id_relacion`),
   ADD KEY `sensor_id` (`sensor_id`),
-  ADD KEY `idx_usuario_sensor_actual` (`usuario_id`,`actual`);
+  ADD KEY `idx_usuario_sensor_actual` (`usuario_id`,`actual`),
+  ADD KEY `idx_usuario_sensor_usuario` (`usuario_id`),
+  ADD KEY `idx_usuario_sensor_sensor` (`sensor_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `credenciales`
+-- AUTO_INCREMENT de la tabla `administradores`
 --
-ALTER TABLE `credenciales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `administradores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_incidencia`
+--
+ALTER TABLE `estado_incidencia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `fotos_incidencia`
@@ -249,6 +333,12 @@ ALTER TABLE `sensor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `tecnicos`
+--
+ALTER TABLE `tecnicos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `tipo_medicion`
 --
 ALTER TABLE `tipo_medicion`
@@ -271,6 +361,12 @@ ALTER TABLE `usuario_sensor`
 --
 
 --
+-- Filtros para la tabla `administradores`
+--
+ALTER TABLE `administradores`
+  ADD CONSTRAINT `fk_admin_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `fotos_incidencia`
 --
 ALTER TABLE `fotos_incidencia`
@@ -280,6 +376,7 @@ ALTER TABLE `fotos_incidencia`
 -- Filtros para la tabla `incidencias`
 --
 ALTER TABLE `incidencias`
+  ADD CONSTRAINT `fk_incidencias_estado` FOREIGN KEY (`estado_id`) REFERENCES `estado_incidencia` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_incidencias_tecnico` FOREIGN KEY (`id_tecnico`) REFERENCES `usuario` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_incidencias_user` FOREIGN KEY (`id_user`) REFERENCES `usuario` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
@@ -291,10 +388,10 @@ ALTER TABLE `medicion`
   ADD CONSTRAINT `medicion_ibfk_2` FOREIGN KEY (`sensor_id`) REFERENCES `sensor` (`id`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuario`
+-- Filtros para la tabla `tecnicos`
 --
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`credencial_id`) REFERENCES `credenciales` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `tecnicos`
+  ADD CONSTRAINT `fk_tecnico_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario_sensor`
