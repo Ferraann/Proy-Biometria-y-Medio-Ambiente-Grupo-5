@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - AÏTHER</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f6f7fb;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #5074c7;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: white;
+            margin-left: 30px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-section span {
+            font-weight: bold;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            padding: 40px;
+        }
+
+        h2 {
+            color: #224cb0;
+            font-size: 20px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            background-color: #c5d2f0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #2d3e73;
+            font-size: 16px;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-item label {
+            font-weight: bold;
+            width: 150px;
+        }
+
+        .info-item span {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .edit-icon {
+            width: 18px;
+            height: 18px;
+            fill: #224cb0;
+            cursor: pointer;
+            transition: fill 0.2s;
+        }
+
+        .edit-icon:hover {
+            fill: #1a3690;
+        }
+
+        .save-button {
+            margin-top: 20px;
+            background-color: #224cb0;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            align-self: flex-start;
+        }
+
+        hr {
+            margin: 30px 0;
+            border: 0.5px solid #ccc;
+        }
+
+        /* SENSOR TABS */
+        .tabs {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-weight: bold;
+            color: #224cb0;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding-bottom: 5px;
+        }
+
+        .divider {
+            width: 1px;
+            height: 20px;
+            background-color: #ccc;
+        }
+
+        .tab-content {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">AÏTHER</div>
+        <nav>
+            <a href="#">MIS SENSORES</a>
+            <a href="#">SOPORTE TÉCNICO</a>
+        </nav>
+        <div class="user-section">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="User" width="35">
+            <span>NOMBRE A.P</span>
+        </div>
+    </header>
+
+    <main>
+        <h2>EDITAR PERFIL</h2>
+
+        <div class="profile-section">
+            <div class="profile-photo">Foto</div>
+            <div class="profile-info">
+                <div class="info-item">
+                    <label>Nombre:</label>
+                    <span>Nombre Ejemplo</span>
+                    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM21.41 
+                                 6.34a1.25 1.25 0 0 0 0-1.77l-2.99-2.99a1.25 1.25 0 0 0-1.77 
+                                 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                    </svg>
+                </div>
+
+                <div class="info-item">
+                    <label>Correo Electrónico:</label>
+                    <span>usuario@correo.com</span>
+                    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM21.41 
+                                 6.34a1.25 1.25 0 0 0 0-1.77l-2.99-2.99a1.25 1.25 0 0 0-1.77 
+                                 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                    </svg>
+                </div>
+
+                <div class="info-item">
+                    <label>Contraseña:</label>
+                    <span>********</span>
+                    <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM21.41 
+                                 6.34a1.25 1.25 0 0 0 0-1.77l-2.99-2.99a1.25 1.25 0 0 0-1.77 
+                                 0l-1.83 1.83 3.75 3.75 1.84-1.82z"/>
+                    </svg>
+                </div>
+
+                <button class="save-button">GUARDAR</button>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="tabs">
+            <div class="tab">Sensor 1</div>
+            <div class="divider"></div>
+            <div class="tab">Sensor 2</div>
+        </div>
+
+        <div class="tab-content">
+            <ul>
+                <li><strong>ID del sensor:</strong></li>
+                <li><strong>Fecha de inicio:</strong></li>
+                <li><strong>Batería restante:</strong></li>
+                <li><strong>Incidencias antiguas:</strong></li>
+            </ul>
+        </div>
+    </main>
+
+</body>
+</html>
