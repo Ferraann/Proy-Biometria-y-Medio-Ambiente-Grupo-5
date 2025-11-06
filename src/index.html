@@ -1,15 +1,40 @@
+<!-- ============================================================
+     ARCHIVO: index.html
+     DESCRIPCIÓN: Página inicial del sistema AITHER. 
+     Permite al usuario acceder a las opciones principales 
+     de "Login" e "Registro".
+     AUTOR: [Tu nombre aquí]
+     FECHA: 03/11/2025
+     COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+     APORTACIÓN: Punto de entrada visual del sistema.
+     ============================================================ -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <!-- Define el tipo de documento HTML5 -->
+  <meta charset="UTF-8"> <!-- Codificación de caracteres en UTF-8 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AITHER - Inicia sesión</title>
+  <!-- Hace que el sitio sea responsive (se adapta a móviles) -->
+
+  <title>AITHER - Inicia sesión</title> <!-- Título que aparece en la pestaña del navegador -->
+
+  <!-- Vincula la hoja de estilos externa -->
   <link rel="stylesheet" href="../css/index.css?v=1">
+
+  <!-- Vincula el script de JavaScript, que se carga después del HTML -->
   <script src="../js/login.js" defer></script>
 </head>
-<body>
-  <a href="./html/login.html"><button>Login</button></a>
-  <a href="./html/registro.html"><button>Registro</button></a>
 
+<body>
+  <!-- Enlace al formulario de inicio de sesión -->
+  <a href="./html/login.html">
+    <button>Login</button> <!-- Botón para acceder al login -->
+  </a>
+
+  <!-- Enlace al formulario de registro -->
+  <a href="./html/registro.html">
+    <button>Registro</button> <!-- Botón para acceder al registro -->
+  </a>
 </body>
 </html>
