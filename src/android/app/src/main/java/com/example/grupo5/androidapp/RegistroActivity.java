@@ -3,6 +3,8 @@ import static com.example.grupo5.androidapp.LogicaNegocio.PostRegistro;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -24,7 +26,13 @@ import com.example.grupo5.androidapp.R;
 // ------------------------------------------------------------------
 public class RegistroActivity extends AppCompatActivity{
     //Formulario del layout donde se trabaja
-    EditText Usuario,Apellidos,Email,Contrasenya;
+    EditText Usuario,Apellidos,Email,Contrasenya,RepetirContrasenya;
+
+    //Regex que me permite confirma que la contraseña es segura.
+    String regexTieneMayuscula = "^(?=.*[A-Z]).+$";
+    String regexTieneSimbologia = "^(?=.*\\d).+$";
+    String regexTieneNumeros = "^(?=.*[$@€!%*?&]).+$";
+    String regexTieneMasDe8Numeros = "^{8,}$";
 
     //Metodo onCreate donde se ejecuta lo principal
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +44,14 @@ public class RegistroActivity extends AppCompatActivity{
         Apellidos = findViewById(R.id.ApellidosUsuario);
         Email = findViewById(R.id.EmailUsuario);
         Contrasenya = findViewById(R.id.ContrasenyaUsuario);
+        RepetirContrasenya = findViewById(R.id.RepetirContrasenyaUsuario);
+
+        verificarContrasenya();
     }
 
     //Boton para enviar los datos al servidor
     public void botonEnviarDatos(View v){
-        Log.d("MainActivity", "Mensaje de depuración");
-        Log.d("Usuario", Usuario.getText().toString());
-        Log.d("apellido ", Apellidos.getText().toString());
-        Log.d("email", Email.getText().toString());
-        Log.d("contrasenya", Contrasenya.getText().toString());
+        Log.d("contrasenya", RepetirContrasenya.getText().toString());
 
         // validación que comprueba que si hay alguno que está vacio no se ejecuta la sentencia sql.
         if (Usuario.getText().toString().isEmpty() || Apellidos.getText().toString().isEmpty() || Email.getText().toString().isEmpty() || Contrasenya.getText().toString().isEmpty()) {
@@ -62,7 +69,36 @@ public class RegistroActivity extends AppCompatActivity{
 
         PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString(),this);
 
+    }
 
+    public void verificarContrasenya(){
+        Contrasenya.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(Contrasenya.getText().toString().matches(regexTieneMayuscula)){
+                    Log.d("Regex","Tiene mayusculas");
+                }
+                if(Contrasenya.getText().toString().matches(regexTieneNumeros)){
+                    Log.d("Regex","Tiene numeros");
+                }
+                if(Contrasenya.getText().toString().matches(regexTieneMasDe8Numeros)){
+                    Log.d("Regex","Tiene mas de 8 numeros");
+                }
+                if(Contrasenya.getText().toString().matches(regexTieneSimbologia)){
+                    Log.d("Regex","Tiene simbologia");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }
 
