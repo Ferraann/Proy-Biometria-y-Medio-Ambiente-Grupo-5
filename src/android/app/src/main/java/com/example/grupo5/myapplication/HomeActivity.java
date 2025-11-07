@@ -1,11 +1,11 @@
-package com.example.grupo5.androidapp;
+package com.example.grupo5.myapplication;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

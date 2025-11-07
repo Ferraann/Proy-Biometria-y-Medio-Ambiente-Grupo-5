@@ -1,7 +1,6 @@
-package com.example.grupo5.androidapp;
-import static com.example.grupo5.androidapp.LogicaNegocio.PostRegistro;
+package com.example.grupo5.myapplication;
+import static com.example.grupo5.myapplication.LogicaNegocio.PostRegistro;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
 // Autor: Pablo Chasi
