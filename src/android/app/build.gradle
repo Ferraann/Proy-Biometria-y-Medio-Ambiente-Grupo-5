@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.grupo5.androidapp'
+    namespace 'com.example.grupo5.myapplication'
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.example.grupo5.androidapp"
+        applicationId "com.example.grupo5.myapplication"
         minSdk 24
         targetSdk 34
         versionCode 1

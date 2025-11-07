@@ -1,15 +1,14 @@
-package com.example.grupo5.androidapp;
-import static androidx.core.content.ContextCompat.startActivity;
+package com.example.grupo5.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.grupo5.androidapp.BTLEActivity;
-import com.example.grupo5.androidapp.HomeActivity;
-import com.example.grupo5.androidapp.ApiCliente;
-import com.example.grupo5.androidapp.ApiService;
+import com.example.grupo5.myapplication.BTLEActivity;
+import com.example.grupo5.myapplication.HomeActivity;
+import com.example.grupo5.myapplication.ApiCliente;
+import com.example.grupo5.myapplication.ApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -1,4 +1,4 @@
-package com.example.grupo5.androidapp;
+package com.example.grupo5.myapplication;
 
 import static android.bluetooth.le.ScanSettings.SCAN_MODE_LOW_LATENCY;
 
@@ -19,11 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.grupo5.androidapp.TramaIBeacon;
-import com.example.grupo5.androidapp.Utilidades;
-import com.example.grupo5.androidapp.R;
-import com.example.grupo5.androidapp.ApiCliente;
-import com.example.grupo5.androidapp.ApiService;
+import com.example.grupo5.myapplication.TramaIBeacon;
+import com.example.grupo5.myapplication.Utilidades;
+import com.example.grupo5.myapplication.R;
+import com.example.grupo5.myapplication.ApiCliente;
+import com.example.grupo5.myapplication.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
