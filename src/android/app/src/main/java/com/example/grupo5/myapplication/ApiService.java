@@ -1,5 +1,5 @@
-package com.example.grupo5.androidapp;
-import com.example.grupo5.androidapp.PojoRespuestaServidor;
+package com.example.grupo5.myapplication;
+import com.example.grupo5.myapplication.PojoRespuestaServidor;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

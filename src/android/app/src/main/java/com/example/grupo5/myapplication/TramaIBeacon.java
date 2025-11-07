@@ -1,4 +1,4 @@
-package com.example.grupo5.androidapp;
+package com.example.grupo5.myapplication;
 import java.util.Arrays;
 
 // -----------------------------------------------------------------------------------
