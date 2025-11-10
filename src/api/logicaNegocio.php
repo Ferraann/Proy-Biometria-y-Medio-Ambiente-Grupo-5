@@ -288,25 +288,42 @@ function crearIncidencia($conn, $data) {
         return ["status" => "error", "message" => "Faltan parámetros."];
     }
 
-    $sql = "INSERT INTO incidencias (id_user, titulo, descripcion) VALUES (?, ?, ?)";
+    // Buscar dinámicamente el estado "Abierta"
+    $sqlEstado = "SELECT id FROM estado_incidencia WHERE nombre = 'Abierta' LIMIT 1";
+    $resEstado = $conn->query($sqlEstado);
+    $estadoRow = $resEstado ? $resEstado->fetch_assoc() : null;
+    $estadoInicial = $estadoRow ? $estadoRow['id'] : 1; // fallback por seguridad
+
+    // Insertar la nueva incidencia
+    $sql = "INSERT INTO incidencias (id_user, titulo, descripcion, estado_id) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $data['id_user'], $data['titulo'], $data['descripcion']);
+    $stmt->bind_param("issi", $data['id_user'], $data['titulo'], $data['descripcion'], $estadoInicial);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "id_incidencia" => $conn->insert_id];
+        return [
+            "status" => "ok",
+            "id_incidencia" => $conn->insert_id,
+            "message" => "Incidencia creada correctamente con estado inicial 'Abierta'."
+        ];
     } else {
-        return ["status" => "error", "message" => "Error al registrar incidencia: " . $conn->error];
+        return [
+            "status" => "error",
+            "message" => "Error al registrar incidencia: " . $conn->error
+        ];
     }
 }
+
+
 
 // -------------------------------------------------------------
 // FUNCIÓN 11: Obtener incidencias activas
 // -------------------------------------------------------------
 function obtenerIncidenciasActivas($conn) {
-    $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion
+    $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion, e.nombre AS estado
             FROM incidencias i
             LEFT JOIN usuario u ON i.id_user = u.id
-            WHERE i.activa = 1
+            LEFT JOIN estado_incidencia e ON i.estado_id = e.id
+            WHERE e.nombre NOT IN ('Cerrada', 'Cancelada')
             ORDER BY i.fecha_creacion DESC";
 
     $result = $conn->query($sql);
@@ -317,6 +334,7 @@ function obtenerIncidenciasActivas($conn) {
     return $incidencias;
 }
 
+
 // -------------------------------------------------------------
 // FUNCIÓN 12: Cerrar una incidencia
 // -------------------------------------------------------------
@@ -325,9 +343,16 @@ function cerrarIncidencia($conn, $data) {
         return ["status" => "error", "message" => "Falta el parámetro incidencia_id."];
     }
 
-    $sql = "UPDATE incidencias SET activa = 0, fecha_cierre = NOW() WHERE id = ?";
+    // Obtenemos el ID del estado "Cerrada"
+    $sqlEstado = "SELECT id FROM estado_incidencia WHERE nombre = 'Cerrada' LIMIT 1";
+    $resEstado = $conn->query($sqlEstado);
+    $estadoRow = $resEstado->fetch_assoc();
+    $estadoId = $estadoRow ? $estadoRow['id'] : 4; // fallback por si acaso
+
+    // Actualizamos la incidencia
+    $sql = "UPDATE incidencias SET estado_id = ?, fecha_cierre = NOW() WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $data['incidencia_id']);
+    $stmt->bind_param("ii", $estadoId, $data['incidencia_id']);
 
     if ($stmt->execute()) {
         return ["status" => "ok", "message" => "Incidencia cerrada correctamente."];
@@ -335,6 +360,7 @@ function cerrarIncidencia($conn, $data) {
         return ["status" => "error", "message" => "Error al cerrar incidencia: " . $conn->error];
     }
 }
+
 
 // -------------------------------------------------------------
 // FUNCIÓN 13: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
