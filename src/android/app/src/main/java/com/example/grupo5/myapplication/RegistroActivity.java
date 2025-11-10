@@ -29,9 +29,13 @@ public class RegistroActivity extends AppCompatActivity{
 
     //Regex que me permite confirma que la contraseña es segura.
     String regexTieneMayuscula = "^(?=.*[A-Z]).+$";
-    String regexTieneSimbologia = "^(?=.*\\d).+$";
-    String regexTieneNumeros = "^(?=.*[$@€!%*?&]).+$";
-    String regexTieneMasDe8Numeros = "^{8,}$";
+    String regexTieneNumeros = "^(?=.*\\d).+$";
+    String regexTieneSimbologia = "^(?=.*[$@€!%*?&]).+$";
+    String regexTieneMasDe8Numeros = "^.{8,}$";
+    boolean tieneMayuscula = false;
+    boolean tieneNumeros = false;
+    boolean tiene8oMasCaracteres =false;
+    boolean tieneSimbologia = false;
 
     //Metodo onCreate donde se ejecuta lo principal
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,10 @@ public class RegistroActivity extends AppCompatActivity{
             return;
         }
 
+        if (!tieneMayuscula || !tieneNumeros||!tieneSimbologia||!tiene8oMasCaracteres){
+            Toast.makeText(this, "Por favor, introduce una contraseña segura", Toast.LENGTH_SHORT).show();
+            return;
+        }
         PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString(),this);
 
     }
@@ -81,15 +89,19 @@ public class RegistroActivity extends AppCompatActivity{
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(Contrasenya.getText().toString().matches(regexTieneMayuscula)){
                     Log.d("Regex","Tiene mayusculas");
+                    tieneMayuscula = true;
                 }
                 if(Contrasenya.getText().toString().matches(regexTieneNumeros)){
                     Log.d("Regex","Tiene numeros");
+                    tieneNumeros = true;
                 }
                 if(Contrasenya.getText().toString().matches(regexTieneMasDe8Numeros)){
-                    Log.d("Regex","Tiene mas de 8 numeros");
+                    Log.d("Regex","Tiene mas de 8 caracteres");
+                    tiene8oMasCaracteres = true;
                 }
                 if(Contrasenya.getText().toString().matches(regexTieneSimbologia)){
                     Log.d("Regex","Tiene simbologia");
+                    tieneSimbologia = true;
                 }
             }
 
