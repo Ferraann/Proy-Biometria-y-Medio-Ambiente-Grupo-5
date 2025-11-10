@@ -1,128 +1,140 @@
-<!-- 
+<!--
 ===============================================================================
 NOMBRE: index.html
-DESCRIPCIÓN: Página de inicio de sesión de la plataforma AITHER. 
-             Incluye cabecera con navegación, formulario de login, 
+DESCRIPCIÓN: Página de inicio de sesión de la plataforma AITHER.
+             Incluye cabecera con navegación, formulario de login,
              acceso rápido con redes sociales y enlace de registro.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
 FECHA: 03/11/2025
-AUTOR: [Tu nombre aquí]
-APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión 
+AUTOR: Ferran Sansaloni Prats
+APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
             con enlaces a recursos CSS y JavaScript externos.
 ===============================================================================
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <!-- 
-  ----------------------------------------------------------------------------
-  BLOQUE: <head>
-  DISEÑO LÓGICO: Define los metadatos de la página, enlaces a hojas de estilo 
-  y scripts externos.
-  DESCRIPCIÓN: Configura el título, la codificación y los recursos del documento.
-  ----------------------------------------------------------------------------
-  -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AITHER - Inicia sesión</title>
-  <link rel="stylesheet" href="../css/index.css?v=1">
+  <!-- IMPORTS de CSS y JS -->
+  <link rel="stylesheet" href="../css/libroEstilos.css">
+  <link rel="stylesheet" href="../css/index.css">
+
   <script src="../js/login.js" defer></script>
 </head>
-
 <body>
-  <!-- 
-  ----------------------------------------------------------------------------
-  BLOQUE: <header>
-  DISEÑO LÓGICO: Contiene el logotipo y la barra de navegación principal.
-  DESCRIPCIÓN: Proporciona acceso rápido a secciones informativas y 
-  un botón para iniciar sesión.
-  ----------------------------------------------------------------------------
-  -->
-  <header>
-    <div class="logo">AITHER</div>
-    <nav>
-      <a href="#">SABER MÁS</a>
-      <a href="#">¿QUIÉNES SOMOS?</a>
-      <a href="#">FAQ</a>
-      <button class="btn-login">INICIAR SESIÓN</button>
-    </nav>
-  </header>
+<!--
+----------------------------------------------------------------------------
+BLOQUE: <header>
+DISEÑO LÓGICO: Contiene el logotipo y la barra de navegación principal.
+DESCRIPCIÓN: Proporciona acceso rápido a secciones informativas y
+un botón para iniciar sesión.
+----------------------------------------------------------------------------
+-->
+<header>
+  <a href="#"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+  <nav>
+    <ul>
+      <li><a href="saber_mas.html">SABER MÁS</a></li>
+      <li>
+        <a href="quienes_somos.html">¿QUIÉNES<br> SOMOS?</a>
+      </li>
+      <li><a href="faq.html">FAQ</a></li>
+      <!-- No lleva a ningún sitio porque es el boton de login y ya estamos en login -->
+      <li><a href="login.html">INICIAR SESIÓN</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- 
+<!--
   ----------------------------------------------------------------------------
-  BLOQUE: <main class="login-container">
+  BLOQUE: <main>
   DISEÑO LÓGICO: Contenedor principal del área de inicio de sesión.
   DESCRIPCIÓN: Agrupa el formulario de acceso y el panel de registro alternativo.
   ----------------------------------------------------------------------------
   -->
-  <main class="login-container">
-    <div class="login-box">
+<main>
+  <div class="container" id="container">
+    <!-- Formulario de inicio de sesión -->
+    <div class="container-form sign-in-container">
+      <form action="#" id="loginForm">
+        <h1>INICIA SESIÓN</h1>
+        <div class="container-input">
+          <label for="correo-sign-in">Correo electrónico:</label>
+          <input type="email" placeholder="" id="correo-sign-in">
+        </div>
+        <div class="container-input">
+          <label for="contraseña-sign-in">Contraseña:</label>
+          <input type="password" placeholder="" id="contraseña-sign-in">
+        </div>
+        <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
+        <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
+        <h3 class="divider">Acceso rápido con</h3>
+        <div class="social-networks">
+          <a href="#"><img src="../img/google.png" alt="Logo de Google"></a>
+          <a href="#"><img src="../img/facebook.png" alt="Logo de Facebook"></a>
+          <a href="#"><img src="../img/twitter.png" alt="Logo de Twitter"></a>
+        </div>
+      </form>
+    </div>
 
-      <!-- 
-      ------------------------------------------------------------------------
-      BLOQUE: <div class="login-form">
-      DISEÑO LÓGICO: Formulario de autenticación de usuario.
-      DESCRIPCIÓN: Solicita el correo y la contraseña del usuario e incluye 
-      opciones de recuperación y acceso rápido mediante redes sociales.
-      ------------------------------------------------------------------------
-      -->
-      <div class="login-form">
-        <h2>INICIA SESIÓN</h2>
-        <form id="loginForm">
-          <!-- Campo para el correo electrónico -->
-          <label for="gmail">Correo Electrónico:</label>
-          <input type="email" id="gmail" name="gmail">
-
-          <!-- Campo para la contraseña -->
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password">
-
-          <!-- Enlace para recuperación de contraseña -->
-          <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
-
-          <!-- Botón de envío del formulario -->
-          <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
-
-          <!-- Separador visual para acceso con redes -->
-          <div class="divider">Acceso rápido con</div>
-
-          <!-- Iconos de redes sociales -->
-          <div class="social-icons">
-            <img src="../img/google.svg" alt="Google">
-            <img src="../img/facebook.svg" alt="Facebook">
-            <img src="../img/x.svg" alt="X">
+    <!-- Formulario de registro -->
+    <div class="container-form sign-up-container">
+      <form action="#" id="registerForm">
+        <h1>REGISTRO</h1>
+        <div class="container-input">
+          <label for="nombre">Nombre:</label>
+          <input type="text" placeholder="" id="nombre">
+        </div>
+        <div class="container-input">
+          <label for="apellidos">Apellidos:</label>
+          <input type="text" placeholder="" id="apellidos">
+        </div>
+        <div class="container-input">
+          <label for="correo-sign-up">Correo electrónico:</label>
+          <input type="text" placeholder="" id="correo-sign-up">
+        </div>
+        <div class="container-input">
+          <label for="contraseña-sign-up">Contraseña: </label>
+          <input type="password" placeholder="" id="contraseña-sign-up">
+        </div>
+        <div class="container-input">
+          <label for="confirmar-contraseña-sign-up">Repetir contraseña:</label>
+          <input type="password" placeholder="" id="confirmar-contraseña-sign-up">
+        </div>
+        <div class="politica-btn">
+          <div class="politica">
+            <label class="checkbox-custom">
+              <input type="checkbox" id="checkmark">
+              <span class="checkmark"></span>
+            </label>
+            <h5>Acepto la Política de Privacidad y los Términos de uso</h5>
           </div>
+          <button class="btn-primary">REGÍSTRARSE</button>
+        </div>
+      </form>
+    </div>
 
-          <!-- Mensaje de validación o error -->
-          <p id="message" class="message"></p>
-        </form>
-      </div>
-
-      <!-- 
-      ------------------------------------------------------------------------
-      BLOQUE: <div class="register-panel">
-      DISEÑO LÓGICO: Panel informativo alternativo.
-      DESCRIPCIÓN: Informa al usuario que puede registrarse y 
-      proporciona el enlace a la página de registro.
-      ------------------------------------------------------------------------
-      -->
-      <div class="register-panel">
-        <h3>¿AÚN NO TIENES CUENTA?</h3>
-        <a href="../html/registro.html" class="register-link">REGÍSTRATE AQUÍ</a>
+    <!-- Panel azul deslizante -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <!-- Panel izquierdo (cuando está en registro) -->
+        <div class="overlay-panel overlay-left">
+          <h3>¿YA TIENES UNA CUENTA CREADA? <br> INICIA SESIÓN <span class="btn-secondary" id="signInBtn">AQUÍ</span> </h3>
+        </div>
+        <!-- Panel derecho (cuando está en login) -->
+        <div class="overlay-panel overlay-right">
+          <h3>¿AÚN NO TIENES CUENTA? <br> REGÍSTRATE <span class="btn-secondary" id="signUpBtn">AQUÍ</span></h3>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
-  <!-- 
-  ----------------------------------------------------------------------------
-  BLOQUE: <footer>
-  DISEÑO LÓGICO: Pie de página del documento.
-  DESCRIPCIÓN: Muestra información de derechos de autor de la plataforma AITHER.
-  ----------------------------------------------------------------------------
-  -->
-  <footer>
-    <p>&copy; 2025 AITHER. Todos los derechos reservados.</p>
-  </footer>
+
 </body>
 </html>

@@ -1,109 +1,220 @@
-/* 
-===============================================================================
-NOMBRE: login.js
-DESCRIPCIÓN: Script de validación y envío del formulario de inicio de sesión 
-             de la plataforma AITHER. Controla la verificación de campos, 
-             conexión con el servidor PHP y redirección a la página principal.
-COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
-FECHA: 04/11/2025
-AUTORES: Sergi y Manuel
-APORTACIÓN: Implementación del manejo de eventos del formulario de login, 
-            validación de datos y comunicación asincrónica con el servidor.
-===============================================================================
-*/
-// ------------------------------------------------------------------
-// DECLARACIÓN DE VARIABLES
-// ------------------------------------------------------------------
-// Captura de referencias a los elementos HTML del formulario y 
-// área donde se mostrarán los mensajes de error o éxito.
-const form = document.getElementById("loginForm");
-const msg = document.getElementById("message");
+// ============================
+// AITHER - index.js
+// Control del login, registro y transiciones
+// ============================
 
-// ------------------------------------------------------------------
-// FUNCIÓN PRINCIPAL: Evento 'submit' del formulario
-// ------------------------------------------------------------------
-// Se ejecuta al enviar el formulario, previene el comportamiento 
-// por defecto, valida los campos y realiza una petición asincrónica
-// al backend usando fetch.
-form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // Evita el comportamiento por defecto (recargar página)
-  msg.textContent = ""; // Limpia cualquier mensaje previo
+// ELEMENTOS DEL DOM
+const container = document.getElementById("container");
+const signUpBtn = document.getElementById("signUpBtn");
+const signInBtn = document.getElementById("signInBtn");
 
-  // ----------------------------------------------------------------
-  // CAPTURA DE DATOS DEL FORMULARIO
-  // ----------------------------------------------------------------
-  const email = document.getElementById("gmail").value.trim();
-  const password = document.getElementById("password").value.trim();
+// FORMULARIOS
+const loginForm = document.querySelector(".sign-in-container form");
+const registerForm = document.querySelector(".sign-up-container form");
 
-  // ----------------------------------------------------------------
-  // VALIDACIÓN BÁSICA
-  // ----------------------------------------------------------------
+// Botón del header
+const botonHeader = document.querySelector("nav ul li:last-child a");
+
+// ============================
+// MENSAJES DE ERROR (independientes)
+// ============================
+
+// Crear mensaje para login
+let msgLogin = document.createElement("p");
+msgLogin.id = "message-login";
+msgLogin.style.marginTop = "10px";
+msgLogin.style.fontWeight = "600";
+msgLogin.style.textAlign = "center";
+msgLogin.style.color = "red";
+msgLogin.style.opacity = "70%";
+
+// Crear mensaje para registro
+let msgRegister = document.createElement("p");
+msgRegister.id = "message-register";
+msgRegister.style.marginTop = "10px";
+msgRegister.style.fontWeight = "600";
+msgRegister.style.alignItems = "center";
+msgRegister.style.color = "red";
+msgRegister.style.opacity = "70%";
+
+// 🔧 Insertar los mensajes justo antes del botón de cada formulario
+loginForm.querySelector(".forgot").before(msgLogin);
+registerForm.querySelector(".btn-primary").before(msgRegister);
+
+// ============================
+// ANIMACIÓN ENTRE LOGIN Y REGISTRO
+// ============================
+
+signUpBtn.addEventListener("click", () => {
+  container.classList.add("active");
+});
+
+signInBtn.addEventListener("click", () => {
+  container.classList.remove("active");
+});
+
+// 🔧 Cambios de color del botón del header según el estado
+container.addEventListener("transitionend", () => {
+  if (container.classList.contains("active")) {
+    botonHeader.classList.add("active");
+  } else {
+    botonHeader.classList.remove("active");
+  }
+});
+
+function updateHeaderLoginButton() {
+  const isRegisterView = container.classList.contains("active");
+  if (isRegisterView) {
+    botonHeader.classList.remove("disabled");
+    botonHeader.classList.add("enabled");
+  } else {
+    botonHeader.classList.add("disabled");
+    botonHeader.classList.remove("enabled");
+  }
+}
+
+// Llamada inicial al cargar la página
+updateHeaderLoginButton();
+
+// Actualizar tras animaciones o clicks
+container.addEventListener("transitionend", updateHeaderLoginButton);
+signUpBtn.addEventListener("click", updateHeaderLoginButton);
+signInBtn.addEventListener("click", updateHeaderLoginButton);
+
+// Interceptar click en el header
+botonHeader.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (botonHeader.classList.contains("disabled")) return;
+  container.classList.remove("active");
+  updateHeaderLoginButton();
+  document.getElementById("correo-sign-in")?.focus();
+});
+
+
+// ============================
+// EVENTO LOGIN
+// ============================
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  msgLogin.textContent = "";
+
+  const email = document.getElementById("correo-sign-in").value.trim();
+  const password = document.getElementById("contraseña-sign-in").value.trim();
+
   if (!email || !password) {
-    msg.style.color = "#ffdddd";
-    msg.textContent = "Por favor, rellena todos los campos.";
-    return; // Detiene la ejecución si hay campos vacíos
+    msgLogin.textContent = "Por favor, rellena todos los campos.";
+    setTimeout(() => {
+      msgLogin.textContent = "";
+    }, 3000)
+    return;
   }
 
-  // ----------------------------------------------------------------
-  // PREPARACIÓN DE DATOS PARA EL BACKEND
-  // ----------------------------------------------------------------
-  // Se crea un objeto JSON que incluye la acción 'login' que
-  // identifica la petición en el backend, y los datos del usuario.
-  const payload = {
-    accion: "login",
-    gmail: email,
-    password: password
-  };
+  const formData = new FormData();
+  formData.append("gmail", email);
+  formData.append("password", password);
 
   try {
-    // ----------------------------------------------------------------
-    // PETICIÓN ASINCRÓNICA AL SERVIDOR
-    // ----------------------------------------------------------------
-    // Se envía la información mediante POST como JSON, y se
-    // espera la respuesta en formato JSON.
-    const response = await fetch("../api/index.php", {
+    const response = await fetch("../php/login.php", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json" // Especifica que enviamos JSON
-      },
-      body: JSON.stringify(payload) // Convertimos el objeto a JSON
+      body: formData,
     });
-
-    // Si el servidor devuelve algo inesperado (por ejemplo HTML de error)
-    if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status}`);
-    }
 
     const data = await response.json();
 
-    // ----------------------------------------------------------------
-    // PROCESAMIENTO DE LA RESPUESTA
-    // ----------------------------------------------------------------
-    if (data.status === "ok") {
-      msg.style.color = "green";
-      msg.textContent = data.message || "Inicio de sesión exitoso.";
-
-      // Guarda los datos del usuario si el backend los devuelve
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
-      }
-
-      // Redirige al dashboard tras 1.5 segundos
-      setTimeout(() => {
-        window.location.href = "dashboard.html";
-      }, 1500);
-
+    if (data.success) {
+      localStorage.setItem("user", JSON.stringify(data.user));
+      window.location.href = "dashboard.html";
     } else {
-      // Mostramos mensaje de error si credenciales son incorrectas
-      msg.style.color = "#ffdddd";
-      msg.textContent = data.message || "Usuario o contraseña incorrectos.";
+      msgLogin.textContent = data.message || "Usuario o contraseña incorrectos.";
+      setTimeout(() => {
+        msgLogin.textContent = "";
+      }, 3000)
     }
   } catch (error) {
-    // ----------------------------------------------------------------
-    // MANEJO DE ERRORES DE CONEXIÓN
-    // ----------------------------------------------------------------
-    console.error("Error de conexión o formato inválido:", error);
-    msg.style.color = "#ff0000ff";
-    msg.textContent = "Error de conexión con el servidor.";
+    console.error(error);
+    msgLogin.textContent = "Error de conexión con el servidor.";
+    setTimeout(() => {
+      msgLogin.textContent = "";
+    }, 3000)
+  }
+});
+
+// ============================
+// EVENTO REGISTRO
+// ============================
+registerForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  msgRegister.textContent = "";
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellidos = document.getElementById("apellidos").value.trim();
+  const correo = document.getElementById("correo-sign-up").value.trim();
+  const pass = document.getElementById("contraseña-sign-up").value.trim();
+  const confirm = document.getElementById("confirmar-contraseña-sign-up").value.trim();
+  const politica = registerForm.querySelector("input[type='checkbox']").checked;
+
+  if (!nombre || !apellidos || !correo || !pass || !confirm) {
+    msgRegister.textContent = "Por favor, completa todos los campos.";
+    setTimeout(() => {
+      msgRegister.textContent = "";
+    }, 3000)
+    return;
+  }
+
+  if(pass.length <= 8) {
+    msgRegister.textContent = "La contraseña debe tener al menos 8 caracteres.";
+    setTimeout(() => {
+      msgRegister.textContent = "";
+    }, 3000)
+    return;
+  }
+
+  if (pass !== confirm) {
+    msgRegister.textContent = "Las contraseñas no coinciden.";
+    setTimeout(() => {
+      msgRegister.textContent = "";
+    }, 3000)
+    return;
+  }
+
+  if (!politica) {
+    msgRegister.textContent = "Debes aceptar la política de privacidad.";
+    setTimeout(() => {
+      msgRegister.textContent = "";
+    }, 3000)
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("nombre", nombre);
+  formData.append("apellidos", apellidos);
+  formData.append("correo", correo);
+  formData.append("password", pass);
+
+  try {
+    const response = await fetch("../php/register.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      msgRegister.style.color = "green";
+      msgRegister.style.opacity = "90%";
+      msgRegister.textContent = "Registro exitoso. ¡Ahora puedes iniciar sesión!";
+      setTimeout(() => {
+        msgRegister.textContent = "";
+      }, 3000)
+      setTimeout(() => container.classList.remove("active"), 1500);
+    } else {
+      msgRegister.textContent = data.message || "Error al registrarse.";
+    }
+  } catch (error) {
+    console.error(error);
+    msgRegister.textContent = "Error de conexión con el servidor.";
+    setTimeout(() => {
+      msgRegister.textContent = "";
+    }, 3000)
   }
 });
