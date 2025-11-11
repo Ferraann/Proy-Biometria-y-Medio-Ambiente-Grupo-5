@@ -15,24 +15,67 @@
 // FUNCIÓN 1: Registrar un nuevo usuario
 // -------------------------------------------------------------
 function registrarUsuario($conn, $data) {
-    // Preparamos la sentencia SQL segura (para evitar inyecciones)
-    $sql = "INSERT INTO usuario (nombre, apellidos, gmail, password, credencial_id)
-            VALUES (?, ?, ?, ?, ?)";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", 
-        $data['nombre'], 
-        $data['apellidos'], 
-        $data['gmail'], 
-        $data['password'], 
-        $data['credencial_id']
-    );
+    // Validar campos obligatorios
+    if (!isset($data['nombre'], $data['apellidos'], $data['gmail'], $data['password'])) {
+        return ["status" => "error", "message" => "Faltan datos obligatorios para el registro."];
+    }
 
-    // Ejecutamos y devolvemos el resultado
-    if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Usuario registrado correctamente."];
+    $nombre = trim($data['nombre']);
+    $apellidos = trim($data['apellidos']);
+    $gmail = trim($data['gmail']);
+    $password = trim($data['password']);
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Verificar si ya existe un usuario con ese gmail
+    $sql_check = "SELECT id, activo FROM usuario WHERE gmail = ?";
+    $stmt_check = $conn->prepare($sql_check);
+    $stmt_check->bind_param("s", $gmail);
+    $stmt_check->execute();
+    $result = $stmt_check->get_result();
+
+    if ($result->num_rows > 0) {
+        $usuarioExistente = $result->fetch_assoc();
+
+        if ($usuarioExistente['activo'] == 1) {
+            // El correo ya está registrado y activo → no se puede registrar
+            return ["status" => "error", "message" => "El correo ya está registrado y activado."];
+        } else {
+            // El usuario existe pero no está activo → eliminarlo
+            $sql_delete = "DELETE FROM usuario WHERE id = ?";
+            $stmt_delete = $conn->prepare($sql_delete);
+            $stmt_delete->bind_param("i", $usuarioExistente['id']);
+            $stmt_delete->execute();
+        }
+    }
+
+    // Insertar nuevo usuario como no activo
+    $sql_insert = "INSERT INTO usuario (nombre, apellidos, gmail, password, activo)
+                   VALUES (?, ?, ?, ?, 0)";
+    $stmt_insert = $conn->prepare($sql_insert);
+    $stmt_insert->bind_param("ssss", $nombre, $apellidos, $gmail, $passwordHash);
+
+    if ($stmt_insert->execute()) {
+        return ["status" => "ok", "message" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
     } else {
-        return ["status" => "error", "message" => "No se pudo registrar el usuario: " . $conn->error];
+        return ["status" => "error", "message" => "Error al registrar el usuario: " . $conn->error];
+    }
+
+    // Enviar correo de verificación
+    
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 1.5: Activar usuario
+// -------------------------------------------------------------
+function activarUsuario($conn, $gmail) {
+    $sql = "UPDATE usuario SET activo = 1 WHERE gmail = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $gmail);
+    if ($stmt->execute() && $stmt->affected_rows > 0) {
+        return ["status" => "ok", "message" => "Cuenta activada correctamente."];
+    } else {
+        return ["status" => "error", "message" => "No se pudo activar la cuenta."];
     }
 }
 
@@ -130,7 +173,6 @@ function guardarMedicion($conn, $data) {
         return ["status" => "error", "message" => "Error al guardar medición: " . $conn->error];
     }
 }
-
 
 // -------------------------------------------------------------
 // FUNCIÓN 5: Crear un nuevo tipo de medición
@@ -313,8 +355,6 @@ function crearIncidencia($conn, $data) {
     }
 }
 
-
-
 // -------------------------------------------------------------
 // FUNCIÓN 11: Obtener incidencias activas
 // -------------------------------------------------------------
@@ -333,7 +373,6 @@ function obtenerIncidenciasActivas($conn) {
     }
     return $incidencias;
 }
-
 
 // -------------------------------------------------------------
 // FUNCIÓN 12: Cerrar una incidencia
@@ -361,7 +400,6 @@ function cerrarIncidencia($conn, $data) {
     }
 }
 
-
 // -------------------------------------------------------------
 // FUNCIÓN 13: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
 // -------------------------------------------------------------
@@ -379,6 +417,7 @@ function obtenerEstadisticas($conn) {
 
     return ["status" => "ok", "estadisticas" => $stats];
 }
+
 // -------------------------------------------------------------
 // FUNCIÓN 14: Obtener promedio de cada tipo de mediciones en un rango geográfico
 // Puede que no funcione todavia

@@ -112,6 +112,10 @@ switch ($method) {
                 echo json_encode(cerrarIncidencia($conn, $input));
                 break;
 
+            case "activarUsuario":
+                echo json_encode(activarUsuario($conn, $input));
+                break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción PUT no reconocida."]);
                 break;
