@@ -31,11 +31,7 @@ public class RegistroActivity extends AppCompatActivity{
     String regexTieneMayuscula = "^(?=.*[A-Z]).+$";
     String regexTieneNumeros = "^(?=.*\\d).+$";
     String regexTieneSimbologia = "^(?=.*[$@€!%*?&]).+$";
-    String regexTieneMasDe8Numeros = "^.{8,}$";
-    boolean tieneMayuscula = false;
-    boolean tieneNumeros = false;
-    boolean tiene8oMasCaracteres =false;
-    boolean tieneSimbologia = false;
+    String regexTieneMasDe8Caracteres = "^.{8,}$";
 
     //Metodo onCreate donde se ejecuta lo principal
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +50,15 @@ public class RegistroActivity extends AppCompatActivity{
 
     //Boton para enviar los datos al servidor
     public void botonEnviarDatos(View v){
-        Log.d("contrasenya", RepetirContrasenya.getText().toString());
+        String usuario = Usuario.getText().toString().trim();
+        String apellidos = Apellidos.getText().toString().trim();
+        String contrasenya =Contrasenya.getText().toString().trim();
+        String email = Email.getText().toString().trim();
+        String repetirContrasenya = RepetirContrasenya.getText().toString().trim();
+
 
         // validación que comprueba que si hay alguno que está vacio no se ejecuta la sentencia sql.
-        if (Usuario.getText().toString().isEmpty() || Apellidos.getText().toString().isEmpty() || Email.getText().toString().isEmpty() || Contrasenya.getText().toString().isEmpty()) {
+        if (!usuario.isEmpty() || !apellidos.isEmpty()||!contrasenya.isEmpty()||!email.isEmpty()||repetirContrasenya.isEmpty()) {
             Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -65,15 +66,21 @@ public class RegistroActivity extends AppCompatActivity{
         //Con una biblioteca podemos comprobar la estructura basica de un email
         //si está detecta que no es semejante a un email, entonces devuelve false.
         //si es verdad entonces un true.
-        if (!Patterns.EMAIL_ADDRESS.matcher(Email.getText()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this, "Por favor, introduce un email valido", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (!tieneMayuscula || !tieneNumeros||!tieneSimbologia||!tiene8oMasCaracteres){
+        if(!contrasenya.matches(repetirContrasenya)){
+            Toast.makeText(this,"Por favor, repita correctamente la contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!contrasenya.matches(regexTieneMasDe8Caracteres)||!contrasenya.matches(regexTieneNumeros)||!contrasenya.matches(regexTieneMayuscula)||!contrasenya.matches(regexTieneSimbologia)){
             Toast.makeText(this, "Por favor, introduce una contraseña segura", Toast.LENGTH_SHORT).show();
             return;
         }
+
         PostRegistro(Usuario.getText().toString(),Apellidos.getText().toString(),Email.getText().toString(),Contrasenya.getText().toString(),this);
 
     }
@@ -89,19 +96,15 @@ public class RegistroActivity extends AppCompatActivity{
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(Contrasenya.getText().toString().matches(regexTieneMayuscula)){
                     Log.d("Regex","Tiene mayusculas");
-                    tieneMayuscula = true;
                 }
                 if(Contrasenya.getText().toString().matches(regexTieneNumeros)){
                     Log.d("Regex","Tiene numeros");
-                    tieneNumeros = true;
                 }
-                if(Contrasenya.getText().toString().matches(regexTieneMasDe8Numeros)){
+                if(Contrasenya.getText().toString().matches(regexTieneMasDe8Caracteres)){
                     Log.d("Regex","Tiene mas de 8 caracteres");
-                    tiene8oMasCaracteres = true;
                 }
                 if(Contrasenya.getText().toString().matches(regexTieneSimbologia)){
                     Log.d("Regex","Tiene simbologia");
-                    tieneSimbologia = true;
                 }
             }
 

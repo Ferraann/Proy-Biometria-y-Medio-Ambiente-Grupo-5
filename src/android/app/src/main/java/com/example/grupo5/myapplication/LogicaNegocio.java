@@ -68,6 +68,10 @@ public class LogicaNegocio {
 
         }
 
+
+        //-------------------------------------------------------------------------------------------
+        //     Email:txt, Contraseña:txt, Contexto:context --> postRegistro()
+        //-------------------------------------------------------------------------------------------
         public static void PostLogin(String email, String contrasenya, Context contexto) {
             ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
             Call<Void> call = apiService.loginUsuario(email, contrasenya);
@@ -89,6 +93,13 @@ public class LogicaNegocio {
                     Log.e("Login", "Error en conexión: " + t.getMessage());
                 }
             });
+        }
+
+        //--------------------------------------------------------------------------------
+        //
+        //--------------------------------------------------------------------------------
+        public static void putDatosMoficados(){
+
         }
     }
 
