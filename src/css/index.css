@@ -1,203 +1,317 @@
-/* ---------- Estilos generales ---------- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-}
-
+/* ============================================================
+   ARCHIVO: login.css
+   DESCRIPCIÓN: Define el diseño visual de la página de login
+   del sistema AITHER, incluyendo estructura, encabezado,
+   formulario de acceso, panel lateral de registro y adaptación
+   a pantallas móviles.
+   AUTOR: [Tu nombre aquí]
+   FECHA: 03/11/2025
+   COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+   ============================================================ */
 body {
-  background: radial-gradient(circle at top left, #b6c8ff 0%, #4c6dc0 100%);
-  color: #fff;
-  min-height: 100vh;
+  margin: 0;
+  height: 100vh;
+  background-image: url("../img/fondo_login.png");
+  /* Llena toda la pantalla, lo centra y evita repeticiones */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-}
-
-/* ---------- Header ---------- */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-}
-
-header .logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-right: 25px;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-.btn-login {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-login:hover {
-  background: rgba(255, 255, 255, 0.4);
+  font-family: "Rubik", sans-serif;
 }
 
 /* ---------- Contenedor principal ---------- */
-.login-container {
+header:last-child:hover {
+  text-decoration: none;
+}
+
+main {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
 }
 
-.login-box {
-  display: flex;
+.container {
+  position: relative;
   width: 900px;
-  height: 460px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 15px;
-  backdrop-filter: blur(8px);
+  height: 500px;
+  border-radius: 60px;
   overflow: hidden;
+  background: rgba(var(--Principal_2_RGB));
+  opacity: 70%;
 }
 
-/* ---------- Panel izquierdo (formulario) ---------- */
-.login-form {
-  width: 60%;
-  padding: 40px 50px;
-  background: rgba(255, 255, 255, 0.12);
+
+/* ---------- FORMULARIOS ---------- */
+
+.container-form {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  justify-content: center;
+  width: 60%;
+  padding: 0 50px;
+  color: var(--Secundario_Blanco);
 }
 
-.login-form h2 {
-  margin-bottom: 20px;
-  font-weight: 700;
+.sign-in-container {
+  left: 0;
+  z-index: 2;
 }
 
-.login-form label {
-  display: block;
-  margin-top: 10px;
-  font-size: 0.9rem;
+.sign-up-container {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
 }
 
-.login-form input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
+.container.active .sign-in-container {
+  transform: translateX(67%);
+  opacity: 0;
+  z-index: 1;
 }
 
-.forgot {
-  display: block;
-  margin-top: 8px;
-  color: #fff;
-  text-decoration: underline;
-  font-size: 0.85rem;
+.container.active .sign-up-container {
+  transform: translateX(67%);
+  opacity: 1;
+  z-index: 2;
 }
 
-.btn-primary {
-  margin-top: 20px;
-  width: 100%;
-  background: #1e3799;
-  border: none;
-  color: white;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-primary:hover {
-  background: #274bba;
-}
-
-.divider {
-  margin: 20px 0 10px;
-  text-align: center;
-  font-size: 0.85rem;
-  opacity: 0.8;
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-}
-
-.social-icons img {
-  width: 28px;
-  height: 28px;
-  filter: invert(1);
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.social-icons img:hover {
-  transform: scale(1.1);
-}
-
-/* ---------- Panel derecho (registro) ---------- */
-.register-panel {
+/* ---------- PANEL AZUL DESLIZANTE ---------- */
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 60%;
   width: 40%;
-  background: rgba(25, 60, 160, 0.6);
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay {
+  background: var(--Principal_1);
+  color: var(--Principal_2);
+  opacity: 80%;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 40px;
   text-align: center;
-  padding: 20px;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  transition: transform 0.6s ease-in-out;
 }
 
-.register-panel h3 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
+.overlay-left {
+  transform: translateX(-20%);
 }
 
-.register-link {
-  color: #fff;
-  font-weight: bold;
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+/* --- Animación del overlay al activar registro --- */
+.container.active .overlay-container {
+  transform: translateX(-150%);
+}
+
+.container.active .overlay {
+  transform: translateX(50%);
+}
+
+.container.active .overlay-left {
+  transform: translateX(0);
+}
+
+.container.active .overlay-right {
+  transform: translateX(20%);
+}
+
+/* ---------- ELEMENTOS INTERNOS ---------- */
+.container-input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.container-input h3 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: var(--Secundario_Blanco);
+}
+
+.container-input input {
+  width: 100%;
+  height: 30px;
+  padding: 10px;
+  color:var(--Principal_1);
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid var(--Principal_1);
+  outline: none;
+}
+
+.forgot {
+  color: var(--Principal_1);
+  text-decoration: none;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 16px;
+  margin-top: 8px;
+}
+.forgot:hover {
   text-decoration: underline;
 }
 
-/* ---------- Mensaje de login ---------- */
-.message {
-  margin-top: 10px;
-  font-size: 0.9rem;
+.divider {
+  display: flex;
+  align-items: center;
   text-align: center;
+  color: var(--Principal_1);
+  font-size: 16px;
+  font-weight: 400;
+  margin: 20px 0;
 }
 
-/* ---------- Footer ---------- */
-footer {
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 2px solid var(--Principal_1);
+  margin: 0 10px;
+}
+
+.politica-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: -10px;
+}
+
+.politica-btn button {
+  margin: 0;
+  height: 40px;
+}
+
+#message-login,
+#message-register {
   text-align: center;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.politica {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-custom {
+  display: flex;
+  align-items: center;
+}
+
+/* Ocultamos el checkbox */
+.checkbox-custom input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Creamos el checkbox visible */
+.checkbox-custom .checkmark {
+  height: 16px;
+  width: 16px;
+  border: 2px solid var(--Principal_1);
+  background-color: transparent;
+  display: inline-block;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el cusor */
+.checkbox-custom:hover .checkmark {
+  background-color: rgba(var(--Principal_2_RGB), 0.1);
+}
+
+/* Checkbox marcado */
+.checkbox-custom input:checked + .checkmark {
+  background-color: var(--Principal_1);
+}
+
+/* ---------- BOTONES ---------- */
+.btn-primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  width: 240px;
+  background: var(--Secundario_Azul);
+  border: 3px solid var(--Principal_1);
+  color: white;
+  font-size: 20px;
+  font-weight: var(--semibold);
   padding: 10px;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+  border-radius: 69px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
-  .login-box {
-    flex-direction: column;
-    height: auto;
-  }
-  .login-form, .register-panel {
-    width: 100%;
-  }
+.btn-primary:hover {
+  background: var(--Principal_1);
+}
+
+.btn-secondary {
+  text-decoration: underline;
+  cursor: pointer;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  color: var(--Secundario_Azul)
+}
+
+/* ---------- REDES SOCIALES ---------- */
+form h1 {
+  color: var(--Principal_1);
+  margin-bottom: 20px;
+}
+
+/* ---------- REDES SOCIALES ---------- */
+.social-networks {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-networks img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.social-networks img:hover {
+  transform: scale(1.1);
 }
