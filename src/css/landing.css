@@ -79,6 +79,9 @@ nav a {
     display: flex;
     justify-content: center;
 }
+nav a:hover{
+    color: var(--Secundario_Blanco);
+}
 
 .btn {
     background-color: var(--Principal_1);
@@ -94,8 +97,8 @@ nav a {
     color: #fff;
 }
 .btn-login:hover {
-    background-color: #fff;
-    color: #2a3a4f;
+    background-color: var(--Secundario_Blanco);
+    color: var(--Principal_1);
 }
 .btn-arrow {
     /* Color azul/púrpura del botón (aproximado) */ 
@@ -113,7 +116,7 @@ nav a {
 
 /*body*/
 .hero {
-    padding: 12rem 0;
+    margin: 12rem 0;
 }
 
 .hero .container {
@@ -171,7 +174,7 @@ nav a {
 
 /* --- 3. Sección de Descarga de App --- */
 .app-download {
-    padding: 3.5rem 0;
+    padding-top: 3.5rem;
     margin-left: 35px;
 }
 

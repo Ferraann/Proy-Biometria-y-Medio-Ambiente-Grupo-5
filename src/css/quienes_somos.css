@@ -11,6 +11,9 @@
     --Secundario_Negro: #000000;
     --Secundario_Azul: #587DBD;
     --Secundario_Azul_RGB: 88, 125, 189;
+    --bold: 700;
+    --semibold: 600;
+    --normal: 400;
 
 }
 /* ---------------------------- */
@@ -79,6 +82,9 @@ nav a {
     display: flex;
     justify-content: center;
 }
+nav a:hover{
+    color: var(--Secundario_Blanco);
+}
 .btn {
     background-color: var(--Principal_1);
     display: inline-block;
@@ -103,8 +109,8 @@ nav a {
     color: #fff;
 }
 .btn-login:hover {
-    background-color: #fff;
-    color: #2a3a4f;
+    background-color: var(--Secundario_Blanco);
+    color: var(--Principal_1);
 }
 
 
