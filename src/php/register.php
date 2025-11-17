@@ -28,7 +28,6 @@ if ($check->num_rows > 0) {
 }
 $check->close();
 
-// ⚠️ Contraseña en texto plano (igual que tu login actual)
 $hash = $pass;
 
 // Insertar nuevo usuario

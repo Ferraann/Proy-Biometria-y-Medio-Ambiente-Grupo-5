@@ -41,7 +41,7 @@ un botón para iniciar sesión.
     <ul>
       <li><a href="saber_mas.html">SABER MÁS</a></li>
       <li>
-        <a href="quienes_somos.html">¿QUIÉNES<br> SOMOS?</a>
+        <a href="quienes_somos.html">¿QUIÉNES SOMOS?</a>
       </li>
       <li><a href="faq.html">FAQ</a></li>
       <!-- No lleva a ningún sitio porque es el boton de login y ya estamos en login -->
@@ -67,9 +67,10 @@ un botón para iniciar sesión.
           <label for="correo-sign-in">Correo electrónico:</label>
           <input type="email" placeholder="" id="correo-sign-in">
         </div>
-        <div class="container-input">
+        <div class="container-input password-wrapper">
           <label for="contraseña-sign-in">Contraseña:</label>
           <input type="password" placeholder="" id="contraseña-sign-in">
+          <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-in" alt="Mostrar contraseña">
         </div>
         <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
         <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
@@ -98,9 +99,10 @@ un botón para iniciar sesión.
           <label for="correo-sign-up">Correo electrónico:</label>
           <input type="text" placeholder="" id="correo-sign-up">
         </div>
-        <div class="container-input">
+        <div class="container-input contraseña password-wrapper">
           <label for="contraseña-sign-up">Contraseña: </label>
-          <input type="password" placeholder="" id="contraseña-sign-up">
+          <input type="password" id="contraseña-sign-up">
+          <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-up">
         </div>
         <div class="container-input">
           <label for="confirmar-contraseña-sign-up">Repetir contraseña:</label>
