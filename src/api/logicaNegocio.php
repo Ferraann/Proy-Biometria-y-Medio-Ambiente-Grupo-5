@@ -11,35 +11,123 @@
 //  devolver los resultados al archivo index.php.
 // ------------------------------------------------------------------
 
+require __DIR__ . '/../libs/PHPMailer-7.0.0/src/Exception.php';
+require __DIR__ . '/../libs/PHPMailer-7.0.0/src/PHPMailer.php';
+require __DIR__ . '/../libs/PHPMailer-7.0.0/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+$mail = new PHPMailer(true);
 // -------------------------------------------------------------
 // FUNCIÓN 1: Registrar un nuevo usuario
 // -------------------------------------------------------------
-function registrarUsuario($conn, $data) {
-    // Preparamos la sentencia SQL segura (para evitar inyecciones)
-    $sql = "INSERT INTO usuario (nombre, apellidos, gmail, password, credencial_id)
-            VALUES (?, ?, ?, ?, ?)";
+function registrarUsuario($conn, $data)
+{
+    /* ---------- 1. Validaciones y saneado ---------- */
+    if (!isset($data['nombre'], $data['apellidos'], $data['gmail'], $data['password'])) {
+        return ["status" => "error", "message" => "Faltan datos obligatorios para el registro."];
+    }
 
+    $nombre    = trim($data['nombre']);
+    $apellidos = trim($data['apellidos']);
+    $gmail     = trim($data['gmail']);
+    $password  = trim($data['password']);
+    $hash      = password_hash($password, PASSWORD_DEFAULT);
+
+    /* ---------- 2. ¿Existe el correo? ---------- */
+    $stmt = $conn->prepare("SELECT id, activo FROM usuario WHERE gmail = ?");
+    $stmt->bind_param("s", $gmail);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    if ($res->num_rows) {                       // ya está en BD
+        $usr = $res->fetch_assoc();
+        if ($usr['activo'] == 1) {              // y activo
+            return ["status" => "error", "message" => "El correo ya está registrado y activado."];
+        }
+        /* usuario inactivo → lo borramos */
+        $del = $conn->prepare("DELETE FROM usuario WHERE id = ?");
+        $del->bind_param("i", $usr['id']);
+        $del->execute();
+    }
+
+    /* ---------- 3. Insertar nuevo usuario (inactivo) ---------- */
+    $ins = $conn->prepare("INSERT INTO usuario (nombre, apellidos, gmail, password, activo)
+                           VALUES (?, ?, ?, ?, 0)");
+    $ins->bind_param("ssss", $nombre, $apellidos, $gmail, $hash);
+
+    if (!$ins->execute()) {
+        return ["status" => "error", "message" => "Error al registrar el usuario: " . $conn->error];
+    }
+
+    /* ---------- 4. Enviar correo de activación vía Gmail ---------- */
+    $enlace = "http://localhost/ProyectoBiometria/src/html/activacion.html?gmail=" . urlencode($gmail);
+
+    $asunto  = "Activa tu cuenta en AITHER";
+    $cuerpo  = "<h2>¡Hola $nombre!</h2>
+            <p>Gracias por registrarte. Pulsa el botón para activar tu cuenta:</p>
+            <p><a href='$enlace' style='background:#007bff;color:white;padding:10px 20px;text-decoration:none;border-radius:4px;'>Activar cuenta</a></p>
+            <p>Si el botón no funciona, copia y pega esta dirección:<br>$enlace</p>";
+
+    $enviado = false;   // por defecto
+    try {
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'no.reply.aither@gmail.com';//gmail nuevo
+        $mail->Password   = 'esdf lkoc qprz rkum';      //contraseña de aplicación
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        $mail->setFrom('noreply@aither.com', 'AITHER');
+        $mail->addAddress($gmail);
+        $mail->isHTML(true);
+        $mail->Subject = $asunto;
+        $mail->Body    = $cuerpo;
+
+        $mail->send();
+        $enviado = true;
+    } catch (Exception $e) {
+        error_log('PHPMailer error: ' . $mail->ErrorInfo);
+        $enviado = false;
+    }
+
+    /* ----  DEPURACIÓN  ---- */
+    error_log('===  ENVÍO DE CORREO  ===============================');
+    error_log('Destinatario : ' . $gmail);
+    error_log('Asunto       : ' . $asunto);
+    error_log('Resultado    : ' . ($enviado ? 'ÉXITO' : 'FALLO'));
+    if (!$enviado) {
+        error_log('PHPMailer error: ' . ($mail->ErrorInfo ?? 'desconocido'));
+    }
+    error_log('=====================================================');
+
+    /* ---------- 5. Respuesta final ---------- */
+    return ["status" => "ok", "message" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 1.5: Activar usuario
+// -------------------------------------------------------------
+function activarUsuario($conn, $gmail)
+{
+    $sql = "UPDATE usuario SET activo = 1 WHERE gmail = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", 
-        $data['nombre'], 
-        $data['apellidos'], 
-        $data['gmail'], 
-        $data['password'], 
-        $data['credencial_id']
-    );
-
-    // Ejecutamos y devolvemos el resultado
-    if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Usuario registrado correctamente."];
+    $stmt->bind_param("s", $gmail);
+    if ($stmt->execute() && $stmt->affected_rows > 0) {
+        return ["status" => "ok", "message" => "Cuenta activada correctamente."];
     } else {
-        return ["status" => "error", "message" => "No se pudo registrar el usuario: " . $conn->error];
+        return ["status" => "error", "message" => "No se pudo activar la cuenta."];
     }
 }
 
 // -------------------------------------------------------------
 // FUNCIÓN 2: Iniciar sesión (login)
 // -------------------------------------------------------------
-function loginUsuario($conn, $gmail, $password) {
+function loginUsuario($conn, $gmail, $password)
+{
     $sql = "SELECT id, nombre, apellidos, gmail, password, credencial_id 
             FROM usuario WHERE gmail = ?";
 
@@ -64,7 +152,8 @@ function loginUsuario($conn, $gmail, $password) {
 // -------------------------------------------------------------
 // FUNCIÓN 3: Obtener todas las mediciones
 // -------------------------------------------------------------
-function obtenerMediciones($conn) {
+function obtenerMediciones($conn)
+{
     $sql = "SELECT m.id, tm.medida, tm.unidad, m.valor, m.hora, m.localizacion, s.mac
             FROM medicion m
             INNER JOIN tipo_medicion tm ON m.tipo_medicion_id = tm.id
@@ -86,7 +175,8 @@ function obtenerMediciones($conn) {
 // -------------------------------------------------------------
 // FUNCIÓN 4: Guardar una nueva medición
 // -------------------------------------------------------------
-function guardarMedicion($conn, $data) {
+function guardarMedicion($conn, $data)
+{
     // 1 Verificar parámetros obligatorios
     if (!isset($data['tipo_medicion_id'], $data['valor'], $data['sensor_id'], $data['localizacion'])) {
         return ["status" => "error", "message" => "Faltan parámetros obligatorios."];
@@ -117,7 +207,8 @@ function guardarMedicion($conn, $data) {
             VALUES (?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("idis",
+    $stmt->bind_param(
+        "idis",
         $data['tipo_medicion_id'],
         $data['valor'],
         $data['sensor_id'],
@@ -131,11 +222,11 @@ function guardarMedicion($conn, $data) {
     }
 }
 
-
 // -------------------------------------------------------------
 // FUNCIÓN 5: Crear un nuevo tipo de medición
 // -------------------------------------------------------------
-function crearTipoMedicion($conn, $data) {
+function crearTipoMedicion($conn, $data)
+{
     if (!isset($data['medida']) || !isset($data['unidad'])) {
         return ["status" => "error", "message" => "Faltan parámetros: medida y unidad son obligatorios."];
     }
@@ -154,7 +245,8 @@ function crearTipoMedicion($conn, $data) {
 // -------------------------------------------------------------
 // FUNCIÓN 6: Asignar un sensor a un usuario, creando el sensor si no existe o modificar la relación si ya existe
 // -------------------------------------------------------------
-function crearSensorYRelacion($conn, $data) {
+function crearSensorYRelacion($conn, $data)
+{
     if (!isset($data['mac']) || !isset($data['usuario_id'])) {
         return ["status" => "error", "message" => "Faltan parámetros: mac y usuario_id son obligatorios."];
     }
@@ -213,7 +305,8 @@ function crearSensorYRelacion($conn, $data) {
 // -------------------------------------------------------------
 // FUNCIÓN 7: Terminar relación de un sensor y marcarlo con problema
 // -------------------------------------------------------------
-function marcarSensorConProblemas($conn, $data) {
+function marcarSensorConProblemas($conn, $data)
+{
     if (!isset($data['sensor_id'])) {
         return ["status" => "error", "message" => "Falta el parámetro sensor_id."];
     }
@@ -247,7 +340,8 @@ function marcarSensorConProblemas($conn, $data) {
 // -------------------------------------------------------------
 // FUNCIÓN 8: Reactivar un sensor tras reparación
 // -------------------------------------------------------------
-function reactivarSensor($conn, $data) {
+function reactivarSensor($conn, $data)
+{
     if (!isset($data['sensor_id'])) {
         return ["status" => "error", "message" => "Falta el parámetro sensor_id."];
     }
@@ -268,11 +362,12 @@ function reactivarSensor($conn, $data) {
 // -------------------------------------------------------------
 // FUNCIÓN 9: Actualizar datos de un usuario
 // -------------------------------------------------------------
-function actualizarUsuario($conn, $id, $data) {
+function actualizarUsuario($conn, $id, $data)
+{
     $sql = "UPDATE usuario SET nombre = ?, apellidos = ?, credencial_id = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssii", $data['nombre'], $data['apellidos'], $data['credencial_id'], $id);
-    
+
     if ($stmt->execute()) {
         return ["status" => "ok", "message" => "Usuario actualizado correctamente."];
     } else {
@@ -283,7 +378,8 @@ function actualizarUsuario($conn, $id, $data) {
 // -------------------------------------------------------------
 // FUNCIÓN 10: Crear una nueva incidencia
 // -------------------------------------------------------------
-function crearIncidencia($conn, $data) {
+function crearIncidencia($conn, $data)
+{
     if (!isset($data['id_user'], $data['titulo'], $data['descripcion'])) {
         return ["status" => "error", "message" => "Faltan parámetros."];
     }
@@ -313,12 +409,11 @@ function crearIncidencia($conn, $data) {
     }
 }
 
-
-
 // -------------------------------------------------------------
 // FUNCIÓN 11: Obtener incidencias activas
 // -------------------------------------------------------------
-function obtenerIncidenciasActivas($conn) {
+function obtenerIncidenciasActivas($conn)
+{
     $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion, e.nombre AS estado
             FROM incidencias i
             LEFT JOIN usuario u ON i.id_user = u.id
@@ -334,11 +429,11 @@ function obtenerIncidenciasActivas($conn) {
     return $incidencias;
 }
 
-
 // -------------------------------------------------------------
 // FUNCIÓN 12: Cerrar una incidencia
 // -------------------------------------------------------------
-function cerrarIncidencia($conn, $data) {
+function cerrarIncidencia($conn, $data)
+{
     if (!isset($data['incidencia_id'])) {
         return ["status" => "error", "message" => "Falta el parámetro incidencia_id."];
     }
@@ -361,11 +456,11 @@ function cerrarIncidencia($conn, $data) {
     }
 }
 
-
 // -------------------------------------------------------------
 // FUNCIÓN 13: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
 // -------------------------------------------------------------
-function obtenerEstadisticas($conn) {
+function obtenerEstadisticas($conn)
+{
     $stats = [];
 
     $result = $conn->query("SELECT COUNT(*) AS total FROM sensor");
@@ -379,11 +474,13 @@ function obtenerEstadisticas($conn) {
 
     return ["status" => "ok", "estadisticas" => $stats];
 }
+
 // -------------------------------------------------------------
 // FUNCIÓN 14: Obtener promedio de cada tipo de mediciones en un rango geográfico
 // Puede que no funcione todavia
 // -------------------------------------------------------------
-function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max) {
+function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max)
+{
     $sql = "
         SELECT tm.medida, tm.unidad, AVG(m.valor) AS promedio
         FROM medicion m
@@ -420,5 +517,3 @@ function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max) {
         "promedios" => $promedios
     ];
 }
-
-?>
