@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 0);
+
 // ------------------------------------------------------------------
 // Fichero: index.php
 // Autor: Manuel
@@ -13,6 +14,15 @@ ini_set('display_errors', 1);
 // ------------------------------------------------------------------
 
 header('Content-Type: application/json');
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 require_once('conexion.php');
 require_once('logicaNegocio.php');
@@ -113,7 +123,7 @@ switch ($method) {
                 break;
 
             case "activarUsuario":
-                echo json_encode(activarUsuario($conn, $input));
+                echo json_encode(activarUsuario($conn, $input['gmail']));
                 break;
 
             default:
