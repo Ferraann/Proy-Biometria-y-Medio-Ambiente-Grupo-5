@@ -11,6 +11,9 @@
     --Secundario_Negro: #000000;
     --Secundario_Azul: #587DBD;
     --Secundario_Azul_RGB: 88, 125, 189;
+    --bold: 700;
+    --semibold: 600;
+    --normal: 400;
 
 }
 /* ---------------------------- */
@@ -79,32 +82,35 @@ nav a {
     display: flex;
     justify-content: center;
 }
+nav a:hover{
+    color: var(--Secundario_Blanco);
+}
 .btn {
     background-color: var(--Principal_1);
     display: inline-block;
     padding: 10px 25px;
-    border-radius: 50px; /* Botones muy redondeados */
+    border-radius: 50px; 
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
 .btn-sabermas {
-    background-color: var(--Principal_2);
-    border: #152D9A solid 4px;
+    background: var(--Secundario_Azul);
+    border: 3px solid var(--Principal_1);
     color: var(--Secundario_Blanco);
     padding: 10px 25px;
     border-radius: 50px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: var(--semibold)
 }
 
 .btn-login {
     color: #fff;
 }
 .btn-login:hover {
-    background-color: #fff;
-    color: #2a3a4f;
+    background-color: var(--Secundario_Blanco);
+    color: var(--Principal_1);
 }
 
 
