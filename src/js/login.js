@@ -1,7 +1,12 @@
-// ============================
-// AITHER - index.js
-// Control del login, registro y transiciones
-// ============================
+/*
+  ============================================================
+   ARCHIVO: login.js
+   DESCRIPCIÓN: Define la logica de la página de login
+   del sistema AITHER.
+   AUTOR: Ferran Sansaloni Prats
+   FECHA: 03/11/2025
+   COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+   ============================================================*/
 
 // ELEMENTOS DEL DOM
 const container = document.getElementById("container");
@@ -45,17 +50,25 @@ msgRegister.classList.remove("fade-out");
 // MOSTRAR / OCULTAR CONTRASEÑA
 // ============================
 
+// Selecciona todos los iconos de ojo para mostrar/ocultar contraseña
 document.querySelectorAll(".toggle-password").forEach(icon => {
+  // Cuando hace clic al icono ...
   icon.addEventListener("click", () => {
 
-    // coge el input objetivo según el data-input
+    // obtiene el input asociado al icono usando el atributo data-input.
     const input = document.getElementById(icon.dataset.input);
 
+    // Alterna el tipo de input entre 'password' y 'text'
+    // Si el tipo del input es contraseña ...
     if (input.type === "password") {
+      // ... cambiamos el tipo del input a texto (mostramos el contenido) ...
       input.type = "text";
+      // ... y cargamos el icono "ojo.png"
       icon.src = "../img/ojo.png"; // ojo abierto
     } else {
+      // Si el input no es "password" cambiamos el tipo del input a "password" (ocultamos el contenido) ...
       input.type = "password";
+      // ... y cargamos el icono "ojo-cerrado.png"
       icon.src = "../img/ojo-cerrado.png"; // ojo cerrado
     }
   });
@@ -108,9 +121,9 @@ signInBtn.addEventListener("click", updateHeaderLoginButton);
 // Interceptar click en el header
 botonHeader.addEventListener("click", (e) => {
   e.preventDefault();
-  // Si el hoton header tiene la clase disabled nada
+  // Si el hoton header tiene la clase disabled no hace nada ...
   if (botonHeader.classList.contains("disabled")) return;
-  // Si no, es decir, que tiene la clase active, primero se le quita la clase active y se llama a updateHeaderLoginButton()
+  // ... si no, es decir, que tiene la clase active, primero se le quita la clase active y se llama a updateHeaderLoginButton()
   container.classList.remove("active");
   updateHeaderLoginButton();
   document.getElementById("correo-sign-in")?.focus();
@@ -120,6 +133,8 @@ botonHeader.addEventListener("click", (e) => {
 // ============================
 // EVENTO LOGIN
 // ============================
+
+// Cuando pulsamos en "iniciar sesión"
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   // Mensaje que se mostrará en pantalla
@@ -157,10 +172,10 @@ loginForm.addEventListener("submit", async (e) => {
     // Crea un json
     const data = await response.json();
 
-    // Si va bien, se guarda en el localStorage en "user" los datos en formato string y se redifije a dashboard.html
+    // Si va bien, se guarda en el localStorage en "user" los datos en formato string y se redifije a landing.html
     if (data.success) {
       localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "dashboard.html";
+      window.location.href = "landing.html";
     } else {
       // Si falla se pone ese mensaje de error ...
       loginForm.querySelector(".forgot").before(msgLogin);
@@ -187,6 +202,8 @@ loginForm.addEventListener("submit", async (e) => {
 // ============================
 // EVENTO REGISTRO
 // ============================
+
+// Cuando pulsamos el boton de "registro"
 registerForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   // Mensaje de registro
@@ -204,7 +221,6 @@ registerForm.addEventListener("submit", async (e) => {
   if (!nombre || !apellidos || !correo || !pass || !confirm) {
     // ... se pone este mensaje de error ...
     registerForm.querySelector(".btn-primary").before(msgRegister);
-
     msgRegister.textContent = "Por favor, completa todos los campos.";
     // ... y despues de 3 segundos se quita
     setTimeout(() => {
@@ -214,11 +230,12 @@ registerForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Comprobar contraseña (8 o mas caracteres, al menos un numero, una mayúscula y un caracter especial
+  // Comprobar contraseña (8 o mas caracteres, al menos un numero, una mayúscula y un caracter especial)
   const numeros = "0123456789";
   const mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const especiales = "!@#$%^&*(),.?\":{}|<>";
 
+  // Booleanos para comprobar que todo va bien
   var tieneNumero = false;
   var tieneMayuscula = false;
   var tieneEspecial = false;
@@ -247,16 +264,15 @@ registerForm.addEventListener("submit", async (e) => {
     }
   }
 
-  if (
-      pass.length < 8 || !tieneNumero || !tieneMayuscula || !tieneEspecial
-  ) {
-    registerForm.querySelector(".contraseña").before(msgRegister);
-    msgRegister.textContent =
-        "La contraseña debe contener al menos 8 caracteres, un número, una mayúscula y un carácter especial.";
+  // Si la contraseña tiene menos de 8 caracteres o los booleanos son false
+  if(pass.length < 8 || !tieneNumero || !tieneMayuscula || !tieneEspecial) {
+    // ponemos el mensaje de error antes de la clase contraseña
+    registerForm.querySelector(".btn-primary").before(msgRegister);
+    msgRegister.textContent = "La contraseña debe contener al menos 8 caracteres, un número, una mayúscula y un carácter especial.";
 
     setTimeout(() => {
       msgRegister.classList.add("fade-out");
-    }, 5000);
+    }, 4000);
 
     msgRegister.classList.remove("fade-out");
     return;
