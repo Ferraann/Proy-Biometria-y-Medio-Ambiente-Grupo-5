@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2273b5d-825c-43ea-a73b-a024e1ae881f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/img/facebook.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/fondo_login.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/google.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/logo_Aither_web.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/img/twitter.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/conexion.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/register.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/android/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/android/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/android/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/android/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/ojo-cerrado.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/ojo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/libroEstilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/libroEstilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/libroEstilos.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/php/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/php/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/php/register.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +78,10 @@
       <workItem from="1762454468519" duration="68000" />
       <workItem from="1762509908720" duration="1770000" />
       <workItem from="1762630079618" duration="14750000" />
+      <workItem from="1762783871732" duration="5591000" />
+      <workItem from="1763113825547" duration="382000" />
+      <workItem from="1763375624862" duration="1958000" />
+      <workItem from="1763378956789" duration="2305000" />
     </task>
     <servers />
   </component>
