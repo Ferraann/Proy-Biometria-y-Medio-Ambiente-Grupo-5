@@ -93,6 +93,10 @@ switch ($method) {
                 echo json_encode(crearSensorYRelacion($conn, $input));
                 break;
 
+            case "activarUsuario":
+                echo json_encode(activarUsuario($conn, $input['gmail']));
+                break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
@@ -120,10 +124,6 @@ switch ($method) {
 
             case "cerrarIncidencia":
                 echo json_encode(cerrarIncidencia($conn, $input));
-                break;
-
-            case "activarUsuario":
-                echo json_encode(activarUsuario($conn, $input['gmail']));
                 break;
 
             default:

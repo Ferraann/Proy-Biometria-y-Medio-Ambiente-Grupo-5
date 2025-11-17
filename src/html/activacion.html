@@ -30,8 +30,8 @@
       if (!gmail) {
         muestra("Enlace incorrecto: falta el gmail.", "ko");
       } else {
-        fetch("http://localhost/ProyectoBiometria/api/index.php", {
-          method: "PUT", 
+        fetch("../api/index.php", {
+          method: "POST", 
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ accion: "activarUsuario", gmail: gmail }),
         })
