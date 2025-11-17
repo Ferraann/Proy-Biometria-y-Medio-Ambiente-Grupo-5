@@ -1,6 +1,6 @@
 <!--
 ===============================================================================
-NOMBRE: index.html
+NOMBRE: login.html
 DESCRIPCIÓN: Página de inicio de sesión de la plataforma AITHER.
              Incluye cabecera con navegación, formulario de login,
              acceso rápido con redes sociales y enlace de registro.
@@ -22,7 +22,7 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
   <title>AITHER - Inicia sesión</title>
   <!-- IMPORTS de CSS y JS -->
   <link rel="stylesheet" href="../css/libroEstilos.css">
-  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/login.css">
 
   <script src="../js/login.js" defer></script>
 </head>
@@ -36,8 +36,11 @@ un botón para iniciar sesión.
 ----------------------------------------------------------------------------
 -->
 <header>
-  <a href="#"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+  <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
+  <a href="landing.html"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+  <!-- Enlaces del header -->
   <nav>
+    <!-- Saber mas, quienes somos, faq y boton de iniciar sesión -->
     <ul>
       <li><a href="saber_mas.html">SABER MÁS</a></li>
       <li>
@@ -58,23 +61,36 @@ un botón para iniciar sesión.
   ----------------------------------------------------------------------------
   -->
 <main>
+  <!-- Contenedor del formulario -->
   <div class="container" id="container">
     <!-- Formulario de inicio de sesión -->
     <div class="container-form sign-in-container">
       <form action="#" id="loginForm">
+        <!-- Titulo -->
         <h1>INICIA SESIÓN</h1>
+        <!-- Contenedor del correo -->
         <div class="container-input">
+          <!-- Texto -->
           <label for="correo-sign-in">Correo electrónico:</label>
+          <!-- Input -->
           <input type="email" placeholder="" id="correo-sign-in">
         </div>
+        <!-- Contenedor de la contarseña -->
         <div class="container-input password-wrapper">
+          <!-- Texto -->
           <label for="contraseña-sign-in">Contraseña:</label>
+          <!-- Input -->
           <input type="password" placeholder="" id="contraseña-sign-in">
+          <!-- Icono del ojo para mostrar / ocultar contraseña -->
           <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-in" alt="Mostrar contraseña">
         </div>
+        <!-- Enlace de contraseña olvidada -->
         <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
+        <!-- Boton de iniciar sesión CTA-->
         <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
+        <!-- Separador de contenido -->
         <h3 class="divider">Acceso rápido con</h3>
+        <!-- Iconos de redes sociales -->
         <div class="social-networks">
           <a href="#"><img src="../img/google.png" alt="Logo de Google"></a>
           <a href="#"><img src="../img/facebook.png" alt="Logo de Facebook"></a>
@@ -86,36 +102,48 @@ un botón para iniciar sesión.
     <!-- Formulario de registro -->
     <div class="container-form sign-up-container">
       <form action="#" id="registerForm">
+        <!-- Título -->
         <h1>REGISTRO</h1>
+        <!-- Contenedor del nombre -->
         <div class="container-input">
           <label for="nombre">Nombre:</label>
           <input type="text" placeholder="" id="nombre">
         </div>
+        <!-- Contenedor de apellidos -->
         <div class="container-input">
           <label for="apellidos">Apellidos:</label>
           <input type="text" placeholder="" id="apellidos">
         </div>
+        <!-- Contenedor del correo electronico -->
         <div class="container-input">
           <label for="correo-sign-up">Correo electrónico:</label>
           <input type="text" placeholder="" id="correo-sign-up">
         </div>
+        <!-- Contenedor de la contraseña -->
         <div class="container-input contraseña password-wrapper">
           <label for="contraseña-sign-up">Contraseña: </label>
           <input type="password" id="contraseña-sign-up">
           <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-up">
         </div>
+        <!-- Contenedor de confirmar contraseña -->
         <div class="container-input">
           <label for="confirmar-contraseña-sign-up">Repetir contraseña:</label>
           <input type="password" placeholder="" id="confirmar-contraseña-sign-up">
         </div>
+        <!-- Contenedor de la politica de privacidad-->
         <div class="politica-btn">
           <div class="politica">
+            <!-- Checkbox customizada -->
             <label class="checkbox-custom">
+              <!-- Checkbox normal | será invisible -->
               <input type="checkbox" id="checkmark">
+              <!-- Checkbox modificada-->
               <span class="checkmark"></span>
             </label>
+            <!-- Texto de aceptar la politica de privacidad-->
             <h5>Acepto la Política de Privacidad y los Términos de uso</h5>
           </div>
+          <!-- Boton de registrarse -->
           <button class="btn-primary">REGÍSTRARSE</button>
         </div>
       </form>
@@ -136,7 +164,6 @@ un botón para iniciar sesión.
     </div>
   </div>
 </main>
-
 
 </body>
 </html>

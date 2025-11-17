@@ -2,37 +2,54 @@
    ARCHIVO: login.css
    DESCRIPCIÓN: Define el diseño visual de la página de login
    del sistema AITHER, incluyendo estructura, encabezado,
-   formulario de acceso, panel lateral de registro y adaptación
-   a pantallas móviles.
-   AUTOR: [Tu nombre aquí]
+   formulario de acceso, panel lateral de registro.
+   AUTOR: Ferran Sansaloni Prats
    FECHA: 03/11/2025
    COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
    ============================================================ */
+
+/* ------------------------------------------ */
+/* ---------- Contenedor principal ---------- */
+
+/* Estilos del cuerpo de la pagina */
 body {
   margin: 0;
   height: 100vh;
-  background-image: url("../img/fondo_login.png");
+  background-image: url("../img/landing.jpg");
   /* Llena toda la pantalla, lo centra y evita repeticiones */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
   display: flex;
   flex-direction: column;
   font-family: "Rubik", sans-serif;
 }
-
-/* ---------- Contenedor principal ---------- */
-header:last-child:hover {
-  text-decoration: none;
+body::before {
+  content: ""; /* Requerido para que se muestre el pseudo-elemento */
+  position: fixed; /* Se posiciona sobre el 'body' */
+  /* Hace que cubra todo el 'body' */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Color de fondo negro (rgb(0, 0, 0)) con 0.6 de opacidad (60%) */
+  background-color: rgba(160, 160, 160, 0.35);
+  /* Lo pone detrás del contenido (z-index: 1) pero encima del fondo */
+  z-index: -1;
 }
 
+/* Estilos del contenido principal de la página web */
 main {
+  /* flex: 1 --> Para que el main ocupe el espacio restante entre el header y el main */
   flex: 1;
+  /* Centrar todo */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Estilos del contenedor del inicio de sesión / registro */
 .container {
   position: relative;
   width: 900px;
@@ -43,10 +60,12 @@ main {
   opacity: 70%;
 }
 
-
+/* --------------------------------- */
 /* ---------- FORMULARIOS ---------- */
 
+/* Contenedor del formulario */
 .container-form {
+  /* Posicion absoluta respecto al contenedor principal ".container" */
   position: absolute;
   top: 0;
   height: 100%;
@@ -60,6 +79,8 @@ main {
   color: var(--Secundario_Blanco);
 }
 
+/* sign-in-container y sign-up-container se usan para diferenciar las posiciones para hacer los
+efectos de superposicion */
 .sign-in-container {
   left: 0;
   z-index: 2;
@@ -71,11 +92,17 @@ main {
   z-index: 1;
 }
 
+/* alineamos ambas cosas al centro verticalmente */
 .sign-up-container,
 .sign-in-container {
   align-items: center;
 }
 
+/* Cuando el contenedor principal .container tiene la clase .active:
+   - El formulario de inicio de sesión (.sign-in-container) se desplaza hacia la derecha,
+     se vuelve transparente y queda detrás del formulario de registro.
+   - El formulario de registro (.sign-up-container) se desplaza a la misma posición,
+     se hace visible y se coloca por encima, creando el efecto de deslizamiento entre ambos formularios. */
 .container.active .sign-in-container {
   transform: translateX(67%);
   opacity: 0;
@@ -88,6 +115,7 @@ main {
   z-index: 2;
 }
 
+/* ------------------------------------------- */
 /* ---------- PANEL AZUL DESLIZANTE ---------- */
 .overlay-container {
   position: absolute;
@@ -99,6 +127,7 @@ main {
   transition: transform 0.6s ease-in-out;
 }
 
+/* Estilos del cuadrado overlay que se desliza */
 .overlay {
   background: var(--Principal_1);
   color: var(--Principal_2);
@@ -110,7 +139,6 @@ main {
   transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
-
 .overlay-panel {
   position: absolute;
   display: flex;
@@ -125,6 +153,7 @@ main {
   transition: transform 0.6s ease-in-out;
 }
 
+/* Movimientos del overlay */
 .overlay-left {
   transform: translateX(-20%);
 }
@@ -134,6 +163,7 @@ main {
   transform: translateX(0);
 }
 
+/* ------------------------------------------------- */
 /* --- Animación del overlay al activar registro --- */
 .container.active .overlay-container {
   transform: translateX(-150%);
@@ -151,18 +181,23 @@ main {
   transform: translateX(20%);
 }
 
+/* ---------------------------------------- */
 /* ---------- ELEMENTOS INTERNOS ---------- */
+
+/* Contenedor del input y el texto */
 .container-input {
   width: 100%;
   margin-bottom: 15px;
 }
 
+/* Estilos del texto de cada bloque de input */
 .container-input h3 {
   font-size: 16px;
   margin-bottom: 5px;
   color: var(--Secundario_Blanco);
 }
 
+/* Estilos del input en cada bloque de input */
 .container-input input {
   width: 100%;
   height: 30px;
@@ -176,6 +211,7 @@ main {
   outline: none;
 }
 
+/* Estilos del enlace de has olvidado la contraseña */
 .forgot {
   color: var(--Principal_1);
   text-decoration: none;
@@ -188,6 +224,7 @@ main {
   text-decoration: underline;
 }
 
+/* Estilos del separador entre el boton de inicio de sesión y los iconos de las redes sociales */
 .divider {
   display: flex;
   align-items: center;
@@ -197,7 +234,6 @@ main {
   font-weight: 400;
   margin: 20px 0;
 }
-
 .divider::before,
 .divider::after {
   content: "";
@@ -210,7 +246,6 @@ main {
 .password-wrapper {
   position: relative;
 }
-
 .toggle-password {
   width: 22px;
   position: absolute;
@@ -221,14 +256,12 @@ main {
   opacity: 0.8;
   transition: 0.2s;
 }
-
 .toggle-password:hover {
   opacity: 1;
 }
-
 /* Fin de estilos para ojo abierto / ojo cerrado */
 
-
+/* Contenedor de la politica de privacidad */
 .politica-btn {
   display: flex;
   flex-direction: column;
@@ -236,16 +269,19 @@ main {
   margin-top: -10px;
 }
 
+/* Boton del bloque de politica de privacidad */
 .politica-btn button {
   height: 40px;
   width: 200px;
   margin: 10px 0 0;
 }
 
+/* Hacemos que el espacio del formulario de inicio de sesión ocupe el 100% del espacio */
 #loginForm {
   width: 100%;
 }
 
+/* Estilos de los mensajes que salen por pantalla */
 #message-login,
 #message-register {
   text-align: center;
@@ -253,22 +289,28 @@ main {
   margin: 10px 0;
 }
 
+/* Estilos del mensaje de registro.
+  Este lo hacemos por separado porque en el HTML tenemos este mensaje dentro de un div con otras cosas y estas
+  estan alineadas a la derecha, así se nos alinea al centro como queremos. */
 #message-register {
   width: 100%;
   justify-content: center;
 }
 
+/* Contenedor de la politica de privacidad */
 .politica {
   display: flex;
   align-items: center;
 }
 
+/* Checkbox customizada */
 .checkbox-custom {
   display: flex;
   align-items: center;
 }
 
-/* Ocultamos el checkbox */
+/* Ocultamos el checkbox real.
+  Lo vamos a ocultar pero va a estar ahi, entonces cuando pulsemos en el falso se nos activará tambien el real */
 .checkbox-custom input {
   position: absolute;
   opacity: 0;
@@ -296,7 +338,8 @@ main {
   background-color: var(--Principal_1);
 }
 
-  /* ---------- Animación de mensajes ---------- */
+/* ------------------------------------------- */
+/* ---------- Animación de mensajes ---------- */
 .fade-out {
   opacity: 0;
   height: 0;
@@ -305,7 +348,10 @@ main {
   transition: opacity 0.5s ease, height 0.5s ease, margin 0.5s ease;
 }
 
+/* ----------------------------- */
 /* ---------- BOTONES ---------- */
+
+/* Boton principal */
 .btn-primary {
   display: flex;
   justify-content: center;
@@ -322,29 +368,34 @@ main {
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .btn-primary:hover {
   background: var(--Principal_1);
 }
 
+/* Boton secundario */
 .btn-secondary {
   text-decoration: underline;
   cursor: pointer;
   text-underline-offset: 3px;
   transition: color 0.3s ease;
 }
-
 .btn-secondary:hover {
   color: var(--Secundario_Azul)
 }
 
+/* ------------------------------------ */
 /* ---------- REDES SOCIALES ---------- */
+
 form h1 {
   color: var(--Principal_1);
   margin-bottom: 20px;
 }
 
+/* ------------------------------------ */
 /* ---------- REDES SOCIALES ---------- */
+
+/* Estilos del contenedor de redes sociales */
+
 .social-networks {
   display: flex;
   justify-content: center;
@@ -352,13 +403,18 @@ form h1 {
   margin-top: 15px;
 }
 
+/* Estilos de los iconos */
 .social-networks img {
   width: 30px;
   height: 30px;
   cursor: pointer;
   transition: transform 0.3s;
 }
-
 .social-networks img:hover {
   transform: scale(1.1);
 }
+
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
+/* ------------------------------------------------- */
