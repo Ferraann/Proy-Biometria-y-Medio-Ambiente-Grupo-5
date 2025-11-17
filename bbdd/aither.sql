@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2025 a las 13:25:28
+-- Tiempo de generación: 17-11-2025 a las 21:50:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -184,17 +184,20 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(150) DEFAULT NULL,
   `gmail` varchar(150) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `biometria` mediumblob DEFAULT NULL
+  `activo` tinyint(1) DEFAULT 0,
+  `token` text DEFAULT NULL,
+  `token_expira` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `gmail`, `password`, `biometria`) VALUES
-(1, 'Manuel', 'Pérez Garcia', 'mpergar9@upv.edu', 'pablothegoat', NULL),
-(2, 'Greycy', 'Burgos Salazar', 'grey@gmail.com', 'asdfghjkl', NULL),
-(3, 'Pablo', 'BoxMark', 'palomaperu@gmail.com', 'qwertyuiop', NULL);
+INSERT INTO `usuario` (`id`, `nombre`, `apellidos`, `gmail`, `password`, `activo`, `token`, `token_expira`) VALUES
+(1, 'Manuel', 'Pérez Garcia', 'mpergar9@upv.edu', 'pablothegoat', 1, NULL, NULL),
+(2, 'Greycy', 'Burgos Salazar', 'grey@gmail.com', 'asdfghjkl', 1, NULL, NULL),
+(3, 'Pablo', 'BoxMark', 'palomaperu@gmail.com', 'qwertyuiop', 1, NULL, NULL),
+(4, 'marco', 'polo', 'manupergar02@gmail.com', '$2y$10$98oZd3wNSe4H8vBFghpzAO4Z00CK7MdRr283L5W/9wzLYD4PAtFke', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -348,7 +351,7 @@ ALTER TABLE `tipo_medicion`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_sensor`
