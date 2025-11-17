@@ -23,28 +23,26 @@
 
     <script>
       const params = new URLSearchParams(location.search);
-      const gmail = params.get("gmail");
+      const token = params.get("token");
 
-      console.log("Valor de gmail recibido:", gmail);
+      console.log("Token recibido:", token);
 
-      if (!gmail) {
-        muestra("Enlace incorrecto: falta el gmail.", "ko");
+      if (!token) {
+        muestra("Enlace incorrecto: falta el token.", "ko");
       } else {
         fetch("../api/index.php", {
-          method: "POST", 
+          method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ accion: "activarUsuario", gmail: gmail }),
+          body: JSON.stringify({ accion: "activarUsuario", token: token }),
         })
           .then((r) => r.json())
           .then((res) => {
             if (res.status === "ok") {
               muestra("¡Cuenta activada! Redirigiendo…", "ok");
-              setTimeout(
-                () =>
-                  (location.href =
-                    "http://localhost/ProyectoBiometria/src/html/landing.html"),
-                1500
-              );
+              setTimeout(() => {
+                location.href =
+                  "http://localhost/ProyectoBiometria/src/html/landing.html";
+              }, 1500);
             } else {
               muestra(res.message || "No se pudo activar la cuenta.", "ko");
             }
