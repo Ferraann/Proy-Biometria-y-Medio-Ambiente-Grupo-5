@@ -41,43 +41,51 @@ function registrarUsuario($conn, $data)
     $stmt->execute();
     $res = $stmt->get_result();
 
-    if ($res->num_rows) {                       // ya está en BD
+    if ($res->num_rows) {
         $usr = $res->fetch_assoc();
-        if ($usr['activo'] == 1) {              // y activo
+
+        if ($usr['activo'] == 1) {
             return ["status" => "error", "message" => "El correo ya está registrado y activado."];
         }
+
         /* usuario inactivo → lo borramos */
         $del = $conn->prepare("DELETE FROM usuario WHERE id = ?");
         $del->bind_param("i", $usr['id']);
         $del->execute();
     }
 
-    /* ---------- 3. Insertar nuevo usuario (inactivo) ---------- */
-    $ins = $conn->prepare("INSERT INTO usuario (nombre, apellidos, gmail, password, activo)
-                           VALUES (?, ?, ?, ?, 0)");
-    $ins->bind_param("ssss", $nombre, $apellidos, $gmail, $hash);
+    /* ---------- 3. Crear token seguro ---------- */
+    $token = bin2hex(random_bytes(32)); // 64 caracteres
+    $token_expira = date("Y-m-d H:i:s", time() + 900); // 15 min de validez
+
+    /* ---------- 4. Insertar nuevo usuario (inactivo + token + expiración) ---------- */
+    $ins = $conn->prepare("INSERT INTO usuario 
+        (nombre, apellidos, gmail, password, activo, token, token_expira)
+        VALUES (?, ?, ?, ?, 0, ?, ?)");
+    $ins->bind_param("ssssss", $nombre, $apellidos, $gmail, $hash, $token, $token_expira);
 
     if (!$ins->execute()) {
         return ["status" => "error", "message" => "Error al registrar el usuario: " . $conn->error];
     }
 
-    /* ---------- 4. Enviar correo de activación vía Gmail ---------- */
-    $enlace = "http://localhost/ProyectoBiometria/src/html/activacion.html?gmail=" . urlencode($gmail);
+    /* ---------- 5. Enviar correo de activación ---------- */
+    $enlace = "http://localhost/ProyectoBiometria/src/html/activacion.html?token=" . urlencode($token);
 
     $asunto  = "Activa tu cuenta en AITHER";
     $cuerpo  = "<h2>¡Hola $nombre!</h2>
-            <p>Gracias por registrarte. Pulsa el botón para activar tu cuenta:</p>
-            <p><a href='$enlace' style='background:#007bff;color:white;padding:10px 20px;text-decoration:none;border-radius:4px;'>Activar cuenta</a></p>
-            <p>Si el botón no funciona, copia y pega esta dirección:<br>$enlace</p>";
+        <p>Gracias por registrarte. Pulsa el botón para activar tu cuenta:</p>
+        <p><a href='$enlace' style='background:#007bff;color:white;padding:10px 20px;text-decoration:none;border-radius:4px;'>Activar cuenta</a></p>
+        <p>Si el botón no funciona, copia y pega esta dirección:<br>$enlace</p>";
 
-    $enviado = false;   // por defecto
+    $enviado = false;
+
     try {
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'no.reply.aither@gmail.com';//gmail nuevo
-        $mail->Password   = 'esdf lkoc qprz rkum';      //contraseña de aplicación
+        $mail->Username   = 'no.reply.aither@gmail.com';
+        $mail->Password   = 'esdf lkoc qprz rkum';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
@@ -89,39 +97,52 @@ function registrarUsuario($conn, $data)
 
         $mail->send();
         $enviado = true;
+
     } catch (Exception $e) {
         error_log('PHPMailer error: ' . $mail->ErrorInfo);
-        $enviado = false;
     }
 
-    /* ----  DEPURACIÓN  ---- */
-    error_log('===  ENVÍO DE CORREO  ===============================');
-    error_log('Destinatario : ' . $gmail);
-    error_log('Asunto       : ' . $asunto);
-    error_log('Resultado    : ' . ($enviado ? 'ÉXITO' : 'FALLO'));
-    if (!$enviado) {
-        error_log('PHPMailer error: ' . ($mail->ErrorInfo ?? 'desconocido'));
-    }
-    error_log('=====================================================');
-
-    /* ---------- 5. Respuesta final ---------- */
     return ["status" => "ok", "message" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
 }
+
+
 
 // -------------------------------------------------------------
 // FUNCIÓN 1.5: Activar usuario
 // -------------------------------------------------------------
-function activarUsuario($conn, $gmail)
+function activarUsuario($conn, $token)
 {
-    $sql = "UPDATE usuario SET activo = 1 WHERE gmail = ?";
+    // 1. Buscar el usuario por token
+    $sql = "SELECT id, token_expira FROM usuario WHERE token = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $gmail);
-    if ($stmt->execute() && $stmt->affected_rows > 0) {
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $res = $stmt->get_result();
+
+    if ($res->num_rows === 0) {
+        return ["status" => "error", "message" => "Token inválido o ya usado."];
+    }
+
+    $usr = $res->fetch_assoc();
+
+    // 2. Comprobar si el token ha expirado
+    if (strtotime($usr['token_expira']) < time()) {
+        return ["status" => "error", "message" => "El enlace ha expirado. Solicita un nuevo correo de activación."];
+    }
+
+    // 3. Activar usuario
+    $sql2 = "UPDATE usuario SET activo = 1, token = NULL, token_expira = NULL WHERE id = ?";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->bind_param("i", $usr['id']);
+    $stmt2->execute();
+
+    if ($stmt2->affected_rows > 0) {
         return ["status" => "ok", "message" => "Cuenta activada correctamente."];
     } else {
         return ["status" => "error", "message" => "No se pudo activar la cuenta."];
     }
 }
+
 
 // -------------------------------------------------------------
 // FUNCIÓN 2: Iniciar sesión (login)

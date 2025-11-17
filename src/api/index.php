@@ -67,7 +67,7 @@ if ($method === 'POST' || $method === 'PUT') {
 switch ($method) {
 
     // ---------------------------------------------------------
-    // MÉTODO POST -> Crear nuevos registros
+    // MÉTODO POST -> Crear/modificar registros
     // ---------------------------------------------------------
     case "POST":
         $accion = $input['accion'] ?? null;
@@ -94,22 +94,9 @@ switch ($method) {
                 break;
 
             case "activarUsuario":
-                echo json_encode(activarUsuario($conn, $input['gmail']));
+                echo json_encode(activarUsuario($conn, $input['token']));
                 break;
 
-            default:
-                echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
-                break;
-        }
-        break;
-
-    // -----------------------------------------------------
-    // MÉTODO PUT -> Actualizar o modificar recursos
-    // -----------------------------------------------------
-    case "PUT":
-        $accion = $input['accion'] ?? null;
-
-        switch ($accion) {
             case "finalizarRelacionSensor":   // marcar sensor con problema
                 echo json_encode(marcarSensorConProblemas($conn, $input));
                 break;
@@ -125,10 +112,10 @@ switch ($method) {
             case "cerrarIncidencia":
                 echo json_encode(cerrarIncidencia($conn, $input));
                 break;
-
             default:
-                echo json_encode(["status" => "error", "message" => "Acción PUT no reconocida."]);
+                echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
+
         }
         break;
 
