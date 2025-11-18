@@ -6,6 +6,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grupo5.androidapp.R;
+
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
 // Autor: Pablo Chasi

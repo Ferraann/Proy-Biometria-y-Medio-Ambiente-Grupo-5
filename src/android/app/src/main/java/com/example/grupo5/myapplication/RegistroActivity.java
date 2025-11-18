@@ -12,7 +12,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.myapplication.R;
+import com.example.grupo5.androidapp.R;
+
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
 // Autor: Pablo Chasi
@@ -42,7 +43,7 @@ public class RegistroActivity extends AppCompatActivity{
         Usuario = findViewById(R.id.NombreUsuario);
         Apellidos = findViewById(R.id.ApellidosUsuario);
         Email = findViewById(R.id.EmailUsuario);
-        Contrasenya = findViewById(R.id.ContrasenyaUsuario);
+        Contrasenya = findViewById(R.id.contrasenyaUsuario);
         RepetirContrasenya = findViewById(R.id.RepetirContrasenyaUsuario);
 
         verificarContrasenya();
