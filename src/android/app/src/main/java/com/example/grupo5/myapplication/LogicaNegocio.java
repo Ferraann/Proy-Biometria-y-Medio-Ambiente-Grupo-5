@@ -93,19 +93,19 @@ public class LogicaNegocio {
                 if (response.isSuccessful()) {
                     Log.d("Login", "Login exitoso");
 
-                    JsonObject usuarioJson= response.body();
+                    JsonObject usuarioJson = response.body().getAsJsonObject("usuario");
 
                     SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
                     prefs.edit()
-                            .putString("id", usuarioJson.get("id").toString())
-                            .putString("nombre", usuarioJson.get("nombre").toString())
-                            .putString("apellidos", usuarioJson.get("apellidos").toString())
-                            .putString("correo", usuarioJson.get("correo").toString())
+                            .putString("id", usuarioJson.get("id").getAsString())
+                            .putString("nombre", usuarioJson.get("nombre").getAsString())
+                            .putString("apellidos", usuarioJson.get("apellidos").getAsString())
+                            .putString("gmail", usuarioJson.get("gmail").getAsString())
                             .apply();
 
                     Intent intent = new Intent(contexto, HomeActivity.class);
                     contexto.startActivity(intent);
-                    
+
 
                 } else {
                     Log.d("Login", "Credenciales incorrectas o error: " + response.code());
