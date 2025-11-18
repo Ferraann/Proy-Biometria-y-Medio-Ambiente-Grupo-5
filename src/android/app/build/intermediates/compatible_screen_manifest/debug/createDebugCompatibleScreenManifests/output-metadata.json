@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.pachacaj.myapplication",
+  "applicationId": "com.example.grupo5.androidapp",
   "variantName": "debug",
   "elements": []
 }

@@ -42,4 +42,13 @@ public interface ApiService {
             @Field("email") String email,
             @Field("contrasenya") String contrasenya
     );
+
+    @FormUrlEncoded
+    @POST("login.php") // Cambia al endpoint real en tu servidor
+    Call<Void> modificarDatos(
+            @Field("Nombre") String nombre,
+            @Field("Apellidos") String apellidos,
+            @Field("Email") String email,
+            @Field("Contrasenya") String contrasenya
+    );
 }

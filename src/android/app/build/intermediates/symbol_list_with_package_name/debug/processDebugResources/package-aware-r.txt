@@ -1,4 +1,4 @@
-com.example.pachacaj.myapplication
+com.example.grupo5.myapplication
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -3665,6 +3665,7 @@ id FUNCTION
 id META
 id NO_DEBUG
 id NombreUsuario
+id RepetirContrasenyaUsuario
 id SHIFT
 id SHOW_ALL
 id SHOW_PATH
@@ -3844,6 +3845,14 @@ id east
 id edge
 id edit_query
 id edit_text_id
+id editarApellidos
+id editarContrasenyaActual
+id editarContrasenyaNueva
+id editarCorreoNuevo
+id editarNombre
+id editarPerfil
+id editarRepetirContrasenyaNueva
+id editarRepetirCorreoNuevo
 id elastic
 id embed
 id end
@@ -3880,6 +3889,7 @@ id graph_wrap
 id group_divider
 id grouping
 id groups
+id guardarDatos
 id header_title
 id hidden
 id hide_ime_id
@@ -3945,6 +3955,10 @@ id matrix
 id message
 id middle
 id mini
+id modificarApellidos
+id modificarContrasenyaAntigua
+id modificarCorreo
+id modificarNombre
 id month_grid
 id month_navigation_bar
 id month_navigation_fragment_toggle
@@ -4126,7 +4140,6 @@ id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
 id text
 id text2
-id textBienvenida
 id textEnd
 id textSpacerNoButtons
 id textSpacerNoTitle
@@ -4302,8 +4315,11 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_beacon
+layout activity_editar_perfil
 layout activity_home
 layout activity_main
+layout activity_registro
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -4320,7 +4336,6 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
-layout funciones_basicas
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout m3_alert_dialog
@@ -4382,7 +4397,6 @@ layout notification_template_custom_big
 layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
-layout registrarse
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -4637,6 +4651,7 @@ style Base_TextAppearance_MaterialComponents_Subtitle2
 style Base_TextAppearance_Widget_AppCompat_ExpandedMenu_Item
 style Base_TextAppearance_Widget_AppCompat_Toolbar_Subtitle
 style Base_TextAppearance_Widget_AppCompat_Toolbar_Title
+style Base_Theme_AndroidApp
 style Base_Theme_AppCompat
 style Base_Theme_AppCompat_CompactMenu
 style Base_Theme_AppCompat_Dialog
@@ -4682,7 +4697,6 @@ style Base_Theme_MaterialComponents_Light_Dialog_Bridge
 style Base_Theme_MaterialComponents_Light_Dialog_FixedSize
 style Base_Theme_MaterialComponents_Light_Dialog_MinWidth
 style Base_Theme_MaterialComponents_Light_DialogWhenLarge
-style Base_Theme_MyApplication
 style Base_ThemeOverlay_AppCompat
 style Base_ThemeOverlay_AppCompat_ActionBar
 style Base_ThemeOverlay_AppCompat_Dark
@@ -5155,6 +5169,7 @@ style TextAppearance_MaterialComponents_Tooltip
 style TextAppearance_Widget_AppCompat_ExpandedMenu_Item
 style TextAppearance_Widget_AppCompat_Toolbar_Subtitle
 style TextAppearance_Widget_AppCompat_Toolbar_Title
+style Theme_AndroidApp
 style Theme_AppCompat
 style Theme_AppCompat_CompactMenu
 style Theme_AppCompat_DayNight
@@ -5260,7 +5275,6 @@ style Theme_MaterialComponents_Light_NoActionBar
 style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
-style Theme_MyApplication
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark
