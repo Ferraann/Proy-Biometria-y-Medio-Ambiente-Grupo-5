@@ -1,5 +1,18 @@
+<!--
+===============================================================================
+NOMBRE: index.html
+DESCRIPCIÓN: Landing, pagina principal, donde el usuario podra encotrar toda la 
+            información necesaria de la empresa y sobre el producto que ofrece.
+COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+FECHA: 07/11/2025
+AUTOR: Greysy Burgos Salazar
+APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
+            con enlaces a recursos CSS y JavaScript externos.
+===============================================================================
+-->
 <!DOCTYPE html>
 <html lang="es">
+    
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +23,20 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     </head>
     <body>
-    
+        <!--
+        ----------------------------------------------------------------------------
+        BLOQUE: <header>
+        DISEÑO LÓGICO: Contiene el logotipo y la barra de navegación principal.
+        DESCRIPCIÓN: Proporciona acceso rápido a secciones informativas y
+        un botón para iniciar sesión.
+        ----------------------------------------------------------------------------
+        -->
         <header>
+            <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
             <a href="#"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
             <nav>
                 <ul>
+                <!-- Saber mas, quienes somos, faq y boton de iniciar sesión -->
                 <li><a href="saber_mas.html">SABER MÁS</a></li>
                 <li>
                     <a href="quienes_somos.html">¿QUIÉNES SOMOS?</a>
@@ -24,7 +46,16 @@
                 </ul>
             </nav>
         </header>
+        <!--
+        ----------------------------------------------------------------------------
+        BLOQUE: <main>
+        DISEÑO LÓGICO: Contenedor principal dividido en dos seciones, la primera es el slogan 
+        con el mapa general sin información de los usuarios pero que puede acceder cualquier persona.
+        Y la segunda sección son los pasos para optener la app.
+        ----------------------------------------------------------------------------
+        -->
         <main>
+            <!--Primera sección slogan y mapa-->
             <section class="hero">
                 <div class="container">
                     <div class="hero-content">
@@ -42,7 +73,7 @@
                     </div>
                 </div>
             </section>
-
+            <!--Segunda sección pasos para obtener la app-->
             <section class="app-download" id="descargar">
                 <div class="container">
                     <div class="app-info">
@@ -89,12 +120,19 @@
                 
             </section>
         </main>
+        <!--
+        ----------------------------------------------------------------------------
+        BLOQUE: <footer>
+        DISEÑO LÓGICO: Derechos reservados por copyright, logo y slogan, links que tambien
+        estan en el header y links a las redes sociales que aun no estan activas.  
+        ----------------------------------------------------------------------------
+        -->
         <footer>
             <div class="footer-container">
                 <div class="footer-top">
                     <div class="footer-brand">
                         <h3>AITHER</h3>
-                        <p>Haciendo visible lo invisible.</p>
+                        <p>El aire que compartimos.</p>
                     </div>
 
                     <div class="footer-links">
@@ -120,27 +158,25 @@
             </div>
         </footer>
     </body>
+    <!--Script para que cuando se recarge la pagina manualmente te lleve siempre al incio de esta-->
     <script>
-        // --- AÑADE ESTAS LÍNEAS AQUÍ ---
-        // Esto le dice al navegador que NO intente restaurar
-        // la posición de scroll cuando se recarga la página.
+        // Esto le dice al navegador que NO intente restaurar la posición de scroll cuando se recarga la página.
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
-        // --- FIN DE LAS LÍNEAS NUEVAS ---
-        // 1. Espera a que toda la página esté cargada
+        //Espera a que toda la página esté cargada
         document.addEventListener('DOMContentLoaded', () => {
-            // 2. Busca tu flecha-botón
+            //Busca tu flecha-botón
             const arrowButton = document.querySelector('.btn-arrow');
-            // 3. Busca la sección a la que quieres bajar
+            //Busca la sección a la que quieres bajar
             const targetSection = document.getElementById('descargar');
-            // 4. Asegúrate de que ambos existan antes de hacer nada
+            //Asegúrate de que ambos existan antes de hacer nada
             if (arrowButton && targetSection) {
-                // 5. Añade un "escuchador" para el clic
+                //Añade un "escuchador" para el clic
                 arrowButton.addEventListener('click', (event) => {
-                    // 6. ¡IMPORTANTE! Previene el comportamiento por defecto
+                    //Previene el comportamiento por defecto
                     event.preventDefault();
-                    // 7. Dile a la sección que se muestre en la vista, con animación suave
+                    //muestra la sección en la vista, con animación suave
                     targetSection.scrollIntoView({
                         behavior: 'smooth'
                     });
