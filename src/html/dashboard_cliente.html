@@ -6,7 +6,7 @@ DESCRIPCIÓN: dashboard o panel de control, esta pagina es la parte privada del 
             principales que son los mapas y las estadisticas. Tambien podra acceder a el soporte tecnico 
             y proximamente a su perfil, ...
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
-FECHA: 07/11/2025
+FECHA: 10/11/2025
 AUTOR: Greysy Burgos Salazar
 APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
             con enlaces a recursos CSS y JavaScript externos.
@@ -17,7 +17,7 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AITHER | ¿Quiénes Somos?</title>
+        <title>AITHER | Panel de control</title>
         <link rel="icon" href="../img/logo_aither.png" type="image/png">
         <link rel="stylesheet" href="../css/dashboard_cliente.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -39,13 +39,24 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
             <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
             <a href="#"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
             <nav>
-                <!--Mis sensores, soporte tecnico y perfil (editar perfil y cerrar sesion)-->
+                <!--Mis sensores, soporte tecnico y perfil (configuracion y cerrar sesion)-->
                 <ul>
-                <li><a href="dashboard_cliente.html">Mis <br> sensores</a></li>
-                <li>
-                    <a href="soporte_tecnico_cliente.html">Soporte <br> técnico</a>
-                </li>
-                <li><a href="perfil_cliente.html" class="nav-perfil"><i class="fa-solid fa-circle-user"></i>Nombre</a></li>
+                    <li><a href="dashboard_cliente.html">Mis <br> sensores</a></li>
+                    <li>
+                        <a href="soporte_tecnico_cliente.html">Soporte <br> técnico</a>
+                    </li>
+                    <li class="profile-dropdown-container">
+                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span>NOMBRE A.P.</span></a>
+                        <div class="profile-menu" id="profile-menu">
+                            <div class="menu-header">
+                                <i class="fa-solid fa-circle-user profile-icon-large"></i>
+                                <span class="profile-name">NOMBRE A.P.</span>
+                                <i class="fa-solid fa-xmark close-menu-btn" id="close-menu-button"></i>
+                            </div>
+                            <a href="perfil_cliente.html" class="menu-item">CONFIGURACIÓN</a>
+                            <a href="#" class="menu-item logout-item">CERRAR SESIÓN</a>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -144,4 +155,5 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
         </main>
     </body>
     <script src="../js/dashboard_cliente.js"></script>
+    <script src="../js/Fun_icono_perfil.js"></script>
 </html>
