@@ -2,6 +2,7 @@ package com.example.grupo5.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import com.example.grupo5.myapplication.BTLEActivity;
 import com.example.grupo5.myapplication.HomeActivity;
 import com.example.grupo5.myapplication.ApiCliente;
 import com.example.grupo5.myapplication.ApiService;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,22 +76,44 @@ public class LogicaNegocio {
     //-------------------------------------------------------------------------------------------
     public static void PostLogin(String email, String contrasenya, Context contexto) {
         ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-        Call<Void> call = apiService.loginUsuario(email, contrasenya);
 
-        call.enqueue(new Callback<Void>() {
+        //Metemos toda la información en formato Json
+        JsonObject Usuario = new JsonObject();
+        Usuario.addProperty("accion","login");
+        Usuario.addProperty("gmail",email);
+        Usuario.addProperty("password",contrasenya);
+
+        //Hacemos la llamda
+        Call<JsonObject> call = apiService.loginUsuario(Usuario);
+
+        //Ejecutamos la llamda
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
                     Log.d("Login", "Login exitoso");
+
+                    JsonObject usuarioJson= response.body();
+
+                    SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("id", usuarioJson.get("id").toString())
+                            .putString("nombre", usuarioJson.get("nombre").toString())
+                            .putString("apellidos", usuarioJson.get("apellidos").toString())
+                            .putString("correo", usuarioJson.get("correo").toString())
+                            .apply();
+
                     Intent intent = new Intent(contexto, HomeActivity.class);
                     contexto.startActivity(intent);
+                    
+
                 } else {
                     Log.d("Login", "Credenciales incorrectas o error: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.e("Login", "Error en conexión: " + t.getMessage());
             }
         });

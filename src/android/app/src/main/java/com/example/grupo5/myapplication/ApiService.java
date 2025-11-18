@@ -1,7 +1,9 @@
 package com.example.grupo5.myapplication;
 import com.example.grupo5.myapplication.PojoRespuestaServidor;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -20,7 +22,7 @@ public interface ApiService {
     //Metodo post para hacer el login
     //lo que se pretende es enviar y no
     //recibir al tener void.
-    @FormUrlEncoded
+
     @POST("index.php")
     Call<PojoRespuestaServidor> datosRegistro(
             @Field("Nombre") String nombre,
@@ -29,22 +31,18 @@ public interface ApiService {
             @Field("Contrasenya") String contrasenya
     );
 
-    @FormUrlEncoded
-    @POST ("postGuardarMediciones.php")
+
+    @POST ("index.php")
     Call<Void> enviarDatos(
             @Field("CO2") float co2,
             @Field("Temperatura") float temperatura
     );
 
-    @FormUrlEncoded
-    @POST("index.php") // Cambia al endpoint real en tu servidor
-    Call<Void> loginUsuario(
-            @Field("email") String email,
-            @Field("contrasenya") String contrasenya
-    );
 
-    @FormUrlEncoded
-    @POST("login.php") // Cambia al endpoint real en tu servidor
+    @POST("index.php") // Cambia al endpoint real en tu servidor
+    Call<JsonObject> loginUsuario(@Body JsonObject json);
+
+    @POST("index.php") // Cambia al endpoint real en tu servidor
     Call<Void> modificarDatos(
             @Field("Nombre") String nombre,
             @Field("Apellidos") String apellidos,
