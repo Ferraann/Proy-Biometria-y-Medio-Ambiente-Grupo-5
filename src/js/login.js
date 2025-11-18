@@ -1,8 +1,13 @@
-// ============================
-// AITHER - index.js
-// Control del login, registro y transiciones
-// ============================
-
+/* 
+===============================================================================
+NOMBRE: login.js
+DESCRIPCIÓN: 
+COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
+FECHA: 04/11/2025
+AUTOR: Ferran y Manuel
+APORTACIÓN: 
+===============================================================================
+*/
 // ELEMENTOS DEL DOM
 const container = document.getElementById("container");
 const signUpBtn = document.getElementById("signUpBtn");
@@ -47,17 +52,10 @@ msgRegister.classList.remove("fade-out");
 
 document.querySelectorAll(".toggle-password").forEach(icon => {
   icon.addEventListener("click", () => {
-
-    // coge el input objetivo según el data-input
     const input = document.getElementById(icon.dataset.input);
-
-    if (input.type === "password") {
-      input.type = "text";
-      icon.src = "../img/ojo.png"; // ojo abierto
-    } else {
-      input.type = "password";
-      icon.src = "../img/ojo-cerrado.png"; // ojo cerrado
-    }
+    const esPass = input.type === "password";
+    input.type = esPass ? "text" : "password";
+    icon.src = esPass ? "../img/ojo.png" : "../img/ojo-cerrado.png";
   });
 });
 
@@ -78,23 +76,14 @@ signInBtn.addEventListener("click", () => {
 
 // Cambios de color del botón del header según el estado
 container.addEventListener("transitionend", () => {
-  if (container.classList.contains("active")) {
-    botonHeader.classList.add("active");
-  } else {
-    botonHeader.classList.remove("active");
-  }
+  botonHeader.classList.toggle("active", container.classList.contains("active"));
 });
 
 // Actualizar el estado del boton de inicio de sesión del header
 function updateHeaderLoginButton() {
-  const isRegisterView = container.classList.contains("active");
-  if (isRegisterView) {
-    botonHeader.classList.remove("disabled");
-    botonHeader.classList.add("enabled");
-  } else {
-    botonHeader.classList.add("disabled");
-    botonHeader.classList.remove("enabled");
-  }
+  const isRegister = container.classList.contains("active");
+  botonHeader.classList.toggle("disabled", !isRegister);
+  botonHeader.classList.toggle("enabled", isRegister);
 }
 
 // Llamada inicial al cargar la página
@@ -116,222 +105,123 @@ botonHeader.addEventListener("click", (e) => {
   document.getElementById("correo-sign-in")?.focus();
 });
 
+// ---------------------------------------------------------------------------
+// FUNCIÓN AUXILIAR: Mostrar mensaje con desvanecimiento
+// ---------------------------------------------------------------------------
+function mostrarMensaje(tipo, texto, duracion = 3000) {
+  const msg = tipo === "login" ? msgLogin : msgRegister;
+  msg.textContent = texto;
+  msg.classList.remove("fade-out");
 
-// ============================
-// EVENTO LOGIN
-// ============================
-loginForm.addEventListener("submit", async (e) => {
+  const ref = tipo === "login"
+    ? loginForm.querySelector(".forgot")
+    : registerForm.querySelector(".btn-primary");
+
+  ref.before(msg);
+
+  setTimeout(() => msg.classList.add("fade-out"), duracion);
+}
+
+// ---------------------------------------------------------------------------
+// EVENTO: LOGIN → consume API vía index.php (acción: login)
+// ---------------------------------------------------------------------------
+loginForm.addEventListener("submit", async e => {
   e.preventDefault();
-  // Mensaje que se mostrará en pantalla
-  msgLogin.textContent = "";
 
-  // email y contraseña
-  const email = document.getElementById("correo-sign-in").value.trim();
+  const gmail = document.getElementById("correo-sign-in").value.trim();
   const password = document.getElementById("contraseña-sign-in").value.trim();
 
-  // Si no hay email ni contraseña en los inputs...
-  if (!email || !password) {
-    // ... se pone ese mensaje de error y se muestra...
-    loginForm.querySelector(".forgot").before(msgLogin);
-    msgLogin.textContent = "Por favor, rellena todos los campos.";
-    // ... y despues de 3 segundos se quita
-    setTimeout(() => {
-      msgLogin.classList.add("fade-out");
-    }, 3000)
-    msgLogin.classList.remove("fade-out");
+  if (!gmail || !password) {
+    mostrarMensaje("login", "Por favor, rellena todos los campos.");
     return;
   }
 
-  // Se crea un formData con los datos recogidos
-  const formData = new FormData();
-  formData.append("gmail", email);
-  formData.append("password", password);
-
   try {
-    // Envia los datos a login.php
-    const response = await fetch("../php/login.php", {
+    const response = await fetch("../api/index.php", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ accion: "login", gmail, password })
     });
 
-    // Crea un json
     const data = await response.json();
 
-    // Si va bien, se guarda en el localStorage en "user" los datos en formato string y se redifije a dashboard.html
-    if (data.success) {
-      localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "dashboard.html";
+    if (data.status === "ok") {
+      // Guardar usuario en localStorage y redirigir
+      localStorage.setItem("user", JSON.stringify(data.usuario));
+      window.location.href = "dashboard.html"; // si el login es exitoso lleva aqui, cambiar
     } else {
-      // Si falla se pone ese mensaje de error ...
-      loginForm.querySelector(".forgot").before(msgLogin);
-      msgLogin.textContent = data.message || "Usuario o contraseña incorrectos.";
-      // ... y despues de 3 segundos se quita
-      setTimeout(() => {
-        msgLogin.classList.add("fade-out");
-      }, 3000)
-      msgLogin.classList.remove("fade-out");
+      mostrarMensaje("login", data.message || "Credenciales incorrectas.");
     }
-    // Si falla todo es que la conexión da error
-  } catch (error) {
-    // Se pone ese error en pantalla ...
-    loginForm.querySelector(".forgot").before(msgLogin);
-    msgLogin.textContent = "Error de conexión con el servidor.";
-    // ... y despues de 3 segundos se quita
-    setTimeout(() => {
-      msgLogin.classList.add("fade-out");
-    }, 3000)
-    msgLogin.classList.remove("fade-out");
+  } catch (err) {
+    console.error(err);
+    mostrarMensaje("login", "Error de conexión con el servidor.");
   }
 });
 
-// ============================
-// EVENTO REGISTRO
-// ============================
-registerForm.addEventListener("submit", async (e) => {
+// ---------------------------------------------------------------------------
+// EVENTO: REGISTRO → consume API vía index.php (acción: registrarUsuario)
+// ---------------------------------------------------------------------------
+registerForm.addEventListener("submit", async e => {
   e.preventDefault();
-  // Mensaje de registro
-  msgRegister.textContent = "";
 
-  // Campos del registro
   const nombre = document.getElementById("nombre").value.trim();
   const apellidos = document.getElementById("apellidos").value.trim();
-  const correo = document.getElementById("correo-sign-up").value.trim();
-  const pass = document.getElementById("contraseña-sign-up").value.trim();
+  const gmail = document.getElementById("correo-sign-up").value.trim();
+  const password = document.getElementById("contraseña-sign-up").value.trim();
   const confirm = document.getElementById("confirmar-contraseña-sign-up").value.trim();
   const politica = registerForm.querySelector("input[type='checkbox']").checked;
 
-  // Si hay algo que no está escrito ...
-  if (!nombre || !apellidos || !correo || !pass || !confirm) {
-    // ... se pone este mensaje de error ...
-    registerForm.querySelector(".btn-primary").before(msgRegister);
-
-    msgRegister.textContent = "Por favor, completa todos los campos.";
-    // ... y despues de 3 segundos se quita
-    setTimeout(() => {
-      msgRegister.classList.add("fade-out");
-    }, 3000)
-    msgRegister.classList.remove("fade-out");
+  // Validaciones previas
+  if (!nombre || !apellidos || !gmail || !password || !confirm) {
+    mostrarMensaje("register", "Por favor, completa todos los campos.");
     return;
   }
 
-  // Comprobar contraseña (8 o mas caracteres, al menos un numero, una mayúscula y un caracter especial
-  const numeros = "0123456789";
-  const mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const especiales = "!@#$%^&*(),.?\":{}|<>";
-
-  var tieneNumero = false;
-  var tieneMayuscula = false;
-  var tieneEspecial = false;
-
-  // Verificar números
-  for (let i = 0; i < numeros.length; i++) {
-    if (pass.includes(numeros[i])) {
-      tieneNumero = true;
-      break;
-    }
-  }
-
-  // Verificar mayúsculas
-  for (let i = 0; i < mayusculas.length; i++) {
-    if (pass.includes(mayusculas[i])) {
-      tieneMayuscula = true;
-      break;
-    }
-  }
-
-  // Verificar caracteres especiales
-  for (let i = 0; i < especiales.length; i++) {
-    if (pass.includes(especiales[i])) {
-      tieneEspecial = true;
-      break;
-    }
-  }
-
-  if (
-      pass.length < 8 || !tieneNumero || !tieneMayuscula || !tieneEspecial
-  ) {
-    registerForm.querySelector(".contraseña").before(msgRegister);
-    msgRegister.textContent =
-        "La contraseña debe contener al menos 8 caracteres, un número, una mayúscula y un carácter especial.";
-
-    setTimeout(() => {
-      msgRegister.classList.add("fade-out");
-    }, 5000);
-
-    msgRegister.classList.remove("fade-out");
+  // Validar fortaleza de contraseña
+  const tieneNum = /\d/.test(password);
+  const tieneMay = /[A-Z]/.test(password);
+  const tieneEsp = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  if (password.length < 8 || !tieneNum || !tieneMay || !tieneEsp) {
+    mostrarMensaje("register",
+      "La contraseña debe tener ≥8 caracteres, un número, una mayúscula y un carácter especial.",
+      5000);
     return;
   }
 
-
-  // Si la contraseña es diferente a confirmar contraseña ...
-  if (pass !== confirm) {
-    // ... se pone este mensaje de error ...
-    registerForm.querySelector(".btn-primary").before(msgRegister);
-    msgRegister.textContent = "Las contraseñas no coinciden.";
-    // ... y se quita despues de 3 segundos
-    setTimeout(() => {
-      msgRegister.classList.add("fade-out");
-    }, 3000)
-    msgRegister.classList.remove("fade-out");
+  if (password !== confirm) {
+    mostrarMensaje("register", "Las contraseñas no coinciden.");
     return;
   }
 
-  // Si no se ha aceptado la politica de privacidad ...
   if (!politica) {
-    // ... se pone este mensaje de error ...
-    registerForm.querySelector(".btn-primary").before(msgRegister);
-    msgRegister.textContent = "Debes aceptar la política de privacidad.";
-    // ... y se quita despues de 3 segundos
-    setTimeout(() => {
-      msgRegister.classList.add("fade-out");
-    }, 3000)
-    msgRegister.classList.remove("fade-out");
+    mostrarMensaje("register", "Debes aceptar la política de privacidad.");
     return;
   }
-
-  // Se crea un formData con los datos obtenidos
-  const formData = new FormData();
-  formData.append("nombre", nombre);
-  formData.append("apellidos", apellidos);
-  formData.append("correo", correo);
-  formData.append("password", pass);
 
   try {
-    // Se intenta enviar a register.php
-    const response = await fetch("../php/register.php", {
+    const response = await fetch("../api/index.php", {
       method: "POST",
-      body: formData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accion: "registrarUsuario",
+        nombre,
+        apellidos,
+        gmail,
+        password
+      })
     });
 
-    // Se crear un json ...
     const data = await response.json();
 
-    // ... y si va bien ...
-    if (data.success) {
-      // se le ponen estos estilos al mensaje ...
+    if (data.status === "ok") {
+      mostrarMensaje("register", "Registro exitoso. ¡Ahora puedes iniciar sesión!");
       msgRegister.style.color = "green";
-      msgRegister.style.opacity = "90%";
-      // ... y se pone este mensaje ...
-      msgRegister.textContent = "Registro exitoso. ¡Ahora puedes iniciar sesión!";
-      // ... y despues de 3 segundos se va ...
-      setTimeout(() => {
-        msgRegister.classList.add("fade-out");
-      }, 3000)
-      msgRegister.classList.remove("fade-out");
-      // y se quita la clase active para volver a inicio de sesión
       setTimeout(() => container.classList.remove("active"), 1500);
     } else {
-      // Si falla se se pone este mensaje de error
-      msgRegister.textContent = data.message || "Error al registrarse.";
+      mostrarMensaje("register", data.message || "Error al registrarse.");
     }
-    // Si falla todo es porque ha habido un error en la conexión con el servidor
-  } catch (error) {
-    // se pone este mensaje de error
-    msgRegister.textContent = "Error de conexión con el servidor.";
-    // se quita despues de 3 segundos
-    setTimeout(() => {
-      msgRegister.classList.add("fade-out");
-    }, 3000)
-    msgRegister.classList.remove("fade-out");
+  } catch (err) {
+    console.error(err);
+    mostrarMensaje("register", "Error de conexión con el servidor.");
   }
 });

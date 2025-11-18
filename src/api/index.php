@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-ini_set('display_errors', 0);
 
 // ------------------------------------------------------------------
 // Fichero: index.php
@@ -13,6 +11,11 @@ ini_set('display_errors', 0);
 //  el método HTTP y delega en las funciones de logicaNegocio.php.
 // ------------------------------------------------------------------
 
+/* ================= DEBUG  ================= */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+/* ========================================== */
 header('Content-Type: application/json');
 
 header('Access-Control-Allow-Origin: *');
