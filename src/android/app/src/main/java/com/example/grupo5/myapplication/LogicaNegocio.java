@@ -26,83 +26,103 @@ import retrofit2.Response;
 //  la app movil al servidor, se declara metodos post,get,insert...
 //------------------------------------------------------------------
 public class LogicaNegocio {
-        //-------------------------------------------------------------------------------------------
-        //     Nombre:txt, Apellidos:txt, email:txt, contraseña:txt --> postRegistro()
-        //-------------------------------------------------------------------------------------------
-        public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya, Context contexto){
+    //-------------------------------------------------------------------------------------------
+    //     Nombre:txt, Apellidos:txt, email:txt, contraseña:txt --> postRegistro()
+    //-------------------------------------------------------------------------------------------
+    public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya, Context contexto) {
 
-            ApiService api = ApiCliente.getApiService();
-            Call<PojoRespuestaServidor> call = api.datosRegistro(Nombre,Apellidos,Email,Contrasenya);
+        ApiService api = ApiCliente.getApiService();
+        Call<PojoRespuestaServidor> call = api.datosRegistro(Nombre, Apellidos, Email, Contrasenya);
 
-            //Ejecutamos la llamada post de forma asincrona, con un callback.Lo primero que hacemos es cojer la respuesta
-            //del servido, al recibirlo comparamos si ha fallado algo y si la respuesta en si tiene cuerpo. Si no se cumple
-            //ninguna de estás dos cóndiciones significa que algo a ocurriod en la conexión. Si por el contrario es favorable
-            //la respuesta lo metemos en una clase pojo para poder usarlo de forma facil. Si la respuesta es aceptada, en este
-            //caso significa que la cuenta de la persona no está creado teniendo en cuenta su email y si no es así es lo contrario
-            call.enqueue(new Callback<PojoRespuestaServidor>() {
-                @Override
-                public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
+        //Ejecutamos la llamada post de forma asincrona, con un callback.Lo primero que hacemos es cojer la respuesta
+        //del servido, al recibirlo comparamos si ha fallado algo y si la respuesta en si tiene cuerpo. Si no se cumple
+        //ninguna de estás dos cóndiciones significa que algo a ocurriod en la conexión. Si por el contrario es favorable
+        //la respuesta lo metemos en una clase pojo para poder usarlo de forma facil. Si la respuesta es aceptada, en este
+        //caso significa que la cuenta de la persona no está creado teniendo en cuenta su email y si no es así es lo contrario
+        call.enqueue(new Callback<PojoRespuestaServidor>() {
+            @Override
+            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
 
-                    if (response.isSuccessful() && response.body() != null) {
-                        PojoRespuestaServidor respuesta = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    PojoRespuestaServidor respuesta = response.body();
 
-                        if ("ok".equals(respuesta.getStatus())) {
-                            Log.d("API", "funciona: " + respuesta.getMensaje());
-                            Intent intent = new Intent(contexto, HomeActivity.class);
-                            contexto.startActivity(intent);
-
-                        } else {
-                            Log.w("API", "No funciona: " + respuesta.getMensaje());
-                            Toast.makeText(contexto,"Mail ya registrado", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Log.e("API", "Error HTTP: código " + response.code());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
-                    Log.e("API", "Error de conexión: " + t.getMessage());
-                }
-            });
-
-        }
-
-
-        //-------------------------------------------------------------------------------------------
-        //     Email:txt, Contraseña:txt, Contexto:context --> postRegistro()
-        //-------------------------------------------------------------------------------------------
-        public static void PostLogin(String email, String contrasenya, Context contexto) {
-            ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-            Call<Void> call = apiService.loginUsuario(email, contrasenya);
-
-            call.enqueue(new Callback<Void>() {
-                @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    if (response.isSuccessful()) {
-                        Log.d("Login", "Login exitoso");
+                    if ("ok".equals(respuesta.getStatus())) {
+                        Log.d("API", "funciona: " + respuesta.getMensaje());
                         Intent intent = new Intent(contexto, HomeActivity.class);
                         contexto.startActivity(intent);
+
                     } else {
-                        Log.d("Login", "Credenciales incorrectas o error: " + response.code());
+                        Log.w("API", "No funciona: " + respuesta.getMensaje());
+                        Toast.makeText(contexto, "Mail ya registrado", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    Log.e("API", "Error HTTP: código " + response.code());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    Log.e("Login", "Error en conexión: " + t.getMessage());
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
+                Log.e("API", "Error de conexión: " + t.getMessage());
+            }
+        });
 
-        //--------------------------------------------------------------------------------
-        //
-        //--------------------------------------------------------------------------------
-        public static void putDatosMoficados(){
-
-        }
     }
 
+
+    //-------------------------------------------------------------------------------------------
+    //     Email:txt, Contraseña:txt, Contexto:context --> postRegistro()
+    //-------------------------------------------------------------------------------------------
+    public static void PostLogin(String email, String contrasenya, Context contexto) {
+        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
+        Call<Void> call = apiService.loginUsuario(email, contrasenya);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Login", "Login exitoso");
+                    Intent intent = new Intent(contexto, HomeActivity.class);
+                    contexto.startActivity(intent);
+                } else {
+                    Log.d("Login", "Credenciales incorrectas o error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Login", "Error en conexión: " + t.getMessage());
+            }
+        });
+    }
+
+    //--------------------------------------------------------------------------------
+    //  Nombre: txt, Apellidos: txt, Email: txt,
+    //--------------------------------------------------------------------------------
+    public static void putDatosMoficados(String Nombre, String Apellidos, String Email, String Contrasenya) {
+        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
+        Call<Void> call = apiService.modificarDatos(Nombre, Apellidos, Email, Contrasenya);
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("Modifcación", "Datos modificaciones existosas");
+                } else {
+                    Log.d("Modificación", "Datos modificados con error error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("Login", "Error en conexión: " + t.getMessage());
+            }
+        });
+    }
+
+    public static void getInformaciónUsuario(){
+
+    }
+}
 //---------------------------------------------------------------
 //---------------------------------------------------------------
 //--------------------------------------------------------------

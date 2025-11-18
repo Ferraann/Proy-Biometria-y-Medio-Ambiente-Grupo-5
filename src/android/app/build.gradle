@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.grupo5.androidapp'
+    namespace 'com.example.grupo5.myapplication'
     compileSdk 35
 
     defaultConfig {
