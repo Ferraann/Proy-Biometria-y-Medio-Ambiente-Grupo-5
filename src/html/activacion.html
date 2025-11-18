@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Activando cuenta…</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        padding-top: 15%;
+      }
+      .ok {
+        color: green;
+      }
+      .ko {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Un momento…</h1>
+    <p id="msg">Estamos activando tu cuenta.</p>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const token = params.get("token");
+
+      console.log("Token recibido:", token);
+
+      if (!token) {
+        muestra("Enlace incorrecto: falta el token.", "ko");
+      } else {
+        fetch("../api/index.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ accion: "activarUsuario", token: token }),
+        })
+          .then((r) => r.json())
+          .then((res) => {
+            if (res.status === "ok") {
+              muestra("¡Cuenta activada! Redirigiendo…", "ok");
+              setTimeout(() => {
+                location.href =
+                  "http://localhost/ProyectoBiometria/src/html/landing.html";
+              }, 1500);
+            } else {
+              muestra(res.message || "No se pudo activar la cuenta.", "ko");
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            muestra("Error de red. Inténtalo más tarde.", "ko");
+          });
+      }
+
+      function muestra(texto, clase) {
+        const p = document.getElementById("msg");
+        p.textContent = texto;
+        p.className = clase;
+      }
+    </script>
+  </body>
+</html>

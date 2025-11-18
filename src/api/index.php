@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 // ------------------------------------------------------------------
 // Fichero: index.php
 // Autor: Manuel
@@ -12,7 +11,21 @@ ini_set('display_errors', 1);
 //  el método HTTP y delega en las funciones de logicaNegocio.php.
 // ------------------------------------------------------------------
 
+/* ================= DEBUG  ================= */
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+/* ========================================== */
 header('Content-Type: application/json');
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 require_once('conexion.php');
 require_once('logicaNegocio.php');
@@ -57,7 +70,7 @@ if ($method === 'POST' || $method === 'PUT') {
 switch ($method) {
 
     // ---------------------------------------------------------
-    // MÉTODO POST -> Crear nuevos registros
+    // MÉTODO POST -> Crear/modificar registros
     // ---------------------------------------------------------
     case "POST":
         $accion = $input['accion'] ?? null;
@@ -83,19 +96,10 @@ switch ($method) {
                 echo json_encode(crearSensorYRelacion($conn, $input));
                 break;
 
-            default:
-                echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
+            case "activarUsuario":
+                echo json_encode(activarUsuario($conn, $input['token']));
                 break;
-        }
-        break;
 
-    // -----------------------------------------------------
-    // MÉTODO PUT -> Actualizar o modificar recursos
-    // -----------------------------------------------------
-    case "PUT":
-        $accion = $input['accion'] ?? null;
-
-        switch ($accion) {
             case "finalizarRelacionSensor":   // marcar sensor con problema
                 echo json_encode(marcarSensorConProblemas($conn, $input));
                 break;
@@ -111,10 +115,10 @@ switch ($method) {
             case "cerrarIncidencia":
                 echo json_encode(cerrarIncidencia($conn, $input));
                 break;
-
             default:
-                echo json_encode(["status" => "error", "message" => "Acción PUT no reconocida."]);
+                echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
+
         }
         break;
 

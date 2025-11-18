@@ -1,8 +1,9 @@
 <!--
 ===============================================================================
-NOMBRE: index.html
+NOMBRE: login.html
 DESCRIPCIÓN: Página de inicio de sesión de la plataforma AITHER.
-             Incluye cabecera con navegación, formulario de login, acceso rápido con redes sociales y enlace de registro.
+             Incluye cabecera con navegación, formulario de login,
+             acceso rápido con redes sociales y enlace de registro.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
 FECHA: 03/11/2025
 AUTOR: Ferran Sansaloni Prats
@@ -15,52 +16,154 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>AITHER - Inicia sesión</title>
-  <link rel="stylesheet" href="../css/index.css?v=1">
+  <!-- IMPORTS de CSS y JS -->
+  <link rel="stylesheet" href="../css/libroEstilos.css">
+  <link rel="stylesheet" href="../css/login.css">
+
   <script src="../js/login.js" defer></script>
 </head>
 <body>
-  <header>
-    <div class="logo">AITHER</div>
-    <nav>
-      <a href="#">SABER MÁS</a>
-      <a href="#">¿QUIÉNES SOMOS?</a>
-      <a href="#">FAQ</a>
-      <button class="btn-login">INICIAR SESIÓN</button>
-    </nav>
-  </header>
+<!--
+----------------------------------------------------------------------------
+BLOQUE: <header>
+DISEÑO LÓGICO: Contiene el logotipo y la barra de navegación principal.
+DESCRIPCIÓN: Proporciona acceso rápido a secciones informativas y
+un botón para iniciar sesión.
+----------------------------------------------------------------------------
+-->
+<header>
+  <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
+  <a href="landing.html"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+  <!-- Enlaces del header -->
+  <nav>
+    <!-- Saber mas, quienes somos, faq y boton de iniciar sesión -->
+    <ul>
+      <li><a href="saber_mas.html">SABER MÁS</a></li>
+      <li>
+        <a href="quienes_somos.html">¿QUIÉNES SOMOS?</a>
+      </li>
+      <li><a href="faq.html">FAQ</a></li>
+      <!-- No lleva a ningún sitio porque es el boton de login y ya estamos en login -->
+      <li><a href="login.html">INICIAR SESIÓN</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <main class="login-container">
-    <div class="login-box">
-      <div class="login-form">
-        <h2>INICIA SESIÓN</h2>
-        <form id="loginForm">
-          <label for="gmail">Correo Electrónico:</label>
-          <input type="email" id="gmail" name="gmail">
-          <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password">
-          <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
-          <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
-          <div class="divider">Acceso rápido con</div>
-          <div class="social-icons">
-            <img src="../img/google.svg" alt="Google">
-            <img src="../img/facebook.svg" alt="Facebook">
-            <img src="../img/x.svg" alt="X">
+<!--
+  ----------------------------------------------------------------------------
+  BLOQUE: <main>
+  DISEÑO LÓGICO: Contenedor principal del área de inicio de sesión.
+  DESCRIPCIÓN: Agrupa el formulario de acceso y el panel de registro alternativo.
+  ----------------------------------------------------------------------------
+  -->
+<main>
+  <!-- Contenedor del formulario -->
+  <div class="container" id="container">
+    <!-- Formulario de inicio de sesión -->
+    <div class="container-form sign-in-container">
+      <form action="#" id="loginForm">
+        <!-- Titulo -->
+        <h1>INICIA SESIÓN</h1>
+        <!-- Contenedor del correo -->
+        <div class="container-input">
+          <!-- Texto -->
+          <label for="correo-sign-in">Correo electrónico:</label>
+          <!-- Input -->
+          <input type="email" placeholder="" id="correo-sign-in">
+        </div>
+        <!-- Contenedor de la contarseña -->
+        <div class="container-input password-wrapper">
+          <!-- Texto -->
+          <label for="contraseña-sign-in">Contraseña:</label>
+          <!-- Input -->
+          <input type="password" placeholder="" id="contraseña-sign-in">
+          <!-- Icono del ojo para mostrar / ocultar contraseña -->
+          <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-in" alt="Mostrar contraseña">
+        </div>
+        <!-- Enlace de contraseña olvidada -->
+        <a href="#" class="forgot">¿Has olvidado tu contraseña?</a>
+        <!-- Boton de iniciar sesión CTA-->
+        <button type="submit" class="btn-primary">INICIAR SESIÓN</button>
+        <!-- Separador de contenido -->
+        <h3 class="divider">Acceso rápido con</h3>
+        <!-- Iconos de redes sociales -->
+        <div class="social-networks">
+          <a href="#"><img src="../img/google.png" alt="Logo de Google"></a>
+          <a href="#"><img src="../img/facebook.png" alt="Logo de Facebook"></a>
+          <a href="#"><img src="../img/twitter.png" alt="Logo de Twitter"></a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Formulario de registro -->
+    <div class="container-form sign-up-container">
+      <form action="#" id="registerForm">
+        <!-- Título -->
+        <h1>REGISTRO</h1>
+        <!-- Contenedor del nombre -->
+        <div class="container-input">
+          <label for="nombre">Nombre:</label>
+          <input type="text" placeholder="" id="nombre">
+        </div>
+        <!-- Contenedor de apellidos -->
+        <div class="container-input">
+          <label for="apellidos">Apellidos:</label>
+          <input type="text" placeholder="" id="apellidos">
+        </div>
+        <!-- Contenedor del correo electronico -->
+        <div class="container-input">
+          <label for="correo-sign-up">Correo electrónico:</label>
+          <input type="text" placeholder="" id="correo-sign-up">
+        </div>
+        <!-- Contenedor de la contraseña -->
+        <div class="container-input contraseña password-wrapper">
+          <label for="contraseña-sign-up">Contraseña: </label>
+          <input type="password" id="contraseña-sign-up">
+          <img src="../img/ojo-cerrado.png" class="toggle-password" data-input="contraseña-sign-up">
+        </div>
+        <!-- Contenedor de confirmar contraseña -->
+        <div class="container-input">
+          <label for="confirmar-contraseña-sign-up">Repetir contraseña:</label>
+          <input type="password" placeholder="" id="confirmar-contraseña-sign-up">
+        </div>
+        <!-- Contenedor de la politica de privacidad-->
+        <div class="politica-btn">
+          <div class="politica">
+            <!-- Checkbox customizada -->
+            <label class="checkbox-custom">
+              <!-- Checkbox normal | será invisible -->
+              <input type="checkbox" id="checkmark">
+              <!-- Checkbox modificada-->
+              <span class="checkmark"></span>
+            </label>
+            <!-- Texto de aceptar la politica de privacidad-->
+            <h5>Acepto la Política de Privacidad y los Términos de uso</h5>
           </div>
-          <p id="message" class="message"></p>
-        </form>
-      </div>
+          <!-- Boton de registrarse -->
+          <button class="btn-primary">REGÍSTRARSE</button>
+        </div>
+      </form>
+    </div>
 
-      <div class="register-panel">
-        <h3>¿AÚN NO TIENES CUENTA?</h3>
-        <a href="register.html" class="register-link">REGÍSTRATE AQUÍ</a>
+    <!-- Panel azul deslizante -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <!-- Panel izquierdo (cuando está en registro) -->
+        <div class="overlay-panel overlay-left">
+          <h3>¿YA TIENES UNA CUENTA CREADA? <br> INICIA SESIÓN <span class="btn-secondary" id="signInBtn">AQUÍ</span> </h3>
+        </div>
+        <!-- Panel derecho (cuando está en login) -->
+        <div class="overlay-panel overlay-right">
+          <h3>¿AÚN NO TIENES CUENTA? <br> REGÍSTRATE <span class="btn-secondary" id="signUpBtn">AQUÍ</span></h3>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
-  <footer>
-    <p>&copy; 2025 AITHER. Todos los derechos reservados.</p>
-  </footer>
 </body>
 </html>
