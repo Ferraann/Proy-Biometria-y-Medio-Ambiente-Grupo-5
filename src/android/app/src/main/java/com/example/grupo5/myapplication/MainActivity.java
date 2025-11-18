@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 
 import static com.example.grupo5.myapplication.LogicaNegocio.PostLogin;
 

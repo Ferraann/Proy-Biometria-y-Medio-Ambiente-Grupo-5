@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <permission
         android:name="com.example.grupo5.androidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -34,7 +36,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:testOnly="true"
         android:theme="@style/Theme.AndroidApp" >
+
+        <!-- MainActivity con package completo -->
         <activity
             android:name="com.example.grupo5.myapplication.MainActivity"
             android:exported="true" >
@@ -44,6 +49,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Otras Activities con package completo -->
         <activity android:name="com.example.grupo5.myapplication.RegistroActivity" />
         <activity android:name="com.example.grupo5.myapplication.BTLEActivity" />
         <activity android:name="com.example.grupo5.myapplication.HomeActivity" />

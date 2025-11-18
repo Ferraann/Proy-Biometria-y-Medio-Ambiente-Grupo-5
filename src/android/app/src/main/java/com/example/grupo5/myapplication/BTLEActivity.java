@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 import com.example.grupo5.myapplication.TramaIBeacon;
 import com.example.grupo5.myapplication.Utilidades;
 import com.example.grupo5.myapplication.ApiCliente;

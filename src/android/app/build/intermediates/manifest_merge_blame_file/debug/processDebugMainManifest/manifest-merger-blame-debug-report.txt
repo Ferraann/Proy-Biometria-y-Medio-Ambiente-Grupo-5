@@ -9,154 +9,165 @@
 9        android:targetSdkVersion="34" />
 10
 11    <uses-permission android:name="android.permission.BLUETOOTH" />
-11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:4:5-68
-11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:4:22-65
+11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:5-68
+11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:22-65
 12    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:5-74
-12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:22-71
+12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:5-74
+12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:22-71
 13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:5-79
-13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:22-76
+13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:22-76
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:5-66
-14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:22-64
+14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:5-66
+14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:22-64
 15    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:5-76
-15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:22-73
+15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:5-76
+15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:22-73
 16    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:5-73
-16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:22-70
+16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:5-73
+16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:22-70
 17    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:5-78
-17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:22-75
-18
-19    <permission
-19-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
-20        android:name="com.example.grupo5.androidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-20-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
-21        android:protectionLevel="signature" />
-21-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
-22
-23    <uses-permission android:name="com.example.grupo5.androidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-23-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
-23-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:5-78
+17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:22-75
+18    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
+18-->[androidx.biometric:biometric:1.1.0] C:\Users\Usuario\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:24:5-72
+18-->[androidx.biometric:biometric:1.1.0] C:\Users\Usuario\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:24:22-69
+19    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+19-->[androidx.biometric:biometric:1.1.0] C:\Users\Usuario\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:27:5-74
+19-->[androidx.biometric:biometric:1.1.0] C:\Users\Usuario\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:27:22-71
+20
+21    <permission
+21-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
+22        android:name="com.example.grupo5.androidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+22-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
+23        android:protectionLevel="signature" />
+23-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
 24
-25    <application
-25-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:5-34:19
-26        android:allowBackup="true"
-26-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:12:9-35
-27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-27-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
-28        android:dataExtractionRules="@xml/data_extraction_rules"
-28-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:13:9-65
-29        android:debuggable="true"
-30        android:extractNativeLibs="false"
-31        android:fullBackupContent="@xml/backup_rules"
-31-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:14:9-54
-32        android:icon="@mipmap/ic_launcher"
-32-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:15:9-43
-33        android:label="@string/app_name"
-33-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:16:9-41
-34        android:networkSecurityConfig="@xml/network_security_config"
-34-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:20:9-69
-35        android:roundIcon="@mipmap/ic_launcher_round"
-35-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:17:9-54
-36        android:supportsRtl="true"
-36-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:18:9-35
-37        android:theme="@style/Theme.AndroidApp" >
-37-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:19:9-48
-38        <activity
-38-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:22:9-30:20
-39            android:name="com.example.grupo5.myapplication.MainActivity"
-39-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:23:13-41
-40            android:exported="true" >
-40-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:24:13-36
-41            <intent-filter>
-41-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:25:13-29:29
-42                <action android:name="android.intent.action.MAIN" />
-42-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:26:17-69
-42-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:26:25-66
-43
-44                <category android:name="android.intent.category.LAUNCHER" />
-44-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:28:17-77
-44-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:28:27-74
-45            </intent-filter>
-46        </activity>
-47        <activity android:name="com.example.grupo5.myapplication.RegistroActivity" />
-47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:9-63
-47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:19-51
-48        <activity android:name="com.example.grupo5.myapplication.BTLEActivity" />
-48-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:32:9-59
-48-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:32:19-47
-49        <activity android:name="com.example.grupo5.myapplication.HomeActivity" />
-49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:33:9-59
-49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:33:19-47
-50
-51        <provider
-51-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-52            android:name="androidx.startup.InitializationProvider"
-52-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
-53            android:authorities="com.example.grupo5.androidapp.androidx-startup"
-53-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
-54            android:exported="false" >
-54-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
-55            <meta-data
-55-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-56                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-56-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
-57                android:value="androidx.startup" />
-57-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
-58            <meta-data
-58-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\pablo\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
-59                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-59-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\pablo\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
-60                android:value="androidx.startup" />
-60-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\pablo\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
-61            <meta-data
-61-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
-62                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-62-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
-63                android:value="androidx.startup" />
-63-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
-64        </provider>
-65
-66        <receiver
-66-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
-67            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-67-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
-68            android:directBootAware="false"
-68-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
-69            android:enabled="true"
-69-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
-70            android:exported="true"
-70-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
-71            android:permission="android.permission.DUMP" >
-71-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
-72            <intent-filter>
-72-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
-73                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-73-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
-73-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
-74            </intent-filter>
-75            <intent-filter>
-75-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
-76                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-76-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
-76-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
-77            </intent-filter>
-78            <intent-filter>
-78-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
-79                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-79-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
-79-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
-80            </intent-filter>
-81            <intent-filter>
-81-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
-82                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-82-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
-82-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pablo\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
-83            </intent-filter>
-84        </receiver>
-85    </application>
-86
-87</manifest>
+25    <uses-permission android:name="com.example.grupo5.androidapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+25-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
+25-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+26
+27    <application
+27-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:13:5-40:19
+28        android:allowBackup="true"
+28-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:14:9-35
+29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+29-->[androidx.core:core:1.13.0] C:\Users\Usuario\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
+30        android:dataExtractionRules="@xml/data_extraction_rules"
+30-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:15:9-65
+31        android:debuggable="true"
+32        android:extractNativeLibs="false"
+33        android:fullBackupContent="@xml/backup_rules"
+33-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:16:9-54
+34        android:icon="@mipmap/ic_launcher"
+34-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:17:9-43
+35        android:label="@string/app_name"
+35-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:18:9-41
+36        android:networkSecurityConfig="@xml/network_security_config"
+36-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:22:9-69
+37        android:roundIcon="@mipmap/ic_launcher_round"
+37-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:19:9-54
+38        android:supportsRtl="true"
+38-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:20:9-35
+39        android:testOnly="true"
+40        android:theme="@style/Theme.AndroidApp" >
+40-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:21:9-48
+41
+42        <!-- MainActivity con package completo -->
+43        <activity
+43-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:26:9-33:20
+44            android:name="com.example.grupo5.myapplication.MainActivity"
+44-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:27:13-73
+45            android:exported="true" >
+45-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:28:13-36
+46            <intent-filter>
+46-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:29:13-32:29
+47                <action android:name="android.intent.action.MAIN" />
+47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:17-69
+47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:25-66
+48
+49                <category android:name="android.intent.category.LAUNCHER" />
+49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:17-77
+49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:27-74
+50            </intent-filter>
+51        </activity>
+52
+53        <!-- Otras Activities con package completo -->
+54        <activity android:name="com.example.grupo5.myapplication.RegistroActivity" />
+54-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:9-86
+54-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:19-83
+55        <activity android:name="com.example.grupo5.myapplication.BTLEActivity" />
+55-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:9-82
+55-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:19-79
+56        <activity android:name="com.example.grupo5.myapplication.HomeActivity" />
+56-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:9-82
+56-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:19-79
+57
+58        <provider
+58-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+59            android:name="androidx.startup.InitializationProvider"
+59-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+60            android:authorities="com.example.grupo5.androidapp.androidx-startup"
+60-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+61            android:exported="false" >
+61-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+62            <meta-data
+62-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+63                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+63-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+64                android:value="androidx.startup" />
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Usuario\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+65            <meta-data
+65-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Usuario\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+66                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+66-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Usuario\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+67                android:value="androidx.startup" />
+67-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\Usuario\.gradle\caches\transforms-4\204d98c3accdbd93815fc2ad3cc4fbaa\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+68            <meta-data
+68-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+69                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+69-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+70                android:value="androidx.startup" />
+70-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+71        </provider>
+72
+73        <receiver
+73-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+74            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+74-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+75            android:directBootAware="false"
+75-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+76            android:enabled="true"
+76-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+77            android:exported="true"
+77-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+78            android:permission="android.permission.DUMP" >
+78-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+79            <intent-filter>
+79-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+80                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+80-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+80-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+81            </intent-filter>
+82            <intent-filter>
+82-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+83                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+83-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+83-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+84            </intent-filter>
+85            <intent-filter>
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+86                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+87            </intent-filter>
+88            <intent-filter>
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+89                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+89-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+89-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Usuario\.gradle\caches\transforms-4\184c8bf2f98703b3592c5531f6f2afaf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+90            </intent-filter>
+91        </receiver>
+92    </application>
+93
+94</manifest>
