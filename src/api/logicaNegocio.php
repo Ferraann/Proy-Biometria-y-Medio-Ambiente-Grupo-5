@@ -18,7 +18,6 @@ require __DIR__ . '/../libs/PHPMailer-7.0.0/src/SMTP.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$mail = new PHPMailer(true);
 // -------------------------------------------------------------
 // FUNCIÓN 1: Registrar un nuevo usuario
 // -------------------------------------------------------------
@@ -33,6 +32,12 @@ function registrarUsuario($conn, $data)
     $apellidos = trim($data['apellidos']);
     $gmail     = trim($data['gmail']);
     $password  = trim($data['password']);
+    
+    // Validar formato de correo
+    if (!filter_var($gmail, FILTER_VALIDATE_EMAIL)) {
+        return ["status" => "error", "message" => "El formato del correo electrónico no es válido."];
+    }
+    
     $hash      = password_hash($password, PASSWORD_DEFAULT);
 
     /* ---------- 2. ¿Existe el correo? ---------- */
@@ -100,6 +105,8 @@ function registrarUsuario($conn, $data)
 
     } catch (Exception $e) {
         error_log('PHPMailer error: ' . $mail->ErrorInfo);
+        // No fallamos el registro por no poder enviar el email
+        return ["status" => "ok", "message" => "Usuario registrado correctamente, pero no se pudo enviar el correo de activación. Contacta con soporte."];
     }
 
     return ["status" => "ok", "message" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
@@ -149,25 +156,34 @@ function activarUsuario($conn, $token)
 // -------------------------------------------------------------
 function loginUsuario($conn, $gmail, $password)
 {
-    $sql = "SELECT id, nombre, apellidos, gmail, password, credencial_id 
-            FROM usuario WHERE gmail = ?";
-
-    $stmt = $conn->prepare($sql);
+    /* 1. Datos del usuario */
+    $stmt = $conn->prepare(
+        "SELECT id, nombre, apellidos, gmail, password, activo
+         FROM usuario
+         WHERE gmail = ?"
+    );
     $stmt->bind_param("s", $gmail);
     $stmt->execute();
-    $result = $stmt->get_result();
+    $res = $stmt->get_result();
 
-    // Si existe el usuario, comprobamos la contraseña
-    if ($row = $result->fetch_assoc()) {
-        // En producción, deberías usar password_hash() y password_verify()
-        if ($row['password'] === $password) {
-            return ["status" => "ok", "usuario" => $row];
-        } else {
-            return ["status" => "error", "message" => "Contraseña incorrecta."];
-        }
+    if ($res->num_rows === 0) {
+        return ["status" => "error", "message" => "Usuario no encontrado"];
+    }
+    $user = $res->fetch_assoc();
+
+    /* 2. ¿Contraseña correcta? */
+    if (!password_verify($password, $user['password'])) {
+        return ["status" => "error", "message" => "Contraseña incorrecta"];
     }
 
-    return ["status" => "error", "message" => "Usuario no encontrado."];
+    /* 3. ¿Cuenta activada? */
+    if (!$user['activo']) {
+        return ["status" => "error", "message" => "Cuenta no activada"];
+    }
+
+    /* 4. Todo OK → devolvemos el usuario SIN el hash */
+    unset($user['password']);
+    return ["status" => "ok", "usuario" => $user];
 }
 
 // -------------------------------------------------------------
