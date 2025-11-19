@@ -9,26 +9,26 @@
 9        android:targetSdkVersion="34" />
 10
 11    <uses-permission android:name="android.permission.BLUETOOTH" />
-11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:5-68
-11-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:22-65
+11-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:5-68
+11-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:5:22-65
 12    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:5-74
-12-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:22-71
+12-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:5-74
+12-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:6:22-71
 13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:5-79
-13-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:22-76
+13-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:7:22-76
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:5-66
-14-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:22-64
+14-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:5-66
+14-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:8:22-64
 15    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:5-76
-15-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:22-73
+15-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:5-76
+15-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:9:22-73
 16    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:5-73
-16-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:22-70
+16-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:5-73
+16-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:10:22-70
 17    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
-17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:5-78
-17-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:22-75
+17-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:5-78
+17-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:11:22-75
 18    <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!-- suppress DeprecatedClassUsageInspection -->
 18-->[androidx.biometric:biometric:1.1.0] C:\Users\pablo\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:24:5-72
 18-->[androidx.biometric:biometric:1.1.0] C:\Users\pablo\.gradle\caches\transforms-4\93525a0122df9a75df8491b0ddb56d3c\transformed\biometric-1.1.0\AndroidManifest.xml:24:22-69
@@ -48,60 +48,60 @@
 25-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
 26
 27    <application
-27-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:13:5-40:19
+27-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:13:5-40:19
 28        android:allowBackup="true"
-28-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:14:9-35
+28-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:14:9-35
 29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 29-->[androidx.core:core:1.13.0] C:\Users\pablo\.gradle\caches\transforms-4\cb967705af52d0ba2683ca246cf9f8e4\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
 30        android:dataExtractionRules="@xml/data_extraction_rules"
-30-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:15:9-65
+30-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:15:9-65
 31        android:debuggable="true"
 32        android:extractNativeLibs="false"
 33        android:fullBackupContent="@xml/backup_rules"
-33-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:16:9-54
+33-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:16:9-54
 34        android:icon="@mipmap/ic_launcher"
-34-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:17:9-43
+34-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:17:9-43
 35        android:label="@string/app_name"
-35-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:18:9-41
+35-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:18:9-41
 36        android:networkSecurityConfig="@xml/network_security_config"
-36-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:22:9-69
+36-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:22:9-69
 37        android:roundIcon="@mipmap/ic_launcher_round"
-37-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:19:9-54
+37-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:19:9-54
 38        android:supportsRtl="true"
-38-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:20:9-35
+38-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:20:9-35
 39        android:testOnly="true"
 40        android:theme="@style/Theme.AndroidApp" >
-40-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:21:9-48
+40-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:21:9-48
 41
 42        <!-- MainActivity con package completo -->
 43        <activity
-43-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:26:9-33:20
+43-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:26:9-33:20
 44            android:name="com.example.grupo5.myapplication.MainActivity"
-44-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:27:13-73
+44-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:27:13-73
 45            android:exported="true" >
-45-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:28:13-36
+45-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:28:13-36
 46            <intent-filter>
-46-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:29:13-32:29
+46-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:29:13-32:29
 47                <action android:name="android.intent.action.MAIN" />
-47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:17-69
-47-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:25-66
+47-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:17-69
+47-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:30:25-66
 48
 49                <category android:name="android.intent.category.LAUNCHER" />
-49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:17-77
-49-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:27-74
+49-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:17-77
+49-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:31:27-74
 50            </intent-filter>
 51        </activity>
 52
 53        <!-- Otras Activities con package completo -->
 54        <activity android:name="com.example.grupo5.myapplication.RegistroActivity" />
-54-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:9-86
-54-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:19-83
+54-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:9-86
+54-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:36:19-83
 55        <activity android:name="com.example.grupo5.myapplication.BTLEActivity" />
-55-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:9-82
-55-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:19-79
+55-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:9-82
+55-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:37:19-79
 56        <activity android:name="com.example.grupo5.myapplication.HomeActivity" />
-56-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:9-82
-56-->C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:19-79
+56-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:9-82
+56-->C:\Users\pablo\Documents\GitHub\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\AndroidManifest.xml:38:19-79
 57
 58        <provider
 58-->[androidx.emoji2:emoji2:1.3.0] C:\Users\pablo\.gradle\caches\transforms-4\6326e765cc0994397e6e4feb9efaa3be\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20

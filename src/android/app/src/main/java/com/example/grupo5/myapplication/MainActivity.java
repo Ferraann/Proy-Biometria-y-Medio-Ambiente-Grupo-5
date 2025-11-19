@@ -40,6 +40,5 @@ public class MainActivity extends AppCompatActivity {
         }
         
         PostLogin(email, pass, this);
-
     }
 }

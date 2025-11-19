@@ -4,6 +4,23 @@
             "outputFile": "com.example.grupo5.myapplication.app-mergeDebugResources-32:/values/values.xml",
             "map": [
                 {
+                    "source": "C:\\Users\\pablo\\Documents\\GitHub\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "57,100",
+                        "endColumns": "41,41",
+                        "endOffsets": "94,137"
+                    },
+                    "to": {
+                        "startLines": "747,1214",
+                        "startColumns": "4,4",
+                        "startOffsets": "38784,71354",
+                        "endColumns": "41,41",
+                        "endOffsets": "38821,71391"
+                    }
+                },
+                {
                     "source": "C:\\Users\\pablo\\.gradle\\caches\\transforms-4\\710298206732628b4a8ab5bbb247f2b9\\transformed\\constraintlayout-2.2.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,9,10,15,16,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,42,43,44,45,55,63,64,65,70,71,76,81,82,83,88,89,94,95,100,101,102,108,109,110,115,121,122,123,124,130,131,132,133,136,139,142,143,146,149,150,151,152,153,156,159,160,161,162,168,173,176,179,180,181,186,187,188,191,194,195,198,201,204,207,208,209,212,215,216,221,222,228,233,236,239,240,241,242,243,244,245,246,247,248,249,250,266,272,273,274,275,276,283,291,292,293,296,301,302,310,311,312,313,314,315,316,317,326,327,328,334,335,341,345,346,347,348,349,358,362,363,382,547,675,681,685,834,980,993,1009,1025,1050,1073,1076,1079,1082,1110,1137,1154,1240,1248,1261,1277,1281,1311,1324,1328,1338,1348,1392,1404,1408,1411,1427,1464,1499,1506,1523",
@@ -114,23 +131,6 @@
                     }
                 },
                 {
-                    "source": "C:\\xampp\\htdocs\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "17",
-                        "endColumns": "47",
-                        "endOffsets": "60"
-                    },
-                    "to": {
-                        "startLines": "2466",
-                        "startColumns": "4",
-                        "startOffsets": "164177",
-                        "endColumns": "47",
-                        "endOffsets": "164220"
-                    }
-                },
-                {
                     "source": "C:\\Users\\pablo\\.gradle\\caches\\transforms-4\\f1c8e1964dfa99cc5fa5721825e1d40a\\transformed\\savedstate-1.2.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -202,42 +202,6 @@
                         "endLines": "158,10612,12633,12717",
                         "endColumns": "60,12,24,24",
                         "endOffsets": "7863,747242,820857,825373"
-                    }
-                },
-                {
-                    "source": "C:\\xampp\\htdocs\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\themes.xml",
-                    "from": {
-                        "startLines": "2,7",
-                        "startColumns": "4,4",
-                        "startOffsets": "102,332",
-                        "endLines": "5,7",
-                        "endColumns": "12,68",
-                        "endOffsets": "324,396"
-                    },
-                    "to": {
-                        "startLines": "2923,7402",
-                        "startColumns": "4,4",
-                        "startOffsets": "205172,525183",
-                        "endLines": "2926,7402",
-                        "endColumns": "12,67",
-                        "endOffsets": "205285,525246"
-                    }
-                },
-                {
-                    "source": "C:\\xampp\\htdocs\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\colors.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "57,100",
-                        "endColumns": "41,41",
-                        "endOffsets": "94,137"
-                    },
-                    "to": {
-                        "startLines": "747,1214",
-                        "startColumns": "4,4",
-                        "startOffsets": "38784,71354",
-                        "endColumns": "41,41",
-                        "endOffsets": "38821,71391"
                     }
                 },
                 {
@@ -313,6 +277,25 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\pablo\\Documents\\GitHub\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "2,7",
+                        "startColumns": "4,4",
+                        "startOffsets": "102,332",
+                        "endLines": "5,7",
+                        "endColumns": "12,68",
+                        "endOffsets": "324,396"
+                    },
+                    "to": {
+                        "startLines": "2923,7402",
+                        "startColumns": "4,4",
+                        "startOffsets": "205172,525183",
+                        "endLines": "2926,7402",
+                        "endColumns": "12,67",
+                        "endOffsets": "205285,525246"
+                    }
+                },
+                {
                     "source": "C:\\Users\\pablo\\.gradle\\caches\\transforms-4\\8588da775f16297c6dcce04c00c42ea5\\transformed\\appcompat-resources-1.7.1\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,18,24,34,50",
@@ -346,6 +329,23 @@
                         "startOffsets": "156867",
                         "endColumns": "42",
                         "endOffsets": "156905"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\pablo\\Documents\\GitHub\\Proy-Biometria-y-Medio-Ambiente-Grupo-5\\src\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "47",
+                        "endOffsets": "60"
+                    },
+                    "to": {
+                        "startLines": "2466",
+                        "startColumns": "4",
+                        "startOffsets": "164177",
+                        "endColumns": "47",
+                        "endOffsets": "164220"
                     }
                 },
                 {

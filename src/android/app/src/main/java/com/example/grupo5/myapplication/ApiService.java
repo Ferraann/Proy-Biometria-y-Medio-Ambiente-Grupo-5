@@ -25,10 +25,7 @@ public interface ApiService {
 
     @POST("index.php")
     Call<PojoRespuestaServidor> datosRegistro(
-            @Field("Nombre") String nombre,
-            @Field("Apellidos") String apellidos,
-            @Field("Email") String email,
-            @Field("Contrasenya") String contrasenya
+            @Body PojoUsuario usuario
     );
 
 
@@ -39,8 +36,9 @@ public interface ApiService {
     );
 
 
-    @POST("index.php") // Cambia al endpoint real en tu servidor
-    Call<JsonObject> loginUsuario(@Body JsonObject json);
+    @POST("index.php")
+    Call<PojoRespuestaServidor> loginUsuario(@Body PojoUsuario usuario);
+
 
     @POST("index.php") // Cambia al endpoint real en tu servidor
     Call<Void> modificarDatos(
