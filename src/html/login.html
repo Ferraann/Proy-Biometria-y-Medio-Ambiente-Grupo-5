@@ -131,19 +131,26 @@ un botón para iniciar sesión.
           <input type="password" placeholder="" id="confirmar-contraseña-sign-up">
         </div>
         <!-- Contenedor de la politica de privacidad-->
+        <!-- Contenedor de la política de privacidad -->
         <div class="politica-btn">
           <div class="politica">
             <!-- Checkbox customizada -->
             <label class="checkbox-custom">
               <!-- Checkbox normal | será invisible -->
-              <input type="checkbox" id="checkmark">
+              <input type="checkbox" id="checkmark" disabled>
               <!-- Checkbox modificada-->
               <span class="checkmark"></span>
             </label>
-            <!-- Texto de aceptar la politica de privacidad-->
-            <h5>Acepto la Política de Privacidad y los Términos de uso</h5>
+            <!-- Texto de aceptar la política de privacidad con popup -->
+            <h5>
+              Acepto la
+              <span class="popup-politica" style="cursor:pointer; color: var(--Secundario_Azul); text-decoration: underline;">
+        Política de Privacidad
+      </span>
+              y los Términos de uso
+            </h5>
           </div>
-          <!-- Boton de registrarse -->
+          <!-- Botón de registrarse -->
           <button class="btn-primary">REGÍSTRARSE</button>
         </div>
       </form>
@@ -163,6 +170,63 @@ un botón para iniciar sesión.
       </div>
     </div>
   </div>
+
+
+
+  <!-- POPUP DE POLÍTICA DE PRIVACIDAD -->
+  <div id="popup-politica" class="popup-overlay">
+    <!-- Contenedor del popup -->
+    <div class="popup-content">
+      <!-- Titulo del popup -->
+      <h2>Política de Privacidad</h2>
+      <!-- Contenido del popup -->
+      <div class="popup-text" id="popupText">
+        <p>
+          En AITHER nos comprometemos a proteger la privacidad de nuestros usuarios.
+          La presente Política de Privacidad describe cómo recopilamos, utilizamos y protegemos la información personal que nos proporcionas al registrarte y utilizar nuestra plataforma.
+        </p>
+        <br>
+        <p>
+          <strong>1. Información que recopilamos:</strong><br>
+          Recopilamos datos personales como nombre, apellidos, correo electrónico y contraseña para permitir el acceso a nuestros servicios. También podemos recopilar información sobre el uso de la plataforma con fines de mejora y análisis.
+        </p>
+        <br>
+        <p>
+          <strong>2. Uso de la información:</strong><br>
+          La información recopilada se utiliza únicamente para proveer, mejorar y personalizar nuestros servicios, así como para comunicarnos contigo en relación con tu cuenta o servicios ofrecidos por AITHER.
+        </p>
+        <br>
+        <p>
+          <strong>3. Protección de la información:</strong><br>
+          Implementamos medidas de seguridad técnicas y administrativas para proteger tus datos personales contra accesos no autorizados, alteraciones, divulgación o destrucción.
+        </p>
+        <br>
+        <p>
+          <strong>4. Compartir información con terceros:</strong><br>
+          No vendemos, alquilamos ni compartimos tu información personal con terceros para fines comerciales. Solo compartimos datos con proveedores de servicios necesarios para la operación de la plataforma y bajo estrictas condiciones de confidencialidad.
+        </p>
+        <br>
+        <p>
+          <strong>5. Derechos del usuario:</strong><br>
+          Puedes acceder, rectificar o eliminar tus datos personales en cualquier momento. Para ello, ponte en contacto con nuestro soporte a través de los medios indicados en la plataforma.
+        </p>
+        <br>
+        <p>
+          <strong>6. Cambios en la política:</strong><br>
+          Nos reservamos el derecho de actualizar esta Política de Privacidad cuando sea necesario. Se notificará a los usuarios mediante la plataforma o correo electrónico sobre cambios relevantes.
+        </p>
+        <br>
+        <p>
+          Al <strong>aceptar esta política</strong>, confirmas que has leído, comprendido y aceptado cómo AITHER maneja tus datos personales.
+        </p>
+      </div>
+      <!-- Boton de aceptar -->
+      <button id="btnAccept" type="button" disabled>Aceptar</button>
+      <!-- Cruz para cerrar el popup -->
+      <span id="closePopup" class="close-btn">&times;</span>
+    </div>
+  </div>
+
 </main>
 
 </body>

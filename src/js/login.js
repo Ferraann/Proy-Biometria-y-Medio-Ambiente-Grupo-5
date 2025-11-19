@@ -114,8 +114,8 @@ function mostrarMensaje(tipo, texto, duracion = 3000) {
   msg.classList.remove("fade-out");
 
   const ref = tipo === "login"
-    ? loginForm.querySelector(".forgot")
-    : registerForm.querySelector(".btn-primary");
+      ? loginForm.querySelector(".forgot")
+      : registerForm.querySelector(".btn-primary");
 
   ref.before(msg);
 
@@ -183,8 +183,8 @@ registerForm.addEventListener("submit", async e => {
   const tieneEsp = /[!@#$%^&*(),.?":{}|<>]/.test(password);
   if (password.length < 8 || !tieneNum || !tieneMay || !tieneEsp) {
     mostrarMensaje("register",
-      "La contraseña debe tener ≥8 caracteres, un número, una mayúscula y un carácter especial.",
-      5000);
+        "La contraseña debe tener 8 o más caracteres , un número, una mayúscula y un carácter especial.",
+        5000);
     return;
   }
 
@@ -224,4 +224,45 @@ registerForm.addEventListener("submit", async e => {
     console.error(err);
     mostrarMensaje("register", "Error de conexión con el servidor.");
   }
+});
+
+
+// ---------------------------------------------------------------------------
+// Popup de la politica de privacidad
+// ---------------------------------------------------------------------------
+
+// Abrir el popup cuando se pulsa en "popup-politica"
+const popupLinks = document.querySelectorAll(".popup-politica");
+const popup = document.getElementById("popup-politica");
+const btnAccept = document.getElementById("btnAccept");
+const popupText = document.getElementById("popupText");
+const closePopup = document.getElementById("closePopup");
+const checkmark = document.getElementById("checkmark");
+
+// Abrir popup al pulsar el texto
+popupLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    popup.style.display = "flex";
+    btnAccept.disabled = true; // Reiniciamos
+    popupText.scrollTop = 0; // Scroll al inicio
+  });
+});
+
+// Cerrar popup al pulsar la X
+closePopup.addEventListener("click", () => {
+  popup.style.display = "none";
+});
+
+// Detectar scroll al final
+popupText.addEventListener("scroll", () => {
+  if (popupText.scrollTop + popupText.clientHeight >= popupText.scrollHeight - 1) {
+    btnAccept.disabled = false;
+  }
+});
+
+// Al pulsar aceptar, cerrar popup y habilitar el checkbox
+btnAccept.addEventListener("click", () => {
+  popup.style.display = "none";
+  checkmark.disabled = false; // Ahora sí se puede marcar
+  checkmark.checked = true;   // Marcamos automáticamente
 });
