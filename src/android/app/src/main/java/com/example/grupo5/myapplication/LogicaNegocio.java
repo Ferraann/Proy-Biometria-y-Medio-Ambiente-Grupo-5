@@ -53,7 +53,7 @@ public class LogicaNegocio {
             @Override
             public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
 
-                if(response.isSuccessful()||response.body()==null){
+                if(!response.isSuccessful()||response.body()==null){
                     Log.d("Login", "Error en la respuesta: " + response.code());
                    return;
                 }
@@ -108,7 +108,7 @@ public class LogicaNegocio {
         call.enqueue(new Callback<PojoRespuestaServidor>() {
             @Override
             public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
-                if(response.isSuccessful()||response.body()==null){
+                if(!response.isSuccessful()||response.body()==null){
                     Log.d("Login", "Error en la respuesta: " + response.code());
                     return;
 

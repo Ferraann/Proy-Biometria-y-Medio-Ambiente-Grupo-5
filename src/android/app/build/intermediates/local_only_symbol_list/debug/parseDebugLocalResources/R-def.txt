@@ -17,6 +17,9 @@ id botonDetenerBusquedaDispositivosBTLE
 id botonRegistrarse
 id button
 id button2
+id button3
+id button4
+id button5
 id editarApellidos
 id editarContrasenyaActual
 id editarContrasenyaNueva
@@ -35,6 +38,7 @@ layout activity_beacon
 layout activity_editar_perfil
 layout activity_home
 layout activity_main
+layout activity_notificaciones
 layout activity_registro
 mipmap ic_launcher
 mipmap ic_launcher_round

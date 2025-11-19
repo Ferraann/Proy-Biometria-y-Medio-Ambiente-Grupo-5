@@ -13,10 +13,10 @@ public class PojoUsuario {
     private String Id;
     private String Nombre;
     private String Apellidos;
-    private String Correo;
-    private String Contrasenya;
+    private String gmail;
+    private String password;
     private String Activo;
-    private String Action;
+    private String accion;
 
     public String getId() {
         return Id;
@@ -43,20 +43,18 @@ public class PojoUsuario {
     }
 
     public String getCorreo() {
-        return Correo;
+        return gmail;
     }
 
     public void setCorreo(String correo) {
-        Correo = correo;
+        gmail = correo;
     }
 
     public String getContrasenya() {
-        return Contrasenya;
+        return password;
     }
 
-    public void setContrasenya(String contrasenya) {
-        Contrasenya = contrasenya;
-    }
+    public void setContrasenya(String contrasenya) { password = contrasenya; }
 
     public String getActivo() {
         return Activo;
@@ -67,10 +65,10 @@ public class PojoUsuario {
     }
 
     public String getAction() {
-        return Action;
+        return accion;
     }
 
     public void setAction(String action) {
-        Action = action;
+        accion = action;
     }
 }

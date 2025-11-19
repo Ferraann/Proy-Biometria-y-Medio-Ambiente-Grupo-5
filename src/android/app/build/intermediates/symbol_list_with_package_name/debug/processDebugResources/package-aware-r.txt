@@ -3779,6 +3779,9 @@ id bounceEnd
 id bounceStart
 id button
 id button2
+id button3
+id button4
+id button5
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -4332,6 +4335,7 @@ layout activity_beacon
 layout activity_editar_perfil
 layout activity_home
 layout activity_main
+layout activity_notificaciones
 layout activity_registro
 layout custom_dialog
 layout design_bottom_navigation_item
