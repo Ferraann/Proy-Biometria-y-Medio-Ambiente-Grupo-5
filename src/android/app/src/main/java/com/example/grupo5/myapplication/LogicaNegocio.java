@@ -2,6 +2,7 @@ package com.example.grupo5.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import com.example.grupo5.myapplication.BTLEActivity;
 import com.example.grupo5.myapplication.HomeActivity;
 import com.example.grupo5.myapplication.ApiCliente;
 import com.example.grupo5.myapplication.ApiService;
+import com.google.gson.JsonObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,10 +31,18 @@ public class LogicaNegocio {
     //-------------------------------------------------------------------------------------------
     //     Nombre:txt, Apellidos:txt, email:txt, contraseña:txt --> postRegistro()
     //-------------------------------------------------------------------------------------------
-    public static void PostRegistro(String Nombre, String Apellidos, String Email, String Contrasenya, Context contexto) {
+    public static void PostRegistro(String Nombre, String Apellidos, String Correo, String Contrasenya, Context contexto) {
 
         ApiService api = ApiCliente.getApiService();
-        Call<PojoRespuestaServidor> call = api.datosRegistro(Nombre, Apellidos, Email, Contrasenya);
+
+        PojoUsuario usuario = new PojoUsuario();
+        usuario.setNombre(Nombre);
+        usuario.setApellidos(Apellidos);
+        usuario.setCorreo(Correo);
+        usuario.setContrasenya(Contrasenya);
+        usuario.setAction("registrarUsuario");
+
+        Call<PojoRespuestaServidor> call = api.datosRegistro(usuario);
 
         //Ejecutamos la llamada post de forma asincrona, con un callback.Lo primero que hacemos es cojer la respuesta
         //del servido, al recibirlo comparamos si ha fallado algo y si la respuesta en si tiene cuerpo. Si no se cumple
@@ -43,21 +53,31 @@ public class LogicaNegocio {
             @Override
             public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
 
-                if (response.isSuccessful() && response.body() != null) {
-                    PojoRespuestaServidor respuesta = response.body();
-
-                    if ("ok".equals(respuesta.getStatus())) {
-                        Log.d("API", "funciona: " + respuesta.getMensaje());
-                        Intent intent = new Intent(contexto, HomeActivity.class);
-                        contexto.startActivity(intent);
-
-                    } else {
-                        Log.w("API", "No funciona: " + respuesta.getMensaje());
-                        Toast.makeText(contexto, "Mail ya registrado", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Log.e("API", "Error HTTP: código " + response.code());
+                if(response.isSuccessful()||response.body()==null){
+                    Log.d("Login", "Error en la respuesta: " + response.code());
+                   return;
                 }
+
+                PojoRespuestaServidor respuesta = response.body();
+
+                // Miramos el status que viene del servidor
+                if (!"ok".equalsIgnoreCase(respuesta.getStatus())) {
+                    Log.w("API", "No funciona: " + respuesta.getMensaje());
+                    Toast.makeText(contexto, "Mail ya registrado", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                PojoUsuario usuarioServidor = respuesta.getUsuario();
+
+                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+                prefs.edit()
+                        .putString("id", usuarioServidor.getId())
+                        .putString("nombre", usuarioServidor.getNombre())
+                        .putString("apellidos", usuarioServidor.getApellidos())
+                        // adapta "getCorreo" o "getGmail" según lo que tengas
+                        .putString("correo", usuarioServidor.getCorreo())
+                        .apply();
+
             }
 
             @Override
@@ -72,28 +92,116 @@ public class LogicaNegocio {
     //-------------------------------------------------------------------------------------------
     //     Email:txt, Contraseña:txt, Contexto:context --> postRegistro()
     //-------------------------------------------------------------------------------------------
-    public static void PostLogin(String email, String contrasenya, Context contexto) {
-        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-        Call<Void> call = apiService.loginUsuario(email, contrasenya);
+    public static void PostLogin(String correo, String contrasenya, Context contexto){
+        ApiService apiService = ApiCliente.getApiService();
 
-        call.enqueue(new Callback<Void>() {
+
+        PojoUsuario usuario = new PojoUsuario();
+        usuario.setCorreo(correo);
+        usuario.setContrasenya(contrasenya);
+        usuario.setAction("login");
+
+
+        Call<PojoRespuestaServidor> call = apiService.loginUsuario(usuario);
+
+
+        call.enqueue(new Callback<PojoRespuestaServidor>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Login", "Login exitoso");
-                    Intent intent = new Intent(contexto, HomeActivity.class);
-                    contexto.startActivity(intent);
-                } else {
-                    Log.d("Login", "Credenciales incorrectas o error: " + response.code());
+            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
+                if(response.isSuccessful()||response.body()==null){
+                    Log.d("Login", "Error en la respuesta: " + response.code());
+                    return;
+
                 }
+                PojoRespuestaServidor respuesta = response.body();
+
+                // Miramos el status que viene del servidor
+                if (!"ok".equalsIgnoreCase(respuesta.getStatus())) {
+                    // Si viene un mensaje de error, lo mostramos en log (o Toast)
+                    Log.d("Login", "Login fallido: " + respuesta.getMensaje());
+                    return;
+                }
+                PojoUsuario usuarioServidor = respuesta.getUsuario();
+                // 4.4 Guardamos los datos del usuario en SharedPreferences
+                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+                prefs.edit()
+                        .putString("id", usuarioServidor.getId())
+                        .putString("nombre", usuarioServidor.getNombre())
+                        .putString("apellidos", usuarioServidor.getApellidos())
+                        // adapta "getCorreo" o "getGmail" según lo que tengas
+                        .putString("correo", usuarioServidor.getCorreo())
+                        .apply();
+
+                Intent intent = new Intent(contexto, HomeActivity.class);
+                contexto.startActivity(intent);
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
                 Log.e("Login", "Error en conexión: " + t.getMessage());
             }
         });
     }
+//    //-------------------------------------------------------------------------------------------
+////     Email:txt, Contraseña:txt, Contexto:context --> PostLogin()
+////-------------------------------------------------------------------------------------------
+//    public static void PostLogin(String email, String contrasenya, Context contexto) {
+//        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
+//
+//        // Metemos toda la información en formato Json
+//        JsonObject usuarioJson = new JsonObject();
+//        usuarioJson.addProperty("accion", "login");
+//        usuarioJson.addProperty("gmail", email);
+//        usuarioJson.addProperty("password", contrasenya);
+//
+//        // Hacemos la llamada -> AHORA ESPERAMOS PojoRespuesta
+//        Call<PojoRespuestaServidor> call = apiService.loginUsuario(usuarioJson);
+//
+//        // Ejecutamos la llamada
+//        call.enqueue(new Callback<PojoRespuestaServidor>() {
+//            @Override
+//            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
+//                if (!response.isSuccessful() || response.body() == null) {
+//                    Log.d("Login", "Error en la respuesta: " + response.code());
+//                    return;
+//                }
+//
+    //                PojoRespuestaServidor respuesta = response.body();
+//
+//                // 1. Comprobar el status
+//                if (!"ok".equalsIgnoreCase(respuesta.getStatus())) {
+//                    Log.d("Login", "Login fallido: " + respuesta.getMensaje());
+//                    return;
+//                }
+//
+//                // 2. Obtener el usuario
+//                PojoUsuario u = respuesta.getUsuario();
+//                if (u == null) {
+//                    Log.d("Login", "No se ha devuelto usuario en la respuesta.");
+//                    return;
+//                }
+//
+//                // 3. Guardar los datos del usuario en SharedPreferences
+//                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+//                prefs.edit()
+//                        .putInt("id", u.getId())
+//                        .putString("nombre", u.getNombre())
+//                        .putString("apellidos", u.getApellidos())
+//                        .putString("gmail", u.getGmail())
+//                        .apply();
+//
+//                // 4. Ir a la Home
+//                Intent intent = new Intent(contexto, HomeActivity.class);
+//                contexto.startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<PojoRespuesta> call, Throwable t) {
+//                Log.e("Login", "Error en conexión: " + t.getMessage());
+//            }
+//        });
+//    }
+
 
     //--------------------------------------------------------------------------------
     //  Nombre: txt, Apellidos: txt, Email: txt,

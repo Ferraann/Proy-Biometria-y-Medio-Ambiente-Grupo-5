@@ -1,5 +1,6 @@
     package com.example.grupo5.myapplication;
 
+    import android.content.SharedPreferences;
     import android.os.Bundle;
     import android.view.View;
     import android.widget.EditText;
@@ -35,6 +36,17 @@
             correoNuevo = findViewById(R.id.editarCorreoNuevo);
             repetirCorreoNuevo = findViewById(R.id.editarRepetirCorreoNuevo);
 
+            //Recuperar datos del usuario desde SharedPreferences
+            SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+            String nombreUsuario = prefs.getString("nombre", "");
+            String apellidosUsuario = prefs.getString("apellidos", "");
+            String emailUsuario = prefs.getString("email", "");
+
+            // Mostrar los datos en los EditText
+            nombre.setText(nombreUsuario);
+            apellidos.setText(apellidosUsuario);
+            correoNuevo.setText(emailUsuario);
+            repetirCorreoNuevo.setText(emailUsuario);
         }
 
         public void botonActivarModificarNombre(View v){
