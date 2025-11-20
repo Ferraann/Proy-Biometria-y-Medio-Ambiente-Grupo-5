@@ -50,8 +50,6 @@ public class NotificacionesActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,flag);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, MY_CHANNEL_ID)
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                        .bigPicture(R.drawable.logo_aither))
                 .setSmallIcon(R.drawable.logo_aither)
                 .setContentTitle("Peligro")
                 .setContentIntent(pendingIntent)
