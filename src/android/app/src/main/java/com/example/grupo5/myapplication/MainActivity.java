@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Email = findViewById(R.id.EmailUsuarioLogin);
-        Contrasenya = findViewById(R.id.ContrasenyaUsuarioLogin);
+        setContentView(R.layout.activity_distance);
+       // Email = findViewById(R.id.EmailUsuarioLogin);
+        //Contrasenya = findViewById(R.id.ContrasenyaUsuarioLogin);
     }
 
     public void botonRegistrarse(View v) {

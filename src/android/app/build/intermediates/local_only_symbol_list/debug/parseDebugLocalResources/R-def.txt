@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 color black
 color white
+drawable bg_gradient_minimal
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 id ApellidosUsuario
@@ -17,6 +18,7 @@ id botonDetenerBusquedaDispositivosBTLE
 id botonRegistrarse
 id button
 id button2
+id cardDistance
 id editarApellidos
 id editarContrasenyaActual
 id editarContrasenyaNueva
@@ -31,7 +33,10 @@ id modificarApellidos
 id modificarContrasenyaAntigua
 id modificarCorreo
 id modificarNombre
+id textTitle
+id tvDistance
 layout activity_beacon
+layout activity_distance
 layout activity_editar_perfil
 layout activity_home
 layout activity_main
