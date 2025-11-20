@@ -522,6 +522,41 @@ function guardarFotosIncidencia($conn, $data)
 
     return ["status" => "ok", "message" => "Fotos guardadas correctamente."];
 }
+
+// -------------------------------------------------------------
+// FUNCIÓN 14: Get fotos de incidencia
+// -------------------------------------------------------------
+function obtenerFotosIncidencia($conn, $incidencia_id) {
+    $sql = "SELECT foto FROM fotos_incidencia WHERE incidencia_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $incidencia_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $fotos = [];
+    while ($row = $res->fetch_assoc()) {
+        $fotos[] = ["foto" => base64_encode($row['foto'])];
+    }
+    return ["status" => "ok", "fotos" => $fotos];
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 15: obtener todas las incidencias incidencia
+// -------------------------------------------------------------
+function obtenerTodasIncidencias($conn)
+{
+    $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion, e.nombre AS estado
+            FROM incidencias i
+            LEFT JOIN usuario u ON i.id_user = u.id
+            LEFT JOIN estado_incidencia e ON i.estado_id = e.id
+            ORDER BY i.fecha_creacion DESC";
+    $result = $conn->query($sql);
+    $incidencias = [];
+    while ($row = $result->fetch_assoc()) {
+        $incidencias[] = $row;
+    }
+    return $incidencias;
+}
+
 // -------------------------------------------------------------
 // FUNCIÓN 1X: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
 // -------------------------------------------------------------
