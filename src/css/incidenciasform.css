@@ -324,6 +324,31 @@ nav a:hover{
 
 .btn-send:hover { background-color: var(--Principal_1); }
 
+/* Estilo para el texto de archivos seleccionados */
+#file-count {
+    display: flex;
+    flex-direction: column; /* Hace que se pongan uno debajo de otro */
+    gap: 8px;               /* Espacio entre cada nombre de archivo */
+    margin-bottom: 25px;    /* Espacio entre la lista y el botón de Enviar */
+    width: 100%;
+}
+
+/* Estilo para cada fila de archivo (crearemos divs en el JS) */
+.file-item-row {
+    font-size: 0.9rem;
+    color: #333;
+    background-color: #f0f2f5; /* Un fondo gris clarito para cada archivo */
+    padding: 8px 12px;
+    border-radius: 5px;
+    border-left: 4px solid var(--Principal_1); /* Decoración azul a la izquierda */
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Mensajes de estado */
 .msg-box { margin-top: 15px; text-align: center; font-weight: 600; }
 .text-danger { color: #d9534f; }

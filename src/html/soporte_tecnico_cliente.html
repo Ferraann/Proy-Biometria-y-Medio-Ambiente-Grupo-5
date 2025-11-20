@@ -109,11 +109,13 @@
                     <label for="imagenInput" class="btn-camera">
                         <i class="fa-solid fa-camera"></i>
                     </label>
-                    <input type="file" name="imagen" id="imagenInput" accept="image/*">
+                    <input type="file" name="imagen" id="imagenInput" accept="image/*" multiple>
                 </div>
+
+                
                 <button type="reset" class="btn-reset">BORRAR DATOS</button>
             </div>
-
+            <div id="file-count" class="file-list-container"></div>
             <button type="submit" class="btn-send">Enviar</button>
             <div id="msg" class="msg-box"></div>
         </form>
@@ -131,10 +133,10 @@
             evt.currentTarget.classList.add('active');
         }
         
-        // Script visual para mostrar alerta cuando se sube foto (opcional)
-        document.getElementById('imagenInput').addEventListener('change', function() {
-            if(this.files.length > 0) alert("Imagen seleccionada: " + this.files[0].name);
-        });
+        // Script para que el botón "BORRAR DATOS" también borre el texto de los archivos
+    document.querySelector('button[type="reset"]').addEventListener('click', function() {
+        document.getElementById('file-count').textContent = "";
+    });
     </script>
 
     <script src="../js/incidenciaform.js"></script>
