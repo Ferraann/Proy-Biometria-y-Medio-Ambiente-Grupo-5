@@ -28,10 +28,10 @@ com.example.grupo5.myapplication.app-recyclerview-1.2.1-26 C:\Users\Usuario\.gra
 com.example.grupo5.myapplication.app-core-runtime-2.2.0-27 C:\Users\Usuario\.gradle\caches\transforms-4\e43febcfe5f2abfc838c28d8c15cd3a5\transformed\core-runtime-2.2.0\res
 com.example.grupo5.myapplication.app-activity-1.10.0-28 C:\Users\Usuario\.gradle\caches\transforms-4\e4508308fd93d5055e9873dcc5865d56\transformed\activity-1.10.0\res
 com.example.grupo5.myapplication.app-savedstate-1.2.1-29 C:\Users\Usuario\.gradle\caches\transforms-4\f1c8e1964dfa99cc5fa5721825e1d40a\transformed\savedstate-1.2.1\res
-com.example.grupo5.myapplication.app-pngs-30 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\build\generated\res\pngs\debug
-com.example.grupo5.myapplication.app-resValues-31 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\build\generated\res\resValues\debug
-com.example.grupo5.myapplication.app-packageDebugResources-32 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.grupo5.myapplication.app-packageDebugResources-33 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.grupo5.myapplication.app-debug-34 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.example.grupo5.myapplication.app-debug-35 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\debug\res
-com.example.grupo5.myapplication.app-main-36 C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\android\app\src\main\res
+com.example.grupo5.myapplication.app-pngs-30 C:\xampp\htdocs\ProyectoBiometria\src\android\app\build\generated\res\pngs\debug
+com.example.grupo5.myapplication.app-resValues-31 C:\xampp\htdocs\ProyectoBiometria\src\android\app\build\generated\res\resValues\debug
+com.example.grupo5.myapplication.app-packageDebugResources-32 C:\xampp\htdocs\ProyectoBiometria\src\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.grupo5.myapplication.app-packageDebugResources-33 C:\xampp\htdocs\ProyectoBiometria\src\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.grupo5.myapplication.app-debug-34 C:\xampp\htdocs\ProyectoBiometria\src\android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.example.grupo5.myapplication.app-debug-35 C:\xampp\htdocs\ProyectoBiometria\src\android\app\src\debug\res
+com.example.grupo5.myapplication.app-main-36 C:\xampp\htdocs\ProyectoBiometria\src\android\app\src\main\res
