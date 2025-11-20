@@ -115,6 +115,15 @@ switch ($method) {
             case "cerrarIncidencia":
                 echo json_encode(cerrarIncidencia($conn, $input));
                 break;
+
+            case "crearIncidencia":
+                echo json_encode(crearIncidencia($conn, $input));
+                break;
+
+            case "guardarFotosIncidencia":
+                echo json_encode(guardarFotosIncidencia($conn, $input));
+                break;
+                
             default:
                 echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
