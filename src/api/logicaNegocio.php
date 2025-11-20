@@ -451,12 +451,24 @@ function crearIncidencia($conn, $data)
 // -------------------------------------------------------------
 function obtenerIncidenciasActivas($conn)
 {
-    $sql = "SELECT i.id, u.nombre AS usuario, i.titulo, i.descripcion, i.fecha_creacion, e.nombre AS estado
-            FROM incidencias i
-            LEFT JOIN usuario u ON i.id_user = u.id
-            LEFT JOIN estado_incidencia e ON i.estado_id = e.id
-            WHERE e.nombre NOT IN ('Cerrada', 'Cancelada')
-            ORDER BY i.fecha_creacion DESC";
+    $sql = "
+    SELECT 
+        i.id,
+        u.nombre                                   AS usuario,
+        i.titulo,
+        i.descripcion,
+        i.fecha_creacion,
+        e.nombre                                   AS estado,
+        i.id_tecnico,
+        COALESCE(tu.nombre, 'Sin asignar')         AS tecnico
+    FROM incidencias i
+    LEFT JOIN usuario u  ON i.id_user   = u.id
+    LEFT JOIN estado_incidencia e ON i.estado_id = e.id
+    LEFT JOIN tecnicos t          ON i.id_tecnico = t.usuario_id
+    LEFT JOIN usuario tu          ON t.usuario_id = tu.id
+    WHERE e.nombre NOT IN ('Cerrada', 'Cancelada')
+    ORDER BY i.fecha_creacion DESC
+";
 
     $result = $conn->query($sql);
     $incidencias = [];
@@ -522,6 +534,54 @@ function guardarFotosIncidencia($conn, $data)
 
     return ["status" => "ok", "message" => "Fotos guardadas correctamente."];
 }
+
+// -------------------------------------------------------------
+// FUNCIÓN 14: Get fotos de incidencia
+// -------------------------------------------------------------
+function obtenerFotosIncidencia($conn, $incidencia_id) {
+    $sql = "SELECT foto FROM fotos_incidencia WHERE incidencia_id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $incidencia_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $fotos = [];
+    while ($row = $res->fetch_assoc()) {
+        $fotos[] = ["foto" => base64_encode($row['foto'])];
+    }
+    return ["status" => "ok", "fotos" => $fotos];
+}
+
+// -------------------------------------------------------------
+// FUNCIÓN 15: Obtener todas las incidencias con nombre de técnico  
+// -------------------------------------------------------------  
+function obtenerTodasIncidencias($conn)
+{
+    $sql = "
+        SELECT 
+            i.id,
+            u.nombre                                   AS usuario,
+            i.titulo,
+            i.descripcion,
+            i.fecha_creacion,
+            e.nombre                                   AS estado,
+            i.id_tecnico,
+            COALESCE(tu.nombre, 'Sin asignar')         AS tecnico
+        FROM incidencias i
+        LEFT JOIN usuario u  ON i.id_user   = u.id
+        LEFT JOIN estado_incidencia e ON i.estado_id = e.id
+        LEFT JOIN tecnicos t          ON i.id_tecnico = t.usuario_id
+        LEFT JOIN usuario tu          ON t.usuario_id = tu.id
+        ORDER BY i.fecha_creacion DESC
+    ";
+
+    $result = $conn->query($sql);
+    $incidencias = [];
+    while ($row = $result->fetch_assoc()) {
+        $incidencias[] = $row;
+    }
+    return $incidencias;
+}
+
 // -------------------------------------------------------------
 // FUNCIÓN 1X: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
 // -------------------------------------------------------------

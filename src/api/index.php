@@ -123,14 +123,14 @@ switch ($method) {
             case "guardarFotosIncidencia":
                 echo json_encode(guardarFotosIncidencia($conn, $input));
                 break;
-                
+
             case "modificarDatos":
-                echo json_encode(modificarDatos($conn,$input));
+                echo json_encode(modificarDatos($conn, $input));
                 break;
+
             default:
                 echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
-
         }
         break;
 
@@ -161,6 +161,13 @@ switch ($method) {
                 echo json_encode(promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max));
                 break;
 
+            case "getTodasIncidencias":
+                echo json_encode(obtenerTodasIncidencias($conn));
+                break;
+
+            case "getFotosIncidencia":
+                echo json_encode(obtenerFotosIncidencia($conn, $_GET['incidencia_id']));
+                break;
             default:
                 echo json_encode(["status" => "error", "message" => "Acción GET no reconocida."]);
                 break;
@@ -177,4 +184,3 @@ switch ($method) {
 
 // Cerramos conexión
 $conn->close();
-?>

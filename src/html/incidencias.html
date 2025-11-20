@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Incidencias - AITHER</title>
+    <link rel="stylesheet" href="../css/incidencias.css" />
+  </head>
+  <body>
+    <header>
+      <h1>📋 Incidencias Activas</h1>
+      <input
+        type="text"
+        id="buscador"
+        placeholder="Buscar por título, descripción, usuario o estado..."
+      /><!-- Filtros avanzados -->
+    <div
+      id="filtros"
+      style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px"
+    >
+      <label
+        >Técnico:
+        <select id="filtroTecnico">
+          <option value="">-- Cualquiera --</option>
+        </select>
+      </label>
+
+      <label
+        >Estado:
+        <select id="filtroEstado">
+          <option value="">-- Cualquiera --</option>
+        </select>
+      </label>
+
+      <label
+        >Fotos:
+        <select id="filtroFotos">
+          <option value="">-- Cualquiera --</option>
+          <option value="con">Con fotos</option>
+          <option value="sin">Sin fotos</option>
+        </select>
+      </label>
+
+      <label
+        >Orden:
+        <select id="ordenFecha">
+          <option value="desc">Más reciente primero</option>
+          <option value="asc">Más antigua primero</option>
+        </select>
+      </label>
+    </div>
+    </header>
+    
+    <main id="lista-incidencias">
+      <p id="cargando">Cargando incidencias...</p>
+    </main>
+
+    <script src="../js/incidencias.js"></script>
+  </body>
+</html>
