@@ -39,6 +39,10 @@ public class HomeActivity extends AppCompatActivity {
             bienvenida.setText("¡Bienvenido, " + emailUsuario + "!");
         }
 
+        findViewById(R.id.btnVincularQR).setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, VincularQRActivity.class));
+        });
+
         // ----------------------
         // RECORDATORIO DE HUELLA
         // ----------------------

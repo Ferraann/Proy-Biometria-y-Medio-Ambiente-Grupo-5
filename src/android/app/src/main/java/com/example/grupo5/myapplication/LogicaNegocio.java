@@ -177,6 +177,37 @@ public class LogicaNegocio {
         });
     }
 
+    //--------------------------------------------------------------------------------
+    //  sensor: PojoSensor, contexto: Context
+    //--------------------------------------------------------------------------------
+    public static void postVincularSensor(PojoSensor sensor, Context contexto) {
+        ApiService api = ApiCliente.getApiService();
+
+        Call<PojoRespuestaServidor> call = api.vincularSensor(sensor);
+
+        call.enqueue(new Callback<PojoRespuestaServidor>() {
+            @Override
+            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    PojoRespuestaServidor r = response.body();
+                    String mensaje = (r.getStatus() != null) ? r.getStatus() : "Añadido tu sensor";
+                    Toast.makeText(contexto, mensaje, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(contexto, HomeActivity.class);
+                    contexto.startActivity(intent);
+                } else {
+                    Toast.makeText(contexto, "Error HTTP: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
+                String mensaje = (t.getMessage() != null) ? t.getMessage() : "Error de conexión desconocido";
+                Toast.makeText(contexto, mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 }
 //---------------------------------------------------------------
 //---------------------------------------------------------------

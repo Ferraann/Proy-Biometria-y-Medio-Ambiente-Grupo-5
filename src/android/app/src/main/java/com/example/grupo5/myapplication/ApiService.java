@@ -42,4 +42,12 @@ public interface ApiService {
 
     @POST("index.php") // Cambia al endpoint real en tu servidor
     Call<PojoRespuestaServidor> modificarDatos(@Body PojoUsuario usuario);
+
+    @POST("index.php")
+    Call<PojoRespuestaServidor> vincularSensor(@Body PojoSensor sensor);
+
+    @POST("index.php")
+    Call<JsonObject> crearSensorYRelacion(
+            @Query("accion") String accion,
+            @Body JsonObject body);
 }
