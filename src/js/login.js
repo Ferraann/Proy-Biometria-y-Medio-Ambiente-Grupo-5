@@ -148,7 +148,7 @@ loginForm.addEventListener("submit", async e => {
     if (data.status === "ok") {
       // Guardar usuario en localStorage y redirigir
       localStorage.setItem("user", JSON.stringify(data.usuario));
-      window.location.href = "dashboard.html"; // si el login es exitoso lleva aqui, cambiar
+      window.location.href = "dashboard.php"; // si el login es exitoso lleva aqui, cambiar
     } else {
       mostrarMensaje("login", data.message || "Credenciales incorrectas.");
     }
