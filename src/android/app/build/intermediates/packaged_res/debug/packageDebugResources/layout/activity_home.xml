@@ -11,4 +11,16 @@
         android:layout_height="wrap_content"
         android:onClick="botonEditarPerfil"
         android:text="Editar perfil" />
+
+    <Button
+        android:id="@+id/btnVincularQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vincular por qr" />
+
+    <Button
+        android:id="@+id/notificaciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notificaciones" />
 </LinearLayout>
