@@ -1,0 +1,86 @@
+:root{
+    --Principal_1: #152D9A;
+    --Principal_2: #587DBD;
+    --Secundario_Blanco: #ffffff;
+    --Gris_claro: #ddd;
+    --Fondo: #0b1220;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+    min-height:100vh;
+    font-family:'Montserrat',sans-serif;
+    background:var(--Fondo) url('../img/landing.jpg') no-repeat center/cover fixed;
+    color:var(--Secundario_Blanco);
+    position:relative;
+    z-index:1;
+}
+body::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:#587dbd81;
+    z-index:-1;
+}
+a{text-decoration:none;color:inherit;}
+.main-header{
+    padding:20px 0;
+    font-weight:bold;
+}
+.main-header .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1200px;
+    margin:auto;
+    padding:0 20px;
+}
+.logo img{height:40px;}
+.main-nav ul{
+    display:flex;list-style:none;gap:25px;
+}
+.btn-login{
+    margin-left:30px;
+    background:var(--Principal_1);
+    color:#fff;
+    padding:8px 22px;
+    border-radius:50px;
+    transition:.3s;
+}
+.btn-login:hover{background:var(--Principal_2);color:#fff;}
+
+/* --------- formulario --------- */
+.form-wrapper{
+    max-width:600px;
+    margin:60px auto 80px;
+    background:rgba(21,45,154,.55);
+    border:2px solid var(--Principal_2);
+    border-radius:20px;
+    padding:40px 50px;
+    backdrop-filter:blur(6px);
+}
+.form-wrapper h2{margin-bottom:25px;text-align:center;}
+.form-label{font-weight:600;margin-bottom:.35rem;}
+.form-control,
+.form-control:focus{
+    background:transparent;
+    border:none;
+    border-bottom:2px solid var(--Principal_2);
+    color:#fff;
+    border-radius:0;
+    box-shadow:none;
+}
+.form-control:focus{border-color:var(--Secundario_Blanco);}
+.btn-primary{
+    width:100%;
+    margin-top:30px;
+    background:var(--Principal_2);
+    border:3px solid var(--Principal_1);
+    color:#fff;
+    font-size:1.1rem;
+    font-weight:bold;
+    padding:10px;
+    border-radius:50px;
+    transition:.3s;
+}
+.btn-primary:hover{background:var(--Principal_1);}
+#msg{min-height:24px;margin-top:15px;text-align:center;font-weight:600;}
