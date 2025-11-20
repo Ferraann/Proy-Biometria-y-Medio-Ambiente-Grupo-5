@@ -20,7 +20,7 @@ document.getElementById("incidenciaForm").addEventListener("submit", async e => 
         titulo: formData.get("titulo"),
         descripcion: formData.get("descripcion")
     };
-
+try{
     const resInc = await fetch("../api/index.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -60,9 +60,19 @@ document.getElementById("incidenciaForm").addEventListener("submit", async e => 
         }
     }
 
-    box.className = "text-success";
-    box.textContent = "Incidencia y fotos guardadas correctamente.";
+    Swal.fire({
+            title: '¡Enviado!',
+            text: 'Tu incidencia se ha registrado correctamente.',
+            icon: 'success',
+            confirmButtonColor: '#152D9A', // Tu color corporativo azul
+            confirmButtonText: 'Genial'
+        });
     form.reset();
+}catch (error){
+console.error(error);
+        box.className = "text-danger";
+        box.textContent = "Error de conexión con el servidor.";
+}
 });
 
 /* Helper para convertir File a base64 */
