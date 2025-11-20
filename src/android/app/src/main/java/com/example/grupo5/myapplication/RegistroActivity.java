@@ -59,7 +59,7 @@ public class RegistroActivity extends AppCompatActivity{
 
 
         // validación que comprueba que si hay alguno que está vacio no se ejecuta la sentencia sql.
-        if (!usuario.isEmpty() || !apellidos.isEmpty()||!contrasenya.isEmpty()||!email.isEmpty()||repetirContrasenya.isEmpty()) {
+        if (usuario.isEmpty() || apellidos.isEmpty()||contrasenya.isEmpty()||email.isEmpty()||repetirContrasenya.isEmpty()) {
             Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }

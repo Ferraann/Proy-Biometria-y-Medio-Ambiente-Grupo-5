@@ -7,39 +7,39 @@ package com.example.grupo5.myapplication;
 // ------------------------------------------------------------------
 // Descripción:
 // Esta clase lo que pretende es ser un clase donde se guarde
-// información basica del usuario: Nombre, Apellidos, Correo, Id
+// información basica del usuario: nombre, Apellidos, Correo, Id
 //-------------------------------------------------------------------
 public class PojoUsuario {
-    private String Id;
-    private String Nombre;
-    private String Apellidos;
+    private String id;
+    private String nombre;
+    private String apellidos;
     private String gmail;
     private String password;
-    private String Activo;
+    private String activo;
     private String accion;
 
     public String getId() {
-        return Id;
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setId(String Id) {
+        id = Id;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setNombre(String Nombre) {
+        nombre = Nombre;
     }
 
     public String getApellidos() {
-        return Apellidos;
+        return apellidos;
     }
 
-    public void setApellidos(String apellidos) {
-        Apellidos = apellidos;
+    public void setApellidos(String Apellidos) {
+        apellidos = Apellidos;
     }
 
     public String getCorreo() {
@@ -57,11 +57,11 @@ public class PojoUsuario {
     public void setContrasenya(String contrasenya) { password = contrasenya; }
 
     public String getActivo() {
-        return Activo;
+        return activo;
     }
 
-    public void setActivo(String activo) {
-        Activo = activo;
+    public void setActivo(String Activo) {
+        activo = Activo;
     }
 
     public String getAction() {

@@ -36,6 +36,6 @@
         <activity android:name="com.example.grupo5.myapplication.RegistroActivity" />
         <activity android:name="com.example.grupo5.myapplication.BTLEActivity" />
         <activity android:name="com.example.grupo5.myapplication.HomeActivity" />
-
+        <activity android:name="com.example.grupo5.myapplication.EditarPerfilActivity" />
     </application>
 </manifest>

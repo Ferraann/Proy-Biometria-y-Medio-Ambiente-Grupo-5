@@ -44,6 +44,11 @@ public class HomeActivity extends AppCompatActivity {
         // ----------------------
 //        showFingerprintReminder();
     }
+
+    public void botonEditarPerfil(View v) {
+        Intent intent = new Intent(this, EditarPerfilActivity.class);
+        startActivity(intent);
+    }
 //
 //    private void showFingerprintReminder() {
 //        SharedPreferences sharedPref = getSharedPreferences("USER_PREFS", MODE_PRIVATE);
@@ -119,9 +124,5 @@ public class HomeActivity extends AppCompatActivity {
 //        biometricPrompt.authenticate(promptInfo);
 //    }
 //
-    public void botonEditarPerfil(View v) {
-        Intent intent = new Intent(this, EditarPerfilActivity.class);
-        startActivity(intent);
 
-    }
 }

@@ -9,5 +9,6 @@
         android:id="@+id/editarPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="botonEditarPerfil"
         android:text="Editar perfil" />
 </LinearLayout>
