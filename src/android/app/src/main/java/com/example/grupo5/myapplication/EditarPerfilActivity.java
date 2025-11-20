@@ -7,6 +7,7 @@
     import android.view.View;
     import android.widget.Button;
     import android.widget.EditText;
+    import android.widget.Toast;
 
     import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,6 +29,11 @@
         Button botonModificarNombre,botonModificarApellido,botonModificarCorreo,botonModificarContrasenya,botonGuardarDatos;
         boolean modificaNombre,modificaApellido,modificaCorreo,modificaContrasenya;
         PojoUsuario usuario = new PojoUsuario();
+        //Regex que me permite confirma que la contraseña es segura.
+        String regexTieneMayuscula = "^(?=.*[A-Z]).+$";
+        String regexTieneNumeros = "^(?=.*\\d).+$";
+        String regexTieneSimbologia = "^(?=.*[$@€!%*?&]).+$";
+        String regexTieneMasDe8Caracteres = "^.{8,}$";
 
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
@@ -71,35 +77,135 @@
             botonModificarCorreo.setEnabled(!botonModificarCorreo.isEnabled());
             botonGuardarDatos.setEnabled(!botonGuardarDatos.isEnabled());
 
-
+            modificaNombre = true;
         }
 
         public void botonActivarModificarApellidos(View v){
 
             apellidos.setEnabled(!apellidos.isEnabled());
+
+            botonModificarContrasenya.setEnabled(!botonModificarContrasenya.isEnabled());
+            botonModificarNombre.setEnabled(!botonModificarNombre.isEnabled());
+            botonModificarCorreo.setEnabled(!botonModificarCorreo.isEnabled());
+            botonGuardarDatos.setEnabled(!botonGuardarDatos.isEnabled());
+
+            modificaApellido = true;
         }
 
         public void botonActivarModificarContrasenya(View v){
             contrasenyaAntigua.setEnabled(!contrasenyaAntigua.isEnabled());
             contrasenyaNueva.setEnabled(!contrasenyaNueva.isEnabled());
             repetirContrasenyaNueva.setEnabled(!repetirContrasenyaNueva.isEnabled());
+
+
+            botonModificarApellido.setEnabled(!botonModificarApellido.isEnabled());
+            botonModificarNombre.setEnabled(!botonModificarNombre.isEnabled());
+            botonModificarCorreo.setEnabled(!botonModificarCorreo.isEnabled());
+            botonGuardarDatos.setEnabled(!botonGuardarDatos.isEnabled());
+
+            modificaContrasenya = true;
         }
 
         public void botonActivarModificarCorreo(View v){
             correoNuevo.setEnabled(!correoNuevo.isEnabled());
             repetirCorreoNuevo.setEnabled(!repetirCorreoNuevo.isEnabled());
+
+            botonModificarApellido.setEnabled(!botonModificarApellido.isEnabled());
+            botonModificarNombre.setEnabled(!botonModificarNombre.isEnabled());
+            botonModificarContrasenya.setEnabled(!botonModificarContrasenya.isEnabled());
+            botonGuardarDatos.setEnabled(!botonGuardarDatos.isEnabled());
+
+            modificaCorreo = true;
         }
 
         public void botonGuardarModificaciones(View v){
-            if(modificaNombre){
-                usuario.setNombre(nombre.getText().toString());
-                putModificarDatos(usuario);
-            }else if(modificaApellido){
+            SharedPreferences prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE);
+            String idUsuario = prefs.getString("id", "");
 
-            }else if(modificaCorreo){
+            usuario.setId(idUsuario);
+            usuario.setAction("modificarDatos");
 
-            }else if(modificaContrasenya){
-
+            // -------------------------------------
+            // VALIDAR Y AÑADIR NOMBRE
+            // -------------------------------------
+            if (modificaNombre) {
+                String nuevoNombre = nombre.getText().toString().trim();
+                if (nuevoNombre.isEmpty()) {
+                    Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                usuario.setNombre(nuevoNombre);
             }
+
+            // -------------------------------------
+            // VALIDAR Y AÑADIR APELLIDOS
+            // -------------------------------------
+            if (modificaApellido) {
+                String nuevosApellidos = apellidos.getText().toString().trim();
+                if (nuevosApellidos.isEmpty()) {
+                    Toast.makeText(this, "Los apellidos no pueden estar vacíos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                usuario.setApellidos(nuevosApellidos);
+            }
+
+            // -------------------------------------
+            // VALIDAR Y AÑADIR CORREO
+            // -------------------------------------
+            if (modificaCorreo) {
+
+                String correo1 = correoNuevo.getText().toString().trim();
+                String correo2 = repetirCorreoNuevo.getText().toString().trim();
+
+                if (!correo1.equals(correo2)) {
+                    Toast.makeText(this, "Los correos no coinciden", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                usuario.setCorreo(correo1);
+            }
+
+            // -------------------------------------
+            // VALIDAR Y AÑADIR CONTRASEÑA
+            // -------------------------------------
+            if (modificaContrasenya) {
+
+                String pass1 = contrasenyaNueva.getText().toString().trim();
+                String pass2 = repetirContrasenyaNueva.getText().toString().trim();
+
+                if (!pass1.matches(regexTieneMasDe8Caracteres)||!pass1.matches(regexTieneNumeros)||!pass1.matches(regexTieneMayuscula)||!pass1.matches(regexTieneSimbologia)){
+                    Toast.makeText(this, "Por favor, introduce una contraseña segura", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!pass1.equals(pass2)) {
+                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                usuario.setContrasenya(pass1);
+            }
+
+            // -------------------------------------
+            // LLAMADA FINAL A LA API
+            // -------------------------------------
+            putModificarDatos(usuario,this);
+
+            Toast.makeText(this, "Datos enviados para modificar", Toast.LENGTH_SHORT).show();
+
+            // LIMPIAR BANDERAS
+            modificaNombre = false;
+            modificaApellido = false;
+            modificaCorreo = false;
+            modificaContrasenya = false;
+
+            // DESHABILITAR CAMPOS DESPUÉS DE GUARDAR
+            nombre.setEnabled(false);
+            apellidos.setEnabled(false);
+            correoNuevo.setEnabled(false);
+            repetirCorreoNuevo.setEnabled(false);
+            contrasenyaNueva.setEnabled(false);
+            repetirContrasenyaNueva.setEnabled(false);
+            contrasenyaAntigua.setEnabled(false);
         }
     }

@@ -583,3 +583,83 @@ function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max)
         "promedios" => $promedios
     ];
 }
+
+// -------------------------------------------------------------
+// FUNCIÓN 15: Obtener promedio de cada tipo de mediciones en un rango geográfico
+// Puede que no funcione todavia
+// -------------------------------------------------------------
+function modificarDatos($conn, $data){
+    if (!isset($data['id'])) {
+        return ["status" => "error", "message" => "Falta el ID del usuario"];
+    }
+
+    $id = $data['id'];
+
+    // Obtenemos los valores enviados (si no vienen, no se modifican)
+    $nombre    = $data['nombre']    ?? null;
+    $apellidos = $data['apellidos'] ?? null;
+    $correo    = $data['gmail']    ?? null;
+    $password  = $data['password']  ?? null;
+
+    // Construimos SQL dinámico según lo que llegó
+    $campos = [];
+    $params = [];
+    $tipos  = "";
+
+    if ($nombre !== null) {
+        $campos[] = "nombre = ?";
+        $params[] = $nombre;
+        $tipos   .= "s";
+    }
+
+    if ($apellidos !== null) {
+        $campos[] = "apellidos = ?";
+        $params[] = $apellidos;
+        $tipos   .= "s";
+    }
+
+    if ($correo !== null) {
+        $campos[] = "gmail = ?";
+        $params[] = $correo;
+        $tipos   .= "s";
+    }
+
+    if ($password !== null) {
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $campos[] = "password = ?";
+        $params[] = $hash;
+        $tipos   .= "s";
+    }
+
+    if (empty($campos)) {
+        return ["status" => "error", "message" => "No hay datos para actualizar"];
+    }
+
+    // SQL final
+    $sql = "UPDATE usuario SET " . implode(", ", $campos) . " WHERE id = ?";
+    $params[] = $id;
+    $tipos   .= "i";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param($tipos, ...$params);
+
+    if (!$stmt->execute()) {
+        return ["status" => "error", "mensaje" => $conn->error];
+    }
+
+    // -------------------------------
+    //   OBTENER DATOS ACTUALIZADOS
+    // -------------------------------
+    $sqlUser = "SELECT id, nombre, apellidos, gmail AS correo FROM usuario WHERE id = ?";
+    $stmtUser = $conn->prepare($sqlUser);
+    $stmtUser->bind_param("i", $id);
+    $stmtUser->execute();
+    $resUser = $stmtUser->get_result();
+    $usuarioActualizado = $resUser->fetch_assoc();
+
+    return [
+        "status" => "ok",
+        "mensaje" => "Usuario actualizado correctamente",
+        "usuario" => $usuarioActualizado
+    ];
+}

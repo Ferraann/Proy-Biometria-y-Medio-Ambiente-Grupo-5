@@ -128,7 +128,6 @@ public class LogicaNegocio {
                         .putString("id", usuarioServidor.getId())
                         .putString("nombre", usuarioServidor.getNombre())
                         .putString("apellidos", usuarioServidor.getApellidos())
-                        // adapta "getCorreo" o "getGmail" según lo que tengas
                         .putString("correo", usuarioServidor.getCorreo())
                         .apply();
 
@@ -142,94 +141,42 @@ public class LogicaNegocio {
             }
         });
     }
-//    //-------------------------------------------------------------------------------------------
-////     Email:txt, Contraseña:txt, Contexto:context --> PostLogin()
-////-------------------------------------------------------------------------------------------
-//    public static void PostLogin(String email, String contrasenya, Context contexto) {
-//        ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-//
-//        // Metemos toda la información en formato Json
-//        JsonObject usuarioJson = new JsonObject();
-//        usuarioJson.addProperty("accion", "login");
-//        usuarioJson.addProperty("gmail", email);
-//        usuarioJson.addProperty("password", contrasenya);
-//
-//        // Hacemos la llamada -> AHORA ESPERAMOS PojoRespuesta
-//        Call<PojoRespuestaServidor> call = apiService.loginUsuario(usuarioJson);
-//
-//        // Ejecutamos la llamada
-//        call.enqueue(new Callback<PojoRespuestaServidor>() {
-//            @Override
-//            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
-//                if (!response.isSuccessful() || response.body() == null) {
-//                    Log.d("Login", "Error en la respuesta: " + response.code());
-//                    return;
-//                }
-//
-    //                PojoRespuestaServidor respuesta = response.body();
-//
-//                // 1. Comprobar el status
-//                if (!"ok".equalsIgnoreCase(respuesta.getStatus())) {
-//                    Log.d("Login", "Login fallido: " + respuesta.getMensaje());
-//                    return;
-//                }
-//
-//                // 2. Obtener el usuario
-//                PojoUsuario u = respuesta.getUsuario();
-//                if (u == null) {
-//                    Log.d("Login", "No se ha devuelto usuario en la respuesta.");
-//                    return;
-//                }
-//
-//                // 3. Guardar los datos del usuario en SharedPreferences
-//                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
-//                prefs.edit()
-//                        .putInt("id", u.getId())
-//                        .putString("nombre", u.getNombre())
-//                        .putString("apellidos", u.getApellidos())
-//                        .putString("gmail", u.getGmail())
-//                        .apply();
-//
-//                // 4. Ir a la Home
-//                Intent intent = new Intent(contexto, HomeActivity.class);
-//                contexto.startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PojoRespuesta> call, Throwable t) {
-//                Log.e("Login", "Error en conexión: " + t.getMessage());
-//            }
-//        });
-//    }
-
 
     //--------------------------------------------------------------------------------
     //  Nombre: txt, Apellidos: txt, Email: txt,
     //--------------------------------------------------------------------------------
-    public static void putModificarDatos(PojoUsuario usuario) {
+    public static void putModificarDatos(PojoUsuario usuario,Context contexto) {
         ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-        Call<Void> call = apiService.modificarDatos(usuario.getNombre(), usuario.getApellidos(), usuario.getCorreo(), usuario.getContrasenya());
+        Call<PojoRespuestaServidor> call = apiService.modificarDatos(usuario);
 
-        call.enqueue(new Callback<Void>() {
+        call.enqueue(new Callback<PojoRespuestaServidor>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Log.d("Modifcación", "Datos modificaciones existosas");
-                } else {
-                    Log.d("Modificación", "Datos modificados con error error: " + response.code());
+            public void onResponse(Call<PojoRespuestaServidor> call, Response<PojoRespuestaServidor> response) {
+                if (!response.isSuccessful()) {
+                    Log.d("Modifcación", "Error al modificar datos");
+                    return;
                 }
+
+                PojoRespuestaServidor respuesta = response.body();
+                PojoUsuario usuarioServidor = respuesta.getUsuario();
+                // 4.4 Guardamos los datos del usuario en SharedPreferences
+                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+                prefs.edit()
+                        .putString("id", usuarioServidor.getId())
+                        .putString("nombre", usuarioServidor.getNombre())
+                        .putString("apellidos", usuarioServidor.getApellidos())
+                        .putString("correo", usuarioServidor.getCorreo())
+                        .apply();
+                Toast.makeText(contexto, "Dato modificado exitosamente", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<PojoRespuestaServidor> call, Throwable t) {
                 Log.e("Login", "Error en conexión: " + t.getMessage());
             }
         });
     }
 
-    public static void getInformaciónUsuario(){
-
-    }
 }
 //---------------------------------------------------------------
 //---------------------------------------------------------------

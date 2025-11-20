@@ -41,10 +41,5 @@ public interface ApiService {
 
 
     @POST("index.php") // Cambia al endpoint real en tu servidor
-    Call<Void> modificarDatos(
-            @Field("Nombre") String nombre,
-            @Field("Apellidos") String apellidos,
-            @Field("Email") String email,
-            @Field("Contrasenya") String contrasenya
-    );
+    Call<PojoRespuestaServidor> modificarDatos(@Body PojoUsuario usuario);
 }

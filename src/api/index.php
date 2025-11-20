@@ -124,6 +124,9 @@ switch ($method) {
                 echo json_encode(guardarFotosIncidencia($conn, $input));
                 break;
                 
+            case "modificarDatos":
+                echo json_encode(modificarDatos($conn,$input));
+                break;
             default:
                 echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
                 break;
