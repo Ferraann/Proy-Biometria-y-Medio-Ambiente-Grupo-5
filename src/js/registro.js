@@ -35,7 +35,7 @@ form.addEventListener("submit", async (e) => {
   // ----------------------------------------------------------------
   const nombre = document.getElementById("nombre").value.trim();
   const apellidos = document.getElementById("apellido").value.trim();
-  const email = document.getElementById("gmail").value.trim();
+  const gmail = document.getElementById("gmail").value.trim();
   const password = document.getElementById("password").value.trim();
 
   // ----------------------------------------------------------------
@@ -56,7 +56,7 @@ form.addEventListener("submit", async (e) => {
     accion: "registrarUsuario",
     nombre: nombre,
     apellidos: apellidos,
-    gmail: email,
+    gmail: gmail,
     password: password
   };
 

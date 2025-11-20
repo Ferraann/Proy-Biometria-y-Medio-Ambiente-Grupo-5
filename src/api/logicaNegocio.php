@@ -494,7 +494,36 @@ function cerrarIncidencia($conn, $data)
 }
 
 // -------------------------------------------------------------
-// FUNCIÓN 13: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
+// FUNCIÓN 13: Guardar foto de incidencia
+// -------------------------------------------------------------
+function guardarFotosIncidencia($conn, $data)
+{
+    if (empty($data['incidencia_id']) || empty($data['fotos']) || !is_array($data['fotos'])) {
+        return ["status" => "error", "message" => "Faltan parámetros: incidencia_id o fotos."];
+    }
+
+    $incidencia_id = (int)$data['incidencia_id'];
+    $fotos = $data['fotos']; // array base64
+
+    $stmt = $conn->prepare("INSERT INTO fotos_incidencia (incidencia_id, foto) VALUES (?, ?)");
+
+    foreach ($fotos as $base64) {
+        // Quitar posible cabecera
+        $base64 = preg_replace('/^data:image\/\w+;base64,/', '', $base64);
+        $blob = base64_decode($base64);
+        if ($blob === false) {
+            return ["status" => "error", "message" => "Una de las imágenes no es válida."];
+        }
+        $stmt->bind_param("ib", $incidencia_id, $blob);
+        $stmt->send_long_data(1, $blob); // blob > 16 MB si hiciera falta
+        $stmt->execute();
+    }
+    $stmt->close();
+
+    return ["status" => "ok", "message" => "Fotos guardadas correctamente."];
+}
+// -------------------------------------------------------------
+// FUNCIÓN 1X: Obtener estadísticas generales: nº de sensores,nº de sensores activos, valor promedio, última medición
 // -------------------------------------------------------------
 function obtenerEstadisticas($conn)
 {
@@ -513,7 +542,7 @@ function obtenerEstadisticas($conn)
 }
 
 // -------------------------------------------------------------
-// FUNCIÓN 14: Obtener promedio de cada tipo de mediciones en un rango geográfico
+// FUNCIÓN 1X: Obtener promedio de cada tipo de mediciones en un rango geográfico
 // Puede que no funcione todavia
 // -------------------------------------------------------------
 function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max)
