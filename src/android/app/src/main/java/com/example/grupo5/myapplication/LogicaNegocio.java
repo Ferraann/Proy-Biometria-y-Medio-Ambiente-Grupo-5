@@ -206,9 +206,9 @@ public class LogicaNegocio {
     //--------------------------------------------------------------------------------
     //  Nombre: txt, Apellidos: txt, Email: txt,
     //--------------------------------------------------------------------------------
-    public static void putDatosMoficados(String Nombre, String Apellidos, String Email, String Contrasenya) {
+    public static void putModificarDatos(PojoUsuario usuario) {
         ApiService apiService = ApiCliente.getApiService(); // Usamos tu ApiCliente existente
-        Call<Void> call = apiService.modificarDatos(Nombre, Apellidos, Email, Contrasenya);
+        Call<Void> call = apiService.modificarDatos(usuario.getNombre(), usuario.getApellidos(), usuario.getCorreo(), usuario.getContrasenya());
 
         call.enqueue(new Callback<Void>() {
             @Override

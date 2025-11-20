@@ -24,6 +24,10 @@
         "source": "C:\\Users\\pablo\\.gradle\\daemon\\8.7\\com.example.grupo5.myapplication.app-main-36:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "com.example.grupo5.myapplication.app-debug-34:/xml_network_security_config.xml.flat",
+        "source": "com.example.grupo5.myapplication.app-main-36:/xml/network_security_config.xml"
+    },
+    {
         "merged": "C:\\Users\\pablo\\.gradle\\daemon\\8.7\\com.example.grupo5.myapplication.app-debug-34:\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\pablo\\.gradle\\daemon\\8.7\\com.example.grupo5.myapplication.app-main-36:\\mipmap-hdpi\\ic_launcher.webp"
     },
@@ -90,9 +94,5 @@
     {
         "merged": "C:\\Users\\pablo\\.gradle\\daemon\\8.7\\com.example.grupo5.myapplication.app-debug-34:\\xml_network_security_config.xml.flat",
         "source": "C:\\Users\\pablo\\.gradle\\daemon\\8.7\\com.example.grupo5.myapplication.app-main-36:\\xml\\network_security_config.xml"
-    },
-    {
-        "merged": "com.example.grupo5.myapplication.app-debug-34:/layout_activity_home.xml.flat",
-        "source": "com.example.grupo5.myapplication.app-main-36:/layout/activity_home.xml"
     }
 ]
