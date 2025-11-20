@@ -3625,6 +3625,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable logo_aither
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3824,7 +3825,6 @@ id button
 id button2
 id button3
 id button4
-id button5
 id buttonPanel
 id cache_measures
 id callMeasure

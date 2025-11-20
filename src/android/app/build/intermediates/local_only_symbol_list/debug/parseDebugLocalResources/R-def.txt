@@ -4,6 +4,7 @@ color black
 color white
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable logo_aither
 id ApellidosUsuario
 id ContrasenyaUsuario
 id ContrasenyaUsuarioLogin
@@ -20,7 +21,6 @@ id button
 id button2
 id button3
 id button4
-id button5
 id editarApellidos
 id editarContrasenyaActual
 id editarContrasenyaNueva
