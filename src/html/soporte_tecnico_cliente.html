@@ -47,8 +47,8 @@
             </nav>
         </header>
 
-<main>
-    <h1 class="soporte-container">SOPORTE TÉCNICO</h1>
+<main class="soporte-container">
+    <h1 class="page-title">SOPORTE TÉCNICO</h1>
 
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab('guia', event)">Guía rápida</button>
@@ -67,7 +67,7 @@
                         <i class="fa-solid fa-file-pdf pdf-icon"></i>
                         <span class="pdf-name">ComoVincularTuSensor.pdf</span>
                     </div>
-                    <a href="PARCIAL 1 OCTUBRE 2021 enunciado.pdf" target="_blank" rel="noopener noreferrer" class="pdf-download">
+                    <a href="../img/prueba.pdf" target="_blank" rel="noopener noreferrer" class="pdf-download">
                         <i class="fa-solid fa-download"></i> </a>
                 </div>
 
@@ -91,17 +91,17 @@
             <input type="hidden" name="id_user" id="id_user">
 
             
-            <label class="form-label">Asunto: *</label>
-            <input type="text" name="titulo" class="form-control" maxlength="150" required>
+            <label class="custom-label">Asunto: *</label>
+            <input type="text" name="titulo" class="custom-input" maxlength="150" required>
             
 
             
-            <label class="form-label">Consulta: *</label>
-            <textarea name="descripcion" class="form-control" rows="4" required></textarea>
+            <label class="custom-label">Consulta: *</label>
+            <textarea name="descripcion" class="custom-input" rows="4" required></textarea>
             
 
             <!-- Botón para elegir imagen (por ahora solo selecciona) -->
-            <div class="form-action">
+            <div class="form-actions">
                <div class="file-upload-wrapper">
                     <span>Añadir foto:</span>
                     <label for="imagenInput" class="btn-camera">
@@ -117,8 +117,25 @@
         </form>
     </div>
 </main>
+    <script>
+        function openTab(tabName, evt) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+            // Quitar clase active de los botones
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            // Mostrar el seleccionado
+            document.getElementById(tabName).classList.add('active');
+            // Activar el botón pulsado
+            evt.currentTarget.classList.add('active');
+        }
+        
+        // Script visual para mostrar alerta cuando se sube foto (opcional)
+        document.getElementById('imagenInput').addEventListener('change', function() {
+            if(this.files.length > 0) alert("Imagen seleccionada: " + this.files[0].name);
+        });
+    </script>
 
-<script src="../js/incidenciaform.js"></script>
-<script src="Fun_icono_perfil.js"></script>
+    <script src="../js/incidenciaform.js"></script>
+    <script src="../js/Fun_icono_perfil.js"></script>
 </body>
 </html>
