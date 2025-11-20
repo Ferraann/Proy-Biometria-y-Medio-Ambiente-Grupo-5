@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 
 // ------------------------------------------------------------------
 // Fichero: MainActivity.java
@@ -43,7 +43,7 @@ public class RegistroActivity extends AppCompatActivity{
         Usuario = findViewById(R.id.NombreUsuario);
         Apellidos = findViewById(R.id.ApellidosUsuario);
         Email = findViewById(R.id.EmailUsuario);
-        Contrasenya = findViewById(R.id.contrasenyaUsuario);
+        Contrasenya = findViewById(R.id.ContrasenyaUsuario);
         RepetirContrasenya = findViewById(R.id.RepetirContrasenyaUsuario);
 
         verificarContrasenya();
@@ -59,7 +59,7 @@ public class RegistroActivity extends AppCompatActivity{
 
 
         // validación que comprueba que si hay alguno que está vacio no se ejecuta la sentencia sql.
-        if (!usuario.isEmpty() || !apellidos.isEmpty()||!contrasenya.isEmpty()||!email.isEmpty()||repetirContrasenya.isEmpty()) {
+        if (usuario.isEmpty() || apellidos.isEmpty()||contrasenya.isEmpty()||email.isEmpty()||repetirContrasenya.isEmpty()) {
             Toast.makeText(this, "Por favor, rellena todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }

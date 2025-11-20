@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grupo5.androidapp.R;
+import com.example.grupo5.myapplication.R;
 
 import static com.example.grupo5.myapplication.LogicaNegocio.PostLogin;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Por favor, introduce un email valido", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        
         PostLogin(email, pass, this);
     }
 }
