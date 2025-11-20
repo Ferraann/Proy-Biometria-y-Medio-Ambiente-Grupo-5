@@ -157,7 +157,7 @@ public class VincularQRActivity extends AppCompatActivity {
                         }
 
                         SharedPreferences prefs = context.getSharedPreferences("SesionUsuario", MODE_PRIVATE);
-                        int idUsuario = prefs.getInt("id", -1);
+                        int idUsuario = Integer.parseInt(prefs.getString("id",""));
                         if (idUsuario <= 0) {
                             Toast.makeText(context, "Usuario no logueado", Toast.LENGTH_SHORT).show();
                             continue;

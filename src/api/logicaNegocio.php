@@ -25,7 +25,7 @@ function registrarUsuario($conn, $data)
 {
     /* ---------- 1. Validaciones y saneado ---------- */
     if (!isset($data['nombre'], $data['apellidos'], $data['gmail'], $data['password'])) {
-        return ["status" => "error", "message" => "Faltan datos obligatorios para el registro."];
+        return ["status" => "error", "mensaje" => "Faltan datos obligatorios para el registro."];
     }
 
     $nombre    = trim($data['nombre']);
@@ -35,7 +35,7 @@ function registrarUsuario($conn, $data)
     
     // Validar formato de correo
     if (!filter_var($gmail, FILTER_VALIDATE_EMAIL)) {
-        return ["status" => "error", "message" => "El formato del correo electrónico no es válido."];
+        return ["status" => "error", "mensaje" => "El formato del correo electrónico no es válido."];
     }
     
     $hash      = password_hash($password, PASSWORD_DEFAULT);
@@ -50,7 +50,7 @@ function registrarUsuario($conn, $data)
         $usr = $res->fetch_assoc();
 
         if ($usr['activo'] == 1) {
-            return ["status" => "error", "message" => "El correo ya está registrado y activado."];
+            return ["status" => "error", "mensaje" => "El correo ya está registrado y activado."];
         }
 
         /* usuario inactivo → lo borramos */
@@ -70,7 +70,7 @@ function registrarUsuario($conn, $data)
     $ins->bind_param("ssssss", $nombre, $apellidos, $gmail, $hash, $token, $token_expira);
 
     if (!$ins->execute()) {
-        return ["status" => "error", "message" => "Error al registrar el usuario: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al registrar el usuario: " . $conn->error];
     }
 
     /* ---------- 5. Enviar correo de activación ---------- */
@@ -106,10 +106,10 @@ function registrarUsuario($conn, $data)
     } catch (Exception $e) {
         error_log('PHPMailer error: ' . $mail->ErrorInfo);
         // No fallamos el registro por no poder enviar el email
-        return ["status" => "ok", "message" => "Usuario registrado correctamente, pero no se pudo enviar el correo de activación. Contacta con soporte."];
+        return ["status" => "ok", "mensaje" => "Usuario registrado correctamente, pero no se pudo enviar el correo de activación. Contacta con soporte."];
     }
 
-    return ["status" => "ok", "message" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
+    return ["status" => "ok", "mensaje" => "Usuario registrado correctamente. Revisa tu correo para activarlo."];
 }
 
 
@@ -127,14 +127,14 @@ function activarUsuario($conn, $token)
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        return ["status" => "error", "message" => "Token inválido o ya usado."];
+        return ["status" => "error", "mensaje" => "Token inválido o ya usado."];
     }
 
     $usr = $res->fetch_assoc();
 
     // 2. Comprobar si el token ha expirado
     if (strtotime($usr['token_expira']) < time()) {
-        return ["status" => "error", "message" => "El enlace ha expirado. Solicita un nuevo correo de activación."];
+        return ["status" => "error", "mensaje" => "El enlace ha expirado. Solicita un nuevo correo de activación."];
     }
 
     // 3. Activar usuario
@@ -144,9 +144,9 @@ function activarUsuario($conn, $token)
     $stmt2->execute();
 
     if ($stmt2->affected_rows > 0) {
-        return ["status" => "ok", "message" => "Cuenta activada correctamente."];
+        return ["status" => "ok", "mensaje" => "Cuenta activada correctamente."];
     } else {
-        return ["status" => "error", "message" => "No se pudo activar la cuenta."];
+        return ["status" => "error", "mensaje" => "No se pudo activar la cuenta."];
     }
 }
 
@@ -167,18 +167,18 @@ function loginUsuario($conn, $gmail, $password)
     $res = $stmt->get_result();
 
     if ($res->num_rows === 0) {
-        return ["status" => "error", "message" => "Usuario no encontrado"];
+        return ["status" => "error", "mensaje" => "Usuario no encontrado"];
     }
     $user = $res->fetch_assoc();
 
     /* 2. ¿Contraseña correcta? */
     if (!password_verify($password, $user['password'])) {
-        return ["status" => "error", "message" => "Contraseña incorrecta"];
+        return ["status" => "error", "mensaje" => "Contraseña incorrecta"];
     }
 
     /* 3. ¿Cuenta activada? */
     if (!$user['activo']) {
-        return ["status" => "error", "message" => "Cuenta no activada"];
+        return ["status" => "error", "mensaje" => "Cuenta no activada"];
     }
 
     /* 4. Todo OK → devolvemos el usuario SIN el hash */
@@ -216,7 +216,7 @@ function guardarMedicion($conn, $data)
 {
     // 1 Verificar parámetros obligatorios
     if (!isset($data['tipo_medicion_id'], $data['valor'], $data['sensor_id'], $data['localizacion'])) {
-        return ["status" => "error", "message" => "Faltan parámetros obligatorios."];
+        return ["status" => "error", "mensaje" => "Faltan parámetros obligatorios."];
     }
 
     $sensor_id = $data['sensor_id'];
@@ -235,7 +235,7 @@ function guardarMedicion($conn, $data)
     if ($existeRelacion == 0) {
         return [
             "status" => "error",
-            "message" => "No existe una relación activa entre el sensor y un usuario."
+            "mensaje" => "No existe una relación activa entre el sensor y un usuario."
         ];
     }
 
@@ -253,9 +253,9 @@ function guardarMedicion($conn, $data)
     );
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Medición guardada correctamente."];
+        return ["status" => "ok", "mensaje" => "Medición guardada correctamente."];
     } else {
-        return ["status" => "error", "message" => "Error al guardar medición: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al guardar medición: " . $conn->error];
     }
 }
 
@@ -265,7 +265,7 @@ function guardarMedicion($conn, $data)
 function crearTipoMedicion($conn, $data)
 {
     if (!isset($data['medida']) || !isset($data['unidad'])) {
-        return ["status" => "error", "message" => "Faltan parámetros: medida y unidad son obligatorios."];
+        return ["status" => "error", "mensaje" => "Faltan parámetros: medida y unidad son obligatorios."];
     }
 
     $sql = "INSERT INTO tipo_medicion (medida, unidad, txt) VALUES (?, ?, ?)";
@@ -273,9 +273,9 @@ function crearTipoMedicion($conn, $data)
     $stmt->bind_param("sss", $data['medida'], $data['unidad'], $data['txt']);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Tipo de medición creado correctamente.", "id" => $conn->insert_id];
+        return ["status" => "ok", "mensaje" => "Tipo de medición creado correctamente.", "id" => $conn->insert_id];
     } else {
-        return ["status" => "error", "message" => "Error al crear tipo de medición: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al crear tipo de medición: " . $conn->error];
     }
 }
 
@@ -285,7 +285,7 @@ function crearTipoMedicion($conn, $data)
 function crearSensorYRelacion($conn, $data)
 {
     if (!isset($data['mac']) || !isset($data['usuario_id'])) {
-        return ["status" => "error", "message" => "Faltan parámetros: mac y usuario_id son obligatorios."];
+        return ["status" => "error", "mensaje" => "Faltan parámetros: mac y usuario_id son obligatorios."];
     }
 
     $mac = $data['mac'];
@@ -309,7 +309,7 @@ function crearSensorYRelacion($conn, $data)
         if ($stmtInsertar->execute()) {
             $sensor_id = $conn->insert_id;
         } else {
-            return ["status" => "error", "message" => "Error al crear el sensor: " . $conn->error];
+            return ["status" => "error", "mensaje" => "Error al crear el sensor: " . $conn->error];
         }
     }
 
@@ -330,12 +330,12 @@ function crearSensorYRelacion($conn, $data)
     if ($stmtRelacion->execute()) {
         return [
             "status" => "ok",
-            "message" => "Sensor asignado correctamente.",
+            "mensaje" => "Sensor asignado correctamente.",
             "sensor_id" => $sensor_id,
             "id_relacion" => $conn->insert_id
         ];
     } else {
-        return ["status" => "error", "message" => "Error al crear la relación usuario-sensor: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al crear la relación usuario-sensor: " . $conn->error];
     }
 }
 
@@ -345,7 +345,7 @@ function crearSensorYRelacion($conn, $data)
 function marcarSensorConProblemas($conn, $data)
 {
     if (!isset($data['sensor_id'])) {
-        return ["status" => "error", "message" => "Falta el parámetro sensor_id."];
+        return ["status" => "error", "mensaje" => "Falta el parámetro sensor_id."];
     }
 
     $sensor_id = $data['sensor_id'];
@@ -366,11 +366,11 @@ function marcarSensorConProblemas($conn, $data)
     if ($stmtProb->execute()) {
         return [
             "status" => "ok",
-            "message" => "Sensor marcado con problema y relación finalizada.",
+            "mensaje" => "Sensor marcado con problema y relación finalizada.",
             "filas_relaciones_finalizadas" => $stmtFin->affected_rows
         ];
     } else {
-        return ["status" => "error", "message" => "Error al actualizar sensor: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al actualizar sensor: " . $conn->error];
     }
 }
 
@@ -380,7 +380,7 @@ function marcarSensorConProblemas($conn, $data)
 function reactivarSensor($conn, $data)
 {
     if (!isset($data['sensor_id'])) {
-        return ["status" => "error", "message" => "Falta el parámetro sensor_id."];
+        return ["status" => "error", "mensaje" => "Falta el parámetro sensor_id."];
     }
 
     $sensor_id = $data['sensor_id'];
@@ -390,9 +390,9 @@ function reactivarSensor($conn, $data)
     $stmt->bind_param("i", $sensor_id);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Sensor reactivado correctamente."];
+        return ["status" => "ok", "mensaje" => "Sensor reactivado correctamente."];
     } else {
-        return ["status" => "error", "message" => "Error al reactivar sensor: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al reactivar sensor: " . $conn->error];
     }
 }
 
@@ -406,9 +406,9 @@ function actualizarUsuario($conn, $id, $data)
     $stmt->bind_param("ssii", $data['nombre'], $data['apellidos'], $data['credencial_id'], $id);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Usuario actualizado correctamente."];
+        return ["status" => "ok", "mensaje" => "Usuario actualizado correctamente."];
     } else {
-        return ["status" => "error", "message" => "Error al actualizar usuario: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al actualizar usuario: " . $conn->error];
     }
 }
 
@@ -418,7 +418,7 @@ function actualizarUsuario($conn, $id, $data)
 function crearIncidencia($conn, $data)
 {
     if (!isset($data['id_user'], $data['titulo'], $data['descripcion'])) {
-        return ["status" => "error", "message" => "Faltan parámetros."];
+        return ["status" => "error", "mensaje" => "Faltan parámetros."];
     }
 
     // Buscar dinámicamente el estado "Abierta"
@@ -436,12 +436,12 @@ function crearIncidencia($conn, $data)
         return [
             "status" => "ok",
             "id_incidencia" => $conn->insert_id,
-            "message" => "Incidencia creada correctamente con estado inicial 'Abierta'."
+            "mensaje" => "Incidencia creada correctamente con estado inicial 'Abierta'."
         ];
     } else {
         return [
             "status" => "error",
-            "message" => "Error al registrar incidencia: " . $conn->error
+            "mensaje" => "Error al registrar incidencia: " . $conn->error
         ];
     }
 }
@@ -484,7 +484,7 @@ function obtenerIncidenciasActivas($conn)
 function cerrarIncidencia($conn, $data)
 {
     if (!isset($data['incidencia_id'])) {
-        return ["status" => "error", "message" => "Falta el parámetro incidencia_id."];
+        return ["status" => "error", "mensaje" => "Falta el parámetro incidencia_id."];
     }
 
     // Obtenemos el ID del estado "Cerrada"
@@ -499,9 +499,9 @@ function cerrarIncidencia($conn, $data)
     $stmt->bind_param("ii", $estadoId, $data['incidencia_id']);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Incidencia cerrada correctamente."];
+        return ["status" => "ok", "mensaje" => "Incidencia cerrada correctamente."];
     } else {
-        return ["status" => "error", "message" => "Error al cerrar incidencia: " . $conn->error];
+        return ["status" => "error", "mensaje" => "Error al cerrar incidencia: " . $conn->error];
     }
 }
 
@@ -511,7 +511,7 @@ function cerrarIncidencia($conn, $data)
 function guardarFotosIncidencia($conn, $data)
 {
     if (empty($data['incidencia_id']) || empty($data['fotos']) || !is_array($data['fotos'])) {
-        return ["status" => "error", "message" => "Faltan parámetros: incidencia_id o fotos."];
+        return ["status" => "error", "mensaje" => "Faltan parámetros: incidencia_id o fotos."];
     }
 
     $incidencia_id = (int)$data['incidencia_id'];
@@ -524,7 +524,7 @@ function guardarFotosIncidencia($conn, $data)
         $base64 = preg_replace('/^data:image\/\w+;base64,/', '', $base64);
         $blob = base64_decode($base64);
         if ($blob === false) {
-            return ["status" => "error", "message" => "Una de las imágenes no es válida."];
+            return ["status" => "error", "mensaje" => "Una de las imágenes no es válida."];
         }
         $stmt->bind_param("ib", $incidencia_id, $blob);
         $stmt->send_long_data(1, $blob); // blob > 16 MB si hiciera falta
@@ -532,7 +532,7 @@ function guardarFotosIncidencia($conn, $data)
     }
     $stmt->close();
 
-    return ["status" => "ok", "message" => "Fotos guardadas correctamente."];
+    return ["status" => "ok", "mensaje" => "Fotos guardadas correctamente."];
 }
 
 // -------------------------------------------------------------
@@ -650,7 +650,7 @@ function promedioPorRango($conn, $lat_min, $lat_max, $lon_min, $lon_max)
 // -------------------------------------------------------------
 function modificarDatos($conn, $data){
     if (!isset($data['id'])) {
-        return ["status" => "error", "message" => "Falta el ID del usuario"];
+        return ["status" => "error", "mensaje" => "Falta el ID del usuario"];
     }
 
     $id = $data['id'];
@@ -692,7 +692,7 @@ function modificarDatos($conn, $data){
     }
 
     if (empty($campos)) {
-        return ["status" => "error", "message" => "No hay datos para actualizar"];
+        return ["status" => "error", "mensaje" => "No hay datos para actualizar"];
     }
 
     // SQL final

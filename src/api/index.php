@@ -53,7 +53,7 @@ if ($method === 'POST' || $method === 'PUT') {
     if (json_last_error() !== JSON_ERROR_NONE) {
         error_log("JSON inválido: " . json_last_error_msg());
         http_response_code(400);
-        echo json_encode(["status" => "error", "message" => "JSON inválido"]);
+        echo json_encode(["status" => "error", "mensaje" => "JSON inválido"]);
         exit;
     }
 
@@ -129,7 +129,7 @@ switch ($method) {
                 break;
 
             default:
-                echo json_encode(["status" => "error", "message" => "Acción POST no reconocida."]);
+                echo json_encode(["status" => "error", "mensaje" => "Acción POST no reconocida."]);
                 break;
         }
         break;
@@ -169,7 +169,7 @@ switch ($method) {
                 echo json_encode(obtenerFotosIncidencia($conn, $_GET['incidencia_id']));
                 break;
             default:
-                echo json_encode(["status" => "error", "message" => "Acción GET no reconocida."]);
+                echo json_encode(["status" => "error", "mensaje" => "Acción GET no reconocida."]);
                 break;
         }
         break;
@@ -178,7 +178,7 @@ switch ($method) {
     // MÉTODOS NO SOPORTADOS
     // -----------------------------------------------------
     default:
-        echo json_encode(["status" => "error", "message" => "Método HTTP no soportado."]);
+        echo json_encode(["status" => "error", "mensaje" => "Método HTTP no soportado."]);
         break;
 }
 

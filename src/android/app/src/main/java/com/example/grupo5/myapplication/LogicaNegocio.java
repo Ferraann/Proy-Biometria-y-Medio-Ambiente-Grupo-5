@@ -67,16 +67,18 @@ public class LogicaNegocio {
                     return;
                 }
 
-                PojoUsuario usuarioServidor = respuesta.getUsuario();
 
-                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
-                prefs.edit()
-                        .putString("id", usuarioServidor.getId())
-                        .putString("nombre", usuarioServidor.getNombre())
-                        .putString("apellidos", usuarioServidor.getApellidos())
-                        // adapta "getCorreo" o "getGmail" según lo que tengas
-                        .putString("correo", usuarioServidor.getCorreo())
-                        .apply();
+
+                Toast.makeText(contexto,  respuesta.getMensaje() , Toast.LENGTH_SHORT).show();
+
+//                SharedPreferences prefs = contexto.getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE);
+//                prefs.edit()
+//                        .putString("id", usuarioServidor.getId())
+//                        .putString("nombre", usuarioServidor.getNombre())
+//                        .putString("apellidos", usuarioServidor.getApellidos())
+//                        // adapta "getCorreo" o "getGmail" según lo que tengas
+//                        .putString("correo", usuarioServidor.getCorreo())
+//                        .apply();
 
             }
 
