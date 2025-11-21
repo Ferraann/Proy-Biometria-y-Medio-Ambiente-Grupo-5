@@ -1,6 +1,6 @@
 <!--
 ===============================================================================
-NOMBRE: perfil_cliente.php
+NOMBRE: perfil_cliente.html
 DESCRIPCIÓN: En esta seccion privada del usuario podra encontrar sus datos personalers,
             datos de los sensores y podra modificarlos en caso de que sea necesario.
 COPYRIGHT: © 2025 AITHER. Todos los derechos reservados.
@@ -10,38 +10,19 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
             con enlaces a recursos CSS y JavaScript externos.
 ===============================================================================
 -->
-
-<?php
-session_start();
-
-// Si NO hay un usuario logeado, redirigir al login
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.html");
-    exit;
-}
-
-// Construimos el nombre completo
-$nombre = $_SESSION['usuario_nombre'];
-$nombreCompleto = $_SESSION['usuario_nombre'] . " " . $_SESSION['usuario_apellidos'];
-$gmail = $_SESSION['usuario_correo'];
-$password = $_SESSION['usuario_password'];
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AITHER | Perfil</title>
-    <link rel="icon" href="../img/logo_aither.png" type="image/png">
-    <link rel="stylesheet" href="../css/perfil_cliente.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AITHER | Perfil</title>
+        <link rel="icon" href="../img/logo_aither.png" type="image/png">
+        <link rel="stylesheet" href="../css/perfil_cliente.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-    <script src="../js/actualizar_perfil.js" defer></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     </head>
 <body>
    <!--
@@ -54,24 +35,24 @@ $password = $_SESSION['usuario_password'];
         -->
         <header>
             <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
-            <a href="dashboard.php"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+            <a href="./dashboard.html"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
             <nav>
                 <!--Mis sensores, soporte tecnico y perfil (configuracion y cerrar sesion)-->
                 <ul>
-                    <li><a href="dashboard.php">Mis <br> sensores</a></li>
+                    <li><a href="dashboard.html">Mis <br> sensores</a></li>
                     <li>
-                        <a href="soporte_tecnico_cliente.php">Soporte <br> técnico</a>
+                        <a href="soporte_tecnico_cliente.html">Soporte <br> técnico</a>
                     </li>
                     <li class="profile-dropdown-container">
-                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span><?php echo htmlspecialchars($nombre); ?></span></a>
+                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span>NOMBRE A.P.</span></a>
                         <div class="profile-menu" id="profile-menu">
                             <div class="menu-header">
                                 <i class="fa-solid fa-circle-user profile-icon-large"></i>
-                                <span class="profile-name"><?php echo htmlspecialchars($nombre); ?></span>
+                                <span class="profile-name">NOMBRE A.P.</span>
                                 <i class="fa-solid fa-xmark close-menu-btn" id="close-menu-button"></i>
                             </div>
-                            <a href="perfil_cliente.php" class="menu-item">CONFIGURACIÓN</a>
-                            <a href="../php/logout.php" class="menu-item logout-item">CERRAR SESIÓN</a>
+                            <a href="perfil_cliente.html" class="menu-item">CONFIGURACIÓN</a>
+                            <a href="../index.html" class="menu-item logout-item">CERRAR SESIÓN</a>
                         </div>
                     </li>
                 </ul>
@@ -82,40 +63,40 @@ $password = $_SESSION['usuario_password'];
         <section class="edit-perfil-section">
             <h2>EDITAR PERFIL</h2>
             
-            <form class="perfil-form" method="POST" action="../php/actualizar_perfil.php">
+            <form class="perfil-form">
                 <div class="form-group foto-group">
-                    <div class="foto-placeholder"><img src="../img/imagen-icono.webp" alt="Icono de usaurio"></div>
-                    <!-- <a href="#" class="edit-link">Editar <i class="fa-solid fa-pen"></i></a> -->
+                    <div class="foto-placeholder">Foto</div>
+                    <a href="#" class="edit-link">Editar <i class="fa-solid fa-pen"></i></a>
                 </div>
 
                 <div class="form-fields">
                     
                     <div class="input-row">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombreCompleto); ?>" disabled>
+                        <input type="text" id="nombre" value="[Nombre del usuario]" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
 
                     <div class="input-row">
                         <label for="correo">Correo Electrónico:</label>
-                        <input type="email" id="correo" name="gmail" value="<?php echo htmlspecialchars($gmail); ?>" disabled>
+                        <input type="email" id="correo" value="correo@ejemplo.com" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                     
                     <div class="input-row">
                         <label for="repetir-correo">Repetir correo:</label>
-                        <input type="email" id="repetir-correo" name="gmail_confirm" disabled>
+                        <input type="email" id="repetir-correo" disabled>
                     </div>
 
                     <div class="input-row">
                         <label for="contrasena">Contraseña:</label>
-                        <input type="password" id="contrasena" name="password" value="<?php echo htmlspecialchars($password); ?>" disabled>
+                        <input type="password" id="contrasena" value="passwordseguro" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                     
                     <div class="input-row">
                         <label for="repetir-contrasena">Repetir contraseña:</label>
-                        <input type="password" id="repetir-contrasena" name="password_confirm" disabled>
+                        <input type="password" id="repetir-contrasena" disabled>
                     </div>
                 </div>
 
