@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// Si NO hay un usuario logeado, redirigir al login
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.html");
+    exit;
+}
+
+// Construimos el nombre completo
+$nombre = $_SESSION['usuario_nombre'];
+$nombreCompleto = $_SESSION['usuario_nombre'] . " " . $_SESSION['usuario_apellidos'];
+$gmail = $_SESSION['usuario_correo'];
+$password = $_SESSION['usuario_password'];
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,24 +41,24 @@
         -->
         <header>
             <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
-            <a href="./dashboard.html"><img src="../img/logo_aitherTX.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+            <a href="dashboard.php"><img src="../img/logo_aitherTX.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
             <nav>
                 <!--Mis sensores, soporte tecnico y perfil (configuracion y cerrar sesion)-->
                 <ul>
-                    <li><a href="dashboard.html">Mis <br> sensores</a></li>
+                    <li><a href="dashboard.php">Mis <br> sensores</a></li>
                     <li>
-                        <a href="soporte_tecnico_cliente.html">Soporte <br> técnico</a>
+                        <a href="soporte_tecnico_cliente.php">Soporte <br> técnico</a>
                     </li>
                     <li class="profile-dropdown-container">
-                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span>NOMBRE A.P.</span></a>
+                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span><?php echo htmlspecialchars($nombre); ?></span></a>
                         <div class="profile-menu" id="profile-menu">
                             <div class="menu-header">
                                 <i class="fa-solid fa-circle-user profile-icon-large"></i>
-                                <span class="profile-name">NOMBRE A.P.</span>
+                                <span class="profile-name"><?php echo htmlspecialchars($nombre); ?></span>
                                 <i class="fa-solid fa-xmark close-menu-btn" id="close-menu-button"></i>
                             </div>
-                            <a href="perfil_cliente.html" class="menu-item">CONFIGURACIÓN</a>
-                            <a href="#" class="menu-item logout-item">CERRAR SESIÓN</a>
+                            <a href="perfil_cliente.php" class="menu-item">CONFIGURACIÓN</a>
+                            <a href="../php/logout.php" class="menu-item logout-item">CERRAR SESIÓN</a>
                         </div>
                     </li>
                 </ul>
