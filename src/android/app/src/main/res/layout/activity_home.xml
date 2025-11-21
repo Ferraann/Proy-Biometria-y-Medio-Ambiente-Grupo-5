@@ -28,10 +28,11 @@
     <!-- Nuevo botón para desconectar Bluetooth -->
     <Button
         android:id="@+id/btnForzarDesconexion"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Forzar desconexión"
-        android:onClick="forzarDesconexionBeacon"/>
+        android:text="Forzar desconexión BLE"
+        android:onClick="botonForzarDesconexion" />
+
 
 
 </LinearLayout>

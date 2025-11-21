@@ -58,6 +58,11 @@ public class BTLEActivity extends AppCompatActivity {
 
         inicializarBlueTooth();
         iniciarHiloDeSupervision();
+        BeaconManager.onBeaconDesconectado = () -> {
+            mostrarNotificacionDesconexion();
+            Log.e(">>>>", "⚠ Desconectado manualmente mediante HomeActivity");
+        };
+
     }
 
     // --------------------------------------------------------------
