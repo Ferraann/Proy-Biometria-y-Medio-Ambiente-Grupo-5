@@ -1,11 +1,8 @@
 package com.example.grupo5.myapplication;
 
-import static com.example.grupo5.myapplication.LogicaNegocio.PostLogin;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +14,6 @@ import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-
-import com.example.grupo5.myapplication.R;
 
 import java.util.concurrent.Executor;
 
@@ -56,6 +51,14 @@ public class HomeActivity extends AppCompatActivity {
 
     public void botonIrNotificaciones(View v) {
         Intent intent = new Intent(this, NotificacionesActivity.class);
+        startActivity(intent);
+    }
+    public void botonForzarDesconexion(View v) {
+        BeaconManager.desconectar();
+    }
+
+    public void btnDistanciaRecorrida(View v) {
+        Intent intent = new Intent(this, DistanceActivity.class);
         startActivity(intent);
     }
 
@@ -132,9 +135,5 @@ public class HomeActivity extends AppCompatActivity {
 
         biometricPrompt.authenticate(promptInfo);
     }
-    public void botonForzarDesconexion(View v) {
-        BeaconManager.desconectar();
-    }
-
 
 }

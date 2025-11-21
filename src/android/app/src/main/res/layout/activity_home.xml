@@ -33,6 +33,11 @@
         android:text="Forzar desconexión BLE"
         android:onClick="botonForzarDesconexion" />
 
-
+    <Button
+        android:id="@+id/btnDistanciaRecorrida"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="btnDistanciaRecorrida"
+        android:text="Distancia Recorrida" />
 
 </LinearLayout>
