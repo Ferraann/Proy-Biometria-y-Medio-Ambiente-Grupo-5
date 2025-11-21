@@ -508,7 +508,7 @@ function cerrarIncidencia($conn, $data)
 // -------------------------------------------------------------
 // FUNCIÓN 13: Guardar foto de incidencia
 // -------------------------------------------------------------
-function guardarFotosIncidencia($conn, $data)
+function guardarFotoIncidencia($conn, $data)
 {
     if (empty($data['incidencia_id']) || empty($data['fotos']) || !is_array($data['fotos'])) {
         return ["status" => "error", "mensaje" => "Faltan parámetros: incidencia_id o fotos."];

@@ -120,8 +120,8 @@ switch ($method) {
                 echo json_encode(crearIncidencia($conn, $input));
                 break;
 
-            case "guardarFotosIncidencia":
-                echo json_encode(guardarFotosIncidencia($conn, $input));
+            case "guardarFotoIncidencia":
+                echo json_encode(guardarFotoIncidencia($conn, $input));
                 break;
 
             case "modificarDatos":
