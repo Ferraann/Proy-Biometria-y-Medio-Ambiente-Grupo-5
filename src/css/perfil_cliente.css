@@ -232,6 +232,12 @@ h2 {
     font-weight: var(--bold);
 }
 
+.foto-placeholder img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
 .edit-link {
     color: var(--Principal_1);
     text-decoration: none;
