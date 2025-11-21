@@ -253,5 +253,19 @@ public class BTLEActivity extends AppCompatActivity {
 
         NotificationManagerCompat.from(this).notify(1001, builder.build());
 }
+public void forzarDesconexionBeacon(View v) {
+
+        // Detener escaneo si está activo
+        detenerBusquedaDispositivosBTLE();
+
+        // Forzar estado de desconexión
+        beaconPresente = false;
+
+        // Mostrar alerta manualmente
+        mostrarNotificacionDesconexion();
+
+        Log.e(ETIQUETA_LOG, "⚠ Beacon desconectado manualmente (forzado)");
+    }
+
 
 }
