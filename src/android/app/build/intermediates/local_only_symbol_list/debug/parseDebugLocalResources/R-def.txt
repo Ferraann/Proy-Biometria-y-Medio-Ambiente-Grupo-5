@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 color black
 color white
+drawable aither_popup_bg
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable logo_aither
@@ -12,6 +13,10 @@ id EmailUsuario
 id EmailUsuarioLogin
 id NombreUsuario
 id RepetirContrasenyaUsuario
+id aitherOverlay
+id aitherPopup
+id aitherPopupMensaje
+id aitherPopupTitulo
 id botonBuscarDispositivosBTLE
 id botonBuscarNuestroDispositivoBTLE
 id botonDetenerBusquedaDispositivosBTLE

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.example.grupo5.myapplication.app-debug-41:/drawable_aither_popup_bg.xml.flat",
+        "source": "com.example.grupo5.myapplication.app-main-43:/drawable/aither_popup_bg.xml"
+    },
+    {
         "merged": "com.example.grupo5.myapplication.app-debug-41:/mipmap-xhdpi_ic_launcher_round.webp.flat",
         "source": "com.example.grupo5.myapplication.app-main-43:/mipmap-xhdpi/ic_launcher_round.webp"
     },
