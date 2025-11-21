@@ -156,8 +156,6 @@ function activarUsuario($conn, $token)
 // -------------------------------------------------------------
 function loginUsuario($conn, $gmail, $password)
 {
-    session_start();
-
     /* 1. Datos del usuario */
     $stmt = $conn->prepare(
         "SELECT id, nombre, apellidos, gmail, password, activo
@@ -182,13 +180,6 @@ function loginUsuario($conn, $gmail, $password)
     if (!$user['activo']) {
         return ["status" => "error", "mensaje" => "Cuenta no activada"];
     }
-
-    // Guardamos los datos del usuario en la sesión
-    $_SESSION['usuario_id'] = $user['id'];
-    $_SESSION['usuario_nombre'] = $user['nombre'];
-    $_SESSION['usuario_apellidos'] = $user['apellidos'];
-    $_SESSION['usuario_correo'] = $user['gmail'];
-    $_SESSION['usuario_password'] = $password;
 
     /* 4. Todo OK → devolvemos el usuario SIN el hash */
     unset($user['password']);
@@ -408,53 +399,16 @@ function reactivarSensor($conn, $data)
 // -------------------------------------------------------------
 // FUNCIÓN 9: Actualizar datos de un usuario
 // -------------------------------------------------------------
-function actualizarUsuario($conn, $data)
+function actualizarUsuario($conn, $id, $data)
 {
-    /* 1. Comprobamos ID obligatorio */
-    if (empty($data['id'])) {
-        return ["status" => "error", "message" => "Falta el id del usuario."];
-    }
-    $id = (int)$data['id'];
-
-    /* 2. Campos actualizables (solo los que llegan) */
-    $allowed = ['nombre', 'apellidos', 'gmail', 'password', 'activo'];
-    $setParts = [];
-    $types    = '';
-    $values   = [];
-
-    foreach ($allowed as $field) {
-        if (!isset($data[$field])) {
-            continue;
-        }
-        /* hashear password si viene */
-        if ($field === 'password') {
-            $data[$field] = password_hash($data[$field], PASSWORD_DEFAULT);
-        }
-        $setParts[] = "$field = ?";
-        $types      .= in_array($field, ['activo'], true) ? 'i' : 's';
-        $values[]    = $data[$field];
-    }
-
-    if (!$setParts) {
-        return ["status" => "error", "message" => "No hay nada que actualizar."];
-    }
-
-    /* 3. WHERE id = ? */
-    $types .= 'i';
-    $values[] = $id;
-
-    $sql = "UPDATE usuario SET " . implode(', ', $setParts) . " WHERE id = ?";
+    $sql = "UPDATE usuario SET nombre = ?, apellidos = ?, credencial_id = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        return ["status" => "error", "message" => "Error preparando consulta: " . $conn->error];
-    }
-
-    $stmt->bind_param($types, ...$values);
+    $stmt->bind_param("ssii", $data['nombre'], $data['apellidos'], $data['credencial_id'], $id);
 
     if ($stmt->execute()) {
-        return ["status" => "ok", "message" => "Usuario actualizado correctamente."];
+        return ["status" => "ok", "mensaje" => "Usuario actualizado correctamente."];
     } else {
-        return ["status" => "error", "message" => "Error al actualizar usuario: " . $stmt->error];
+        return ["status" => "error", "mensaje" => "Error al actualizar usuario: " . $conn->error];
     }
 }
 

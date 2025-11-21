@@ -148,7 +148,7 @@ loginForm.addEventListener("submit", async e => {
     if (data.status === "ok") {
       // Guardar usuario en localStorage y redirigir
       localStorage.setItem("user", JSON.stringify(data.usuario));
-      window.location.href = "dashboard.php"; // si el login es exitoso lleva aqui, cambiar
+      window.location.href = "dashboard.html"; // si el login es exitoso lleva aqui, cambiar
     } else {
       mostrarMensaje("login", data.message || "Credenciales incorrectas.");
     }
@@ -214,7 +214,7 @@ registerForm.addEventListener("submit", async e => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      mostrarMensaje("register", "Registro correcto. Revisa tu correo para activar la cuenta.");
+      mostrarMensaje("register", "Registro exitoso. ¡Ahora puedes iniciar sesión!");
       msgRegister.style.color = "green";
       setTimeout(() => container.classList.remove("active"), 1500);
     } else {

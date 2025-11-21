@@ -109,7 +109,7 @@ switch ($method) {
                 break;
 
             case "actualizarUsuario":
-                echo json_encode(actualizarUsuario($conn, $input));
+                echo json_encode(actualizarUsuario($conn, $input['id'], $input));
                 break;
 
             case "cerrarIncidencia":
