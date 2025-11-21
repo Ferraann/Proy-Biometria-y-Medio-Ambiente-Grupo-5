@@ -5,29 +5,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BTLEActivity"
+    android:padding="16dp">
 
     <Button
         android:id="@+id/botonBuscarDispositivosBTLE"
-        android:text="Buscar Dispositivos BTLE nou 4"
+        android:text="Buscar Dispositivos BTLE"
         android:onClick="botonBuscarDispositivosBTLEPulsado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/botonDetenerBusquedaDispositivosBTLE"
-        android:text="Detener búsaqueda Dispositivos BTLE"
+        android:text="Detener búsqueda Dispositivos BTLE"
         android:onClick="botonDetenerBusquedaDispositivosBTLEPulsado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/botonBuscarNuestroDispositivoBTLE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="botonBuscarNuestroDispositivoBTLEPulsado"
-        android:text="Buscar nuestro dispositivo  BTLE" />
+        android:text="Buscar nuestro dispositivo BTLE" />
+
+    <!-- Aither-style Overlay para notificaciones de beacon -->
+    <!-- Invisible por defecto -->
+    <FrameLayout
+        android:id="@+id/aitherOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/aitherPopup"
+            android:orientation="vertical"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:background="@drawable/aither_popup_bg"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/aitherPopupTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beacon desconectado"
+                android:textSize="20sp"
+                android:textColor="#00ffff"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/aitherPopupMensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="El beacon ha dejado de emitir señal."
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </FrameLayout>
 
 </android.widget.LinearLayout>
