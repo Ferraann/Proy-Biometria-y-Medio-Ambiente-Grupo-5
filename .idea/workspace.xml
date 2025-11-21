@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2273b5d-825c-43ea-a73b-a024e1ae881f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/img/imagen-icono.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/logs/last_request.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/logs/last_request.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/css/perfil_cliente.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/perfil_cliente.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/html/perfil_cliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/perfil_cliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/actualizar_perfil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/actualizar_perfil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/login.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +89,8 @@
       <workItem from="1763378956789" duration="2305000" />
       <workItem from="1763388570568" duration="4669000" />
       <workItem from="1763584207452" duration="739000" />
+      <workItem from="1763714912526" duration="1839000" />
+      <workItem from="1763723608964" duration="297000" />
     </task>
     <servers />
   </component>

@@ -214,7 +214,7 @@ registerForm.addEventListener("submit", async e => {
     const data = await response.json();
 
     if (data.status === "ok") {
-      mostrarMensaje("register", "Registro exitoso. ¡Ahora puedes iniciar sesión!");
+      mostrarMensaje("register", "Registro correcto. Revisa tu correo para activar la cuenta.");
       msgRegister.style.color = "green";
       setTimeout(() => container.classList.remove("active"), 1500);
     } else {
