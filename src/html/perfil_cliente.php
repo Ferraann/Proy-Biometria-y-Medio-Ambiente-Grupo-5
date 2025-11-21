@@ -84,7 +84,7 @@ $password = $_SESSION['usuario_password'];
             
             <form class="perfil-form" method="POST" action="../php/actualizar_perfil.php">
                 <div class="form-group foto-group">
-                    <div class="foto-placeholder">Foto</div>
+                    <div class="foto-placeholder"><img src="../img/imagen-icono.webp" alt="Icono de usaurio"></div>
                     <a href="#" class="edit-link">Editar <i class="fa-solid fa-pen"></i></a>
                 </div>
 

@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2273b5d-825c-43ea-a73b-a024e1ae881f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/js/actualizar_perfil.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/actualizar_perfil.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/php/logout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/img/imagen-icono.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/logicaNegocio.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/logicaNegocio.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/logs/last_request.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/logs/last_request.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/perfil_cliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/perfil_cliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/html/soporte_tecnico_cliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/soporte_tecnico_cliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/perfil_cliente.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/css/perfil_cliente.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/html/perfil_cliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/html/perfil_cliente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/js/actualizar_perfil.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/actualizar_perfil.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +59,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ProyectoBiometria\src\img" />
       <recent name="C:\xampp\htdocs\Proy-Biometria-y-Medio-Ambiente-Grupo-5\src\img" />
     </key>
   </component>
