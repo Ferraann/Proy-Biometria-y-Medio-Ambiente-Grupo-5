@@ -132,6 +132,9 @@ public class HomeActivity extends AppCompatActivity {
 
         biometricPrompt.authenticate(promptInfo);
     }
+    public void botonForzarDesconexion(View v) {
+        BeaconManager.desconectar();
+    }
 
 
 }
