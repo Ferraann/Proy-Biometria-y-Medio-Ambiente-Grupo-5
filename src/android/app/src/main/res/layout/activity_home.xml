@@ -30,8 +30,8 @@
         android:id="@+id/btnForzarDesconexion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Forzar desconexión BLE"
-        android:onClick="botonForzarDesconexion" />
+        android:onClick="botonForzarDesconexion"
+        android:text="Forzar desconexión BLE" />
 
     <Button
         android:id="@+id/btnDistanciaRecorrida"

@@ -21,6 +21,7 @@ id botonBuscarDispositivosBTLE
 id botonBuscarNuestroDispositivoBTLE
 id botonDetenerBusquedaDispositivosBTLE
 id botonRegistrarse
+id btnForzarDesconexion
 id btnVincularQR
 id button
 id button2

@@ -3825,6 +3825,7 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnForzarDesconexion
 id btnVincularQR
 id button
 id button2

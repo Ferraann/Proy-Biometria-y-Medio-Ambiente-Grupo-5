@@ -1,1 +1,5 @@
+<<<<<<< Updated upstream
 {"accion":"activarUsuario","token":"a63b7161c7ca9782825126a547059674a45af9c038041479321c22a6a7cf734d"}
+=======
+{"accion":"login","gmail":"ferransansaloni@gmail.com","password":"Sergi123@"}
+>>>>>>> Stashed changes

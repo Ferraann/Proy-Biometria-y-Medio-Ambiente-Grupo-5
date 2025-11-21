@@ -24,4 +24,15 @@
         android:layout_height="wrap_content"
         android:onClick="botonIrNotificaciones"
         android:text="Notificaciones" />
+
+    <!-- Nuevo botón para desconectar Bluetooth -->
+    <Button
+        android:id="@+id/btnForzarDesconexion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forzar desconexión BLE"
+        android:onClick="botonForzarDesconexion" />
+
+
+
 </LinearLayout>
