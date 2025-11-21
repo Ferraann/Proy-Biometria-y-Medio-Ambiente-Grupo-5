@@ -2,28 +2,41 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Activando cuenta…</title>
-    <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        text-align: center;
-        padding-top: 15%;
-      }
-      .ok {
-        color: green;
-      }
-      .ko {
-        color: red;
-      }
-    </style>
+    <title>AITHER | Activando cuenta</title>
+    <link rel="stylesheet" href="../css/activacion.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   </head>
   <body>
-    <h1>Un momento…</h1>
-    <p id="msg">Estamos activando tu cuenta.</p>
+    <header>
+        <a href="../index.html"><img src="../img/logo_Aither_web.png" alt="Logo Aither"></a>
+        <nav>
+            <ul>
+                <li><a href="saber_mas.html">SABER MÁS</a></li>
+                <li><a href="quienes_somos.html">¿QUIÉNES SOMOS?</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="login.html" class="btn btn-login">INICIAR SESIÓN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="activation-container">
+        <div class="activation-card">
+            <i class="fa-solid fa-circle-notch fa-spin loading-icon"></i>
+            
+            <h1>Un momento...</h1>
+            <p id="msg">Estamos activando tu cuenta.</p>
+        </div>
+    </main>
 
     <script>
       const params = new URLSearchParams(location.search);
       const token = params.get("token");
+      // Referencia al icono y al titulo para ocultarlos o cambiarlos si es necesario
+      const loadingIcon = document.querySelector('.loading-icon');
+      const title = document.querySelector('h1');
 
       console.log("Token recibido:", token);
 
@@ -38,10 +51,9 @@
           .then((r) => r.json())
           .then((res) => {
             if (res.status === "ok") {
-              muestra("¡Cuenta activada! Redirigiendo…", "ok");
+              muestra("¡Cuenta activada! Redirigiendo...", "ok");
               setTimeout(() => {
-                location.href =
-                  "http://localhost/ProyectoBiometria/src/html/landing.html";
+                location.href = "http://localhost/ProyectoBiometria/src/html/login.html";
               }, 1500);
             } else {
               muestra(res.message || "No se pudo activar la cuenta.", "ko");
@@ -57,6 +69,15 @@
         const p = document.getElementById("msg");
         p.textContent = texto;
         p.className = clase;
+
+        // Lógica visual extra: Cambiar icono según resultado
+        if(clase === 'ok'){
+            loadingIcon.className = "fa-solid fa-circle-check icon-success";
+            title.textContent = "¡Éxito!";
+        } else if (clase === 'ko'){
+            loadingIcon.className = "fa-solid fa-circle-xmark icon-error";
+            title.textContent = "Error";
+        }
       }
     </script>
   </body>
