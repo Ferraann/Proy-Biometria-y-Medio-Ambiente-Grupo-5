@@ -84,6 +84,8 @@ document.getElementById("incidenciaForm").addEventListener("submit", async e => 
         box.className = "text-danger";
         box.textContent = "Error de conexión con el servidor.";
     }
+
+    limpiarFormularioCompleto();
 });
 
 
@@ -135,43 +137,32 @@ if (imagenInput) {
     });
 }
 
-/* Función para actualizar el texto del span */
+/* 4. Actualizar cajitas visuales */
 function actualizarTextoVisual() {
     const container = document.getElementById('file-count');
-    
-    if (container) {
-        // Limpiamos lo que hubiera antes
-        container.innerHTML = "";
-
-        if (archivosAcumulados.length > 0) {
-            // Recorremos cada archivo y creamos una "cajita" para él
-            archivosAcumulados.forEach(file => {
-                // Creamos un div nuevo
-                const div = document.createElement('div');
-                div.className = 'file-item-row'; // Le ponemos la clase del CSS
-                
-                // Le ponemos un icono y el nombre
-                div.innerHTML = `<i class="fa-solid fa-paperclip" style="margin-right:8px; color:#666;"></i> ${file.name}`;
-                
-                // Lo añadimos al contenedor
-                container.appendChild(div);
-            });
-        }
+    if (!container) return;
+    container.innerHTML = "";
+    if (archivosAcumulados.length) {
+        archivosAcumulados.forEach(file => {
+            const div = document.createElement('div');
+            div.className = 'file-item-row';
+            div.innerHTML = `<i class="fa-solid fa-paperclip" style="margin-right:8px; color:#666;"></i> ${file.name}`;
+            container.appendChild(div);
+        });
     }
 }
 
-/* Función para limpiar todo (datos y array de fotos) */
+/* 5. Limpiar todo (form + array + vista) */
 function limpiarFormularioCompleto(form) {
-    form.reset(); // Borra inputs de texto
-    archivosAcumulados = []; // Vacia nuestra memoria de fotos
-    actualizarTextoVisual(); // Borra el texto visual
+    form.reset();
+    archivosAcumulados = [];
+    actualizarTextoVisual();
 }
 
-/* Lógica para el botón de RESET manual del HTML */
+/* 6. Botón reset manual */
 const btnReset = document.querySelector('button[type="reset"]');
-if(btnReset){
-    btnReset.addEventListener('click', (e) => {
-        // Esperamos un milisegundo a que el formulario se limpie nativamente y luego limpiamos nuestra lista
+if (btnReset) {
+    btnReset.addEventListener('click', () => {
         setTimeout(() => {
             archivosAcumulados = [];
             actualizarTextoVisual();
@@ -179,7 +170,7 @@ if(btnReset){
     });
 }
 
-/* Helper para convertir File a base64 */
+/* 7. Helper base64 */
 const toBase64 = file =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
