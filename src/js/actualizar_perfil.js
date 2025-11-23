@@ -16,19 +16,29 @@ editIcons.forEach(icon => {
 
         // Toggle: si ya estaba activo -> desactivar edición
         if (input.dataset.editing === "1") {
+
             input.dataset.editing = "0";
             input.disabled = true;
             input.style.backgroundColor = "";
             row.classList.remove('editing');
 
             // Desactivar confirmación si aplica
-            if (input.id === "correo") {
+            if (input.id === "gmail") {
                 const rep = document.getElementById('repetir-correo');
-                if (rep) rep.disabled = true, rep.style.backgroundColor = "";
+                if (rep) {
+                    rep.disabled = true;
+                    rep.style.backgroundColor = "";
+                    rep.value = "";
+                }
             }
+
             if (input.id === "contrasena") {
                 const rep = document.getElementById('repetir-contrasena');
-                if (rep) rep.disabled = true, rep.style.backgroundColor = "";
+                if (rep) {
+                    rep.disabled = true;
+                    rep.style.backgroundColor = "";
+                    rep.value = "";
+                }
             }
 
             return; // salir porque se desactivó
@@ -42,13 +52,20 @@ editIcons.forEach(icon => {
         row.classList.add('editing');
 
         // Activar confirmación si aplica
-        if (input.id === "correo") {
+        if (input.id === "gmail") {
             const rep = document.getElementById('repetir-correo');
-            if (rep) rep.disabled = false, rep.style.backgroundColor = "#f0f0f0";
+            if (rep) {
+                rep.disabled = false;
+                rep.style.backgroundColor = "#f0f0f0";
+            }
         }
+
         if (input.id === "contrasena") {
             const rep = document.getElementById('repetir-contrasena');
-            if (rep) rep.disabled = false, rep.style.backgroundColor = "#f0f0f0";
+            if (rep) {
+                rep.disabled = false;
+                rep.style.backgroundColor = "#f0f0f0";
+            }
         }
 
         // Marcar como editado al cambiar el valor
@@ -57,6 +74,7 @@ editIcons.forEach(icon => {
         });
     });
 });
+
 
 // Interceptar submit para validar SOLO campos activamente en edición
 const form = document.querySelector('.perfil-form');
@@ -77,22 +95,24 @@ form.addEventListener('submit', function(e) {
         const id = input.id;
         const val = (input.value || "").trim();
 
-        // Nombre: no vacío
+        // Nombre
         if (id === 'nombre' && val === '') {
             alert('El nombre no puede estar vacío.');
             input.focus();
             return;
         }
 
-        // Correo: formato y confirmación
-        if (id === 'correo') {
+        // Correo
+        if (id === 'gmail') {
             const rep = form.querySelector('input[id="repetir-correo"]');
             const reEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
             if (!reEmail.test(val)) {
                 alert('Introduce un correo válido.');
                 input.focus();
                 return;
             }
+
             if (!rep || rep.disabled || val !== rep.value.trim()) {
                 alert('Los correos no coinciden o no están rellenados.');
                 rep && rep.focus();
@@ -100,35 +120,32 @@ form.addEventListener('submit', function(e) {
             }
         }
 
-        // Contraseña: longitud mínima y validación fuerte + confirmación
+        // Contraseña
         if (id === 'contrasena') {
             const rep = form.querySelector('input[id="repetir-contrasena"]');
 
-            // Validar longitud mínima
             if (val.length < 8) {
                 alert('La contraseña debe tener al menos 8 caracteres.');
                 input.focus();
                 return;
             }
 
-            // Validar número, mayúscula y carácter especial
             const tieneNum = /\d/.test(val);
             const tieneMay = /[A-Z]/.test(val);
             const tieneEsp = /[!@#$%^&*(),.?":{}|<>]/.test(val);
+
             if (!tieneNum || !tieneMay || !tieneEsp) {
-                alert('La contraseña debe contener al menos un número, una mayúscula y un carácter especial.');
+                alert('Debe contener número, mayúscula y carácter especial.');
                 input.focus();
                 return;
             }
 
-            // Confirmación
             if (!rep || rep.disabled || val !== rep.value) {
                 alert('Las contraseñas no coinciden o no están rellenadas.');
                 rep && rep.focus();
                 return;
             }
         }
-
     }
 
     // Enviar formulario normalmente

@@ -23,7 +23,7 @@ if (!empty($_POST['nombre']) && $_POST['nombre'] != ($_SESSION['usuario_nombre']
 // 2. Gmail
 if (!empty($_POST['gmail'])) {
     if ($_POST['gmail'] !== $_SESSION['usuario_correo']) {
-        if ($_POST['gmail'] !== $_POST['gmail_confirm']) {
+        if ($_POST['gmail'] !== $_POST['repetir-correo']) {
             die("Los correos no coinciden.");
         }
         $data['gmail'] = $_POST['gmail'];
@@ -32,7 +32,7 @@ if (!empty($_POST['gmail'])) {
 
 // 3. Contraseña
 if (!empty($_POST['password'])) {
-    if ($_POST['password'] !== $_POST['password_confirm']) {
+    if ($_POST['password'] !== $_POST['repetir-contrasena']) {
         die("Las contraseñas no coinciden.");
     }
     $data['password'] = $_POST['password'];

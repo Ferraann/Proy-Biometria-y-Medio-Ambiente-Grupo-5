@@ -10,6 +10,24 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
             con enlaces a recursos CSS y JavaScript externos.
 ===============================================================================
 -->
+
+<?php
+session_start();
+
+// Si NO hay un usuario logeado, redirigir al login
+if (!isset($_SESSION['usuario_id'])) {
+    header("Location: login.html");
+    exit;
+}
+
+// Construimos el nombre completo
+$nombre = $_SESSION['usuario_nombre'];
+$nombreCompleto = $_SESSION['usuario_nombre'] . " " . $_SESSION['usuario_apellidos'];
+$gmail = $_SESSION['usuario_correo'];
+$password = $_SESSION['usuario_password'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,6 +41,7 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="../js/actualizar_perfil.js" defer></script>
     </head>
 <body>
    <!--
@@ -35,24 +54,24 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
         -->
         <header>
             <!-- Logo de Aither | Al hacer clic tiene que llevar a la landing -->
-            <a href="./dashboard.html"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
+            <a href="./dashboard.php"><img src="../img/logo_Aither_web.png" alt="Este es el logo de nuestro Proyecto: Aither"></a>
             <nav>
                 <!--Mis sensores, soporte tecnico y perfil (configuracion y cerrar sesion)-->
                 <ul>
-                    <li><a href="dashboard.html">Mis <br> sensores</a></li>
+                    <li><a href="dashboard.php">Mis <br> sensores</a></li>
                     <li>
-                        <a href="soporte_tecnico_cliente.html">Soporte <br> técnico</a>
+                        <a href="soporte_tecnico_cliente.php">Soporte <br> técnico</a>
                     </li>
                     <li class="profile-dropdown-container">
-                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span>NOMBRE A.P.</span></a>
+                        <a href="#" class="nav-perfil" id="profile-toggle-button"><i class="fa-solid fa-circle-user"></i><span><?php echo htmlspecialchars($nombre); ?></span></a>
                         <div class="profile-menu" id="profile-menu">
                             <div class="menu-header">
                                 <i class="fa-solid fa-circle-user profile-icon-large"></i>
-                                <span class="profile-name">NOMBRE A.P.</span>
+                                <span class="profile-name"><?php echo htmlspecialchars($nombre); ?></span>
                                 <i class="fa-solid fa-xmark close-menu-btn" id="close-menu-button"></i>
                             </div>
-                            <a href="perfil_cliente.html" class="menu-item">CONFIGURACIÓN</a>
-                            <a href="../index.html" class="menu-item logout-item">CERRAR SESIÓN</a>
+                            <a href="perfil_cliente.php" class="menu-item">CONFIGURACIÓN</a>
+                            <a href="../php/logout.php" class="menu-item logout-item">CERRAR SESIÓN</a>
                         </div>
                     </li>
                 </ul>
@@ -63,40 +82,40 @@ APORTACIÓN: Estructura completa de la página HTML para el inicio de sesión
         <section class="edit-perfil-section">
             <h2>EDITAR PERFIL</h2>
             
-            <form class="perfil-form">
+            <form class="perfil-form" action="../php/actualizar_perfil.php" method="POST">
                 <div class="form-group foto-group">
-                    <div class="foto-placeholder">Foto</div>
-                    <a href="#" class="edit-link">Editar <i class="fa-solid fa-pen"></i></a>
+                    <div class="foto-placeholder"><img src="../img/imagen-icono.webp" alt="Icono de usuario"></div>
+                    <!-- <a href="#" class="edit-link">Editar <i class="fa-solid fa-pen"></i></a> -->
                 </div>
 
                 <div class="form-fields">
                     
                     <div class="input-row">
                         <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" value="[Nombre del usuario]" disabled>
+                        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombreCompleto); ?>" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
 
                     <div class="input-row">
                         <label for="correo">Correo Electrónico:</label>
-                        <input type="email" id="correo" value="correo@ejemplo.com" disabled>
+                        <input type="email" id="gmail" name="gmail" value="<?php echo htmlspecialchars($gmail); ?>" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                     
                     <div class="input-row">
                         <label for="repetir-correo">Repetir correo:</label>
-                        <input type="email" id="repetir-correo" disabled>
+                        <input type="email" id="repetir-correo" name="repetir-correo" disabled>
                     </div>
 
                     <div class="input-row">
                         <label for="contrasena">Contraseña:</label>
-                        <input type="password" id="contrasena" value="passwordseguro" disabled>
+                        <input type="password" id="contrasena"  name="password"value="<?php echo htmlspecialchars($password); ?>" disabled>
                         <a href="#" class="edit-icon"><i class="fa-solid fa-pen-to-square"></i></a>
                     </div>
                     
                     <div class="input-row">
                         <label for="repetir-contrasena">Repetir contraseña:</label>
-                        <input type="password" id="repetir-contrasena" disabled>
+                        <input type="password" id="repetir-contrasena" name="repetir-contrasena" disabled>
                     </div>
                 </div>
 
