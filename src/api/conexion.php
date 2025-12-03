@@ -12,8 +12,8 @@
 
 function abrirServidor() {
     // Parámetros de conexión
-    $servername = "localhost";
-    $username = "fsanpra_grupo_11";
+    $servername = "localhost:3306";
+    $username = "aitherdb";
     $password = "Sansaloni330.";
     $dbname = "aither";
 
