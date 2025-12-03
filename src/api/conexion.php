@@ -12,13 +12,14 @@
 
 function abrirServidor() {
     // Parámetros de conexión
-    $servername = "localhost:3306";
+    $servername = "localhost";
+    $port = 3306;
     $username = "aitherdb";
     $password = "Sansaloni330.";
     $dbname = "aither";
 
     // Crear conexión con MySQL
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($servername, $username, $password, $dbname, $port);
 
     // Verificar si hay errores en la conexión
     if ($conn->connect_error) {
