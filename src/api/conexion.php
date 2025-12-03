@@ -13,8 +13,8 @@
 function abrirServidor() {
     // Parámetros de conexión
     $servername = "localhost";
-    $username = "root";
-    $password = "";
+    $username = "fsanpra_grupo_11";
+    $password = "Sansaloni330.";
     $dbname = "aither";
 
     // Crear conexión con MySQL
